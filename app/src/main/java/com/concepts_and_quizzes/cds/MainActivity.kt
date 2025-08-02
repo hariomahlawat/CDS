@@ -3,7 +3,6 @@ package com.concepts_and_quizzes.cds
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -15,18 +14,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.credentials.ClearCredentialStateRequest
+import androidx.credentials.CredentialManager
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.GetCredentialResponse
+import androidx.credentials.GetGoogleIdTokenCredentialOption
+import androidx.credentials.GoogleIdTokenCredential
+import androidx.credentials.ui.CredentialManagerContract
+import androidx.lifecycle.lifecycleScope
 import com.concepts_and_quizzes.cds.auth.LoginScreen
 import com.concepts_and_quizzes.cds.auth.RegisterScreen
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-    private lateinit var googleSignInClient: GoogleSignInClient
+    private val credManager by lazy { CredentialManager.create(this) }
+    private lateinit var request: GetCredentialRequest
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     private val currentUser = mutableStateOf<FirebaseUser?>(null)
     private val showRegister = mutableStateOf(false)
@@ -36,19 +41,23 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         currentUser.value = auth.currentUser
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
+        request = GetCredentialRequest.Builder()
+            .addCredentialOption(
+                GetGoogleIdTokenCredentialOption(
+                    serverClientId = getString(R.string.default_web_client_id)
+                )
+            )
             .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        val signInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            try {
-                val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account.idToken!!)
-            } catch (e: ApiException) {
-                // Sign in failed, handle appropriately
+        val signInLauncher = registerForActivityResult(CredentialManagerContract()) { result ->
+            when (result) {
+                is GetCredentialResponse -> {
+                    val cred = result.credential as GoogleIdTokenCredential
+                    firebaseAuthWithGoogle(cred.idToken)
+                }
+                else -> {
+                    // Sign in failed or cancelled
+                }
             }
         }
 
@@ -61,10 +70,13 @@ class MainActivity : ComponentActivity() {
                         if (task.isSuccessful) currentUser.value = auth.currentUser
                     }
             } else {
-                googleSignInClient.silentSignIn().addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val account = task.result
-                        firebaseAuthWithGoogle(account.idToken!!)
+                lifecycleScope.launch {
+                    try {
+                        val response = credManager.getCredential(request, this@MainActivity)
+                        val cred = response.credential as GoogleIdTokenCredential
+                        firebaseAuthWithGoogle(cred.idToken)
+                    } catch (_: Exception) {
+                        // No credential available or sign in failed silently
                     }
                 }
             }
@@ -89,7 +101,7 @@ class MainActivity : ComponentActivity() {
                             prefs.edit().putString("email", email).putString("password", password).apply()
                             currentUser.value = auth.currentUser
                         },
-                        onGoogleSignIn = { signInLauncher.launch(googleSignInClient.signInIntent) }
+                        onGoogleSignIn = { signInLauncher.launch(request) }
                     )
                 }
             } else {
@@ -97,7 +109,9 @@ class MainActivity : ComponentActivity() {
                     user.displayName ?: "",
                     onSignOut = {
                         auth.signOut()
-                        googleSignInClient.signOut()
+                        lifecycleScope.launch {
+                            credManager.clearCredentialState(ClearCredentialStateRequest())
+                        }
                         prefs.edit().clear().apply()
                         currentUser.value = null
                     }
