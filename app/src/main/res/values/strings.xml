@@ -2,4 +2,6 @@
     <string name="app_name">CDS</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="welcome_message">Welcome, %1$s!</string>
+    <!-- Placeholder client ID used for development builds -->
+    <string name="default_web_client_id">YOUR_WEB_CLIENT_ID</string>
 </resources>
