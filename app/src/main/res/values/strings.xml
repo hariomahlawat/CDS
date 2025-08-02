@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CDS</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="welcome_message">Welcome, %1$s!</string>
 </resources>
