@@ -1,6 +1,7 @@
 package com.concepts_and_quizzes.cds
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -19,39 +20,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.credentials.ClearCredentialStateRequest
-import androidx.credentials.CredentialManager
-import androidx.credentials.GetCredentialRequest
-import androidx.credentials.exceptions.GetCredentialException
+import androidx.lifecycle.lifecycleScope
+import com.concepts_and_quizzes.cds.auth.AuthRepository
 import com.concepts_and_quizzes.cds.auth.LoginScreen
 import com.concepts_and_quizzes.cds.auth.RegisterScreen
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
-import androidx.lifecycle.lifecycleScope
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-    private val credentialManager by lazy { CredentialManager.create(this) }
-    private lateinit var googleRequest: GetCredentialRequest
-    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    private val currentUser = mutableStateOf<FirebaseUser?>(auth.currentUser)
+    private val authRepository by lazy { AuthRepository(this) }
+    private val currentUser = mutableStateOf<FirebaseUser?>(authRepository.currentUser)
     private val showRegister = mutableStateOf(false)
+    private val signingIn = mutableStateOf(false)
     private val prefs by lazy { getSharedPreferences("auth", MODE_PRIVATE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        googleRequest = GetCredentialRequest.Builder()
-            .addCredentialOption(
-                GetGoogleIdOption.Builder()
-                    .setServerClientId(getString(R.string.default_web_client_id))
-                    .setFilterByAuthorizedAccounts(true)
-                    .build()
-            )
-            .build()
 
         if (currentUser.value == null) trySilentSignIn()
 
@@ -69,7 +53,8 @@ class MainActivity : ComponentActivity() {
                     LoginScreen(
                         onNavigateToRegister = { showRegister.value = true },
                         onLoginSuccess = ::cacheEmailPassword,
-                        onGoogleSignIn = ::startGoogleSignIn
+                        onGoogleSignIn = ::startGoogleSignIn,
+                        isSigningIn = signingIn.value
                     )
                 }
             } else {
@@ -82,41 +67,28 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun startGoogleSignIn() = lifecycleScope.launch {
+        signingIn.value = true
         try {
-            val result = credentialManager.getCredential(this@MainActivity, googleRequest)
-            (result.credential as? GoogleIdTokenCredential)
-                ?.let { firebaseAuthWithGoogle(it.idToken) }
-        } catch (e: GetCredentialException) {
-            // user cancelled or no credential – ignore
+            authRepository.startGoogleSignIn()?.let { currentUser.value = it }
+        } catch (e: Exception) {
+            Toast.makeText(this@MainActivity, e.message ?: "Sign in failed", Toast.LENGTH_LONG).show()
+        } finally {
+            signingIn.value = false
         }
     }
 
     private fun trySilentSignIn() = lifecycleScope.launch {
-        try {
-            val result = credentialManager.getCredential(this@MainActivity, googleRequest)
-            (result.credential as? GoogleIdTokenCredential)
-                ?.let { firebaseAuthWithGoogle(it.idToken) }
-        } catch (_: Exception) {
-            // ignore
-        }
-    }
-
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential).addOnSuccessListener {
-            currentUser.value = auth.currentUser
-        }
+        authRepository.trySilentSignIn()?.let { currentUser.value = it }
     }
 
     private fun cacheEmailPassword(email: String, password: String) {
         prefs.edit().putString("email", email).putString("password", password).apply()
-        currentUser.value = auth.currentUser
+        currentUser.value = authRepository.currentUser
     }
 
     private fun signOut() {
-        auth.signOut()
         lifecycleScope.launch {
-            credentialManager.clearCredentialState(ClearCredentialStateRequest())
+            authRepository.signOut()
         }
         prefs.edit().clear().apply()
         currentUser.value = null
@@ -145,4 +117,3 @@ fun DashboardScreen(name: String, onSignOut: () -> Unit) {
         }
     }
 }
-

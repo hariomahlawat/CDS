@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -20,7 +21,8 @@ fun LoginScreen(
     auth: FirebaseAuth = FirebaseAuth.getInstance(),
     onNavigateToRegister: () -> Unit,
     onLoginSuccess: (String, String) -> Unit,
-    onGoogleSignIn: () -> Unit
+    onGoogleSignIn: () -> Unit,
+    isSigningIn: Boolean = false
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -30,15 +32,20 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(
-            onClick = onGoogleSignIn,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
-        ) {
-            Text(stringResource(id = R.string.sign_in_with_google))
+        if (isSigningIn) {
+            CircularProgressIndicator(modifier = Modifier.padding(bottom = 16.dp))
+        } else {
+            Button(
+                onClick = onGoogleSignIn,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp)
+            ) {
+                Text(stringResource(id = R.string.sign_in_with_google))
+            }
         }
         OutlinedTextField(
             value = email,
