@@ -57,7 +57,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlin.reflect) // Ensure KSP has access to Kotlin reflection classes
     implementation(platform(libs.firebase.bom))   // <-- BOM now comes from catalog
     implementation(libs.firebase.auth.ktx)        // <-- version is inherited from the BOM
     implementation(libs.credentials)
@@ -70,8 +70,6 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-    // Ensure KSP has access to Kotlin reflection classes
-    ksp(libs.kotlin.reflect)
     testImplementation(libs.junit)
     testImplementation(libs.androidx.room.testing)
     testImplementation(libs.androidx.test.core)
