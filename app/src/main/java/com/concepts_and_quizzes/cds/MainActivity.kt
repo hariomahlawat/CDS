@@ -1,9 +1,15 @@
 package com.concepts_and_quizzes.cds
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,83 +21,85 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.lifecycleScope
-import com.concepts_and_quizzes.cds.auth.AuthRepository
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
+import com.concepts_and_quizzes.cds.auth.AuthViewModel
+import com.concepts_and_quizzes.cds.auth.AuthViewModelFactory
 import com.concepts_and_quizzes.cds.auth.LoginScreen
 import com.concepts_and_quizzes.cds.auth.RegisterScreen
-import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-    private val authRepository by lazy { AuthRepository(this) }
-    private val currentUser = mutableStateOf<FirebaseUser?>(authRepository.currentUser)
-    private val showRegister = mutableStateOf(false)
-    private val signingIn = mutableStateOf(false)
-    private val prefs by lazy { getSharedPreferences("auth", MODE_PRIVATE) }
+    private val viewModel: AuthViewModel by viewModels { AuthViewModelFactory(this) }
+    private val masterKey by lazy {
+        MasterKey.Builder(this)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+            .build()
+    }
+    private val prefs by lazy {
+        EncryptedSharedPreferences.create(
+            this,
+            "auth",
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (currentUser.value == null) trySilentSignIn()
+        if (viewModel.currentUser == null) viewModel.trySilentSignIn()
 
         setContent {
-            if (currentUser.value == null) {
-                if (showRegister.value) {
-                    RegisterScreen(
-                        onRegistrationSuccess = { email, password ->
-                            cacheEmailPassword(email, password)
-                            showRegister.value = false
+            val currentUser = viewModel.currentUser
+            val showRegister = viewModel.showRegister
+
+            AnimatedContent(targetState = currentUser == null, label = "auth") { needsAuth ->
+                if (needsAuth) {
+                    AnimatedContent(
+                        targetState = showRegister,
+                        transitionSpec = {
+                            slideInHorizontally { it } + fadeIn() togetherWith
+                                slideOutHorizontally { -it } + fadeOut()
                         },
-                        onBackToLogin = { showRegister.value = false }
-                    )
+                        label = "form"
+                    ) { reg ->
+                        if (reg) {
+                            RegisterScreen(
+                                viewModel = viewModel,
+                                onRegistrationSuccess = { email, password ->
+                                    cacheEmailPassword(email, password)
+                                    viewModel.toggleForm()
+                                },
+                                onBackToLogin = { viewModel.toggleForm() }
+                            )
+                        } else {
+                            LoginScreen(
+                                viewModel = viewModel,
+                                onNavigateToRegister = { viewModel.toggleForm() },
+                                onLoginSuccess = { email, password -> cacheEmailPassword(email, password) }
+                            )
+                        }
+                    }
                 } else {
-                    LoginScreen(
-                        onNavigateToRegister = { showRegister.value = true },
-                        onLoginSuccess = ::cacheEmailPassword,
-                        onGoogleSignIn = ::startGoogleSignIn,
-                        isSigningIn = signingIn.value
+                    DashboardScreen(
+                        name = currentUser?.displayName ?: "",
+                        onSignOut = {
+                            viewModel.signOut()
+                            prefs.edit().clear().apply()
+                        }
                     )
                 }
-            } else {
-                DashboardScreen(
-                    name = currentUser.value?.displayName ?: "",
-                    onSignOut = ::signOut
-                )
             }
         }
     }
 
-    private fun startGoogleSignIn() = lifecycleScope.launch {
-        signingIn.value = true
-        try {
-            authRepository.startGoogleSignIn()?.let { currentUser.value = it }
-        } catch (e: Exception) {
-            Toast.makeText(this@MainActivity, e.message ?: "Sign in failed", Toast.LENGTH_LONG).show()
-        } finally {
-            signingIn.value = false
-        }
-    }
-
-    private fun trySilentSignIn() = lifecycleScope.launch {
-        authRepository.trySilentSignIn()?.let { currentUser.value = it }
-    }
-
     private fun cacheEmailPassword(email: String, password: String) {
         prefs.edit().putString("email", email).putString("password", password).apply()
-        currentUser.value = authRepository.currentUser
-    }
-
-    private fun signOut() {
-        lifecycleScope.launch {
-            authRepository.signOut()
-        }
-        prefs.edit().clear().apply()
-        currentUser.value = null
     }
 }
 

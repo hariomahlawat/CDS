@@ -1,153 +1,187 @@
 package com.concepts_and_quizzes.cds.auth
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.concepts_and_quizzes.cds.R
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 
 @Composable
 fun LoginScreen(
-    auth: FirebaseAuth = FirebaseAuth.getInstance(),
+    viewModel: AuthViewModel,
     onNavigateToRegister: () -> Unit,
     onLoginSuccess: (String, String) -> Unit,
-    onGoogleSignIn: () -> Unit,
-    isSigningIn: Boolean = false
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var error by remember { mutableStateOf<String?>(null) }
+    val state = viewModel.loginState
+    val isValid = viewModel.isLoginValid
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp)
+            .imePadding()
+            .windowInsetsPadding(WindowInsets.safeDrawing)
     ) {
-        if (isSigningIn) {
-            CircularProgressIndicator(modifier = Modifier.padding(bottom = 16.dp))
-        } else {
-            Button(
-                onClick = onGoogleSignIn,
+        Card(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .fillMaxWidth(),
+            elevation = CardDefaults.cardElevation()
+        ) {
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Text(stringResource(id = R.string.sign_in_with_google))
+                Button(
+                    onClick = { viewModel.startGoogleSignIn() },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !state.isLoading
+                ) {
+                    Text(stringResource(id = R.string.sign_in_with_google))
+                }
+                OutlinedTextField(
+                    value = state.email,
+                    onValueChange = viewModel::onLoginEmailChange,
+                    label = { Text("Email") },
+                    isError = state.emailError != null,
+                    supportingText = { state.emailError?.let { Text(it) } },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Next
+                    )
+                )
+                OutlinedTextField(
+                    value = state.password,
+                    onValueChange = viewModel::onLoginPasswordChange,
+                    label = { Text("Password") },
+                    visualTransformation = PasswordVisualTransformation(),
+                    isError = state.passwordError != null,
+                    supportingText = { state.passwordError?.let { Text(it) } },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(onDone = {
+                        viewModel.login { onLoginSuccess(state.email, state.password) }
+                    })
+                )
+                state.authError?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+                Button(
+                    onClick = { viewModel.login { onLoginSuccess(state.email, state.password) } },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = isValid && !state.isLoading
+                ) {
+                    Text("Login")
+                }
+                TextButton(
+                    onClick = onNavigateToRegister,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Need an account? Register")
+                }
             }
         }
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
-        )
-        error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-        Button(
-            onClick = {
-                auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) onLoginSuccess(email, password) else error = task.exception?.message
-                    }
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
-        ) {
-            Text("Login")
-        }
-        TextButton(
-            onClick = onNavigateToRegister,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Need an account? Register")
+        if (state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }
 
 @Composable
 fun RegisterScreen(
-    auth: FirebaseAuth = FirebaseAuth.getInstance(),
+    viewModel: AuthViewModel,
     onRegistrationSuccess: (String, String) -> Unit,
     onBackToLogin: () -> Unit
 ) {
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var error by remember { mutableStateOf<String?>(null) }
+    val state = viewModel.registerState
+    val isValid = viewModel.isRegisterValid
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center
+            .padding(16.dp)
+            .imePadding()
+            .windowInsetsPadding(WindowInsets.safeDrawing)
     ) {
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Name") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = PasswordVisualTransformation(),
-            modifier = Modifier.fillMaxWidth()
-        )
-        error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-        Button(
-            onClick = {
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val profileUpdates = UserProfileChangeRequest.Builder()
-                                .setDisplayName(name)
-                                .build()
-                            auth.currentUser?.updateProfile(profileUpdates)
-                                ?.addOnCompleteListener {
-                                    onRegistrationSuccess(email, password)
-                                }
-                        } else {
-                            error = task.exception?.message
-                        }
-                    }
-            },
+        Card(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
+                .align(Alignment.Center)
+                .fillMaxWidth(),
+            elevation = CardDefaults.cardElevation()
         ) {
-            Text("Register")
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                OutlinedTextField(
+                    value = state.name,
+                    onValueChange = viewModel::onRegisterNameChange,
+                    label = { Text("Name") },
+                    isError = state.nameError != null,
+                    supportingText = { state.nameError?.let { Text(it) } },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
+                )
+                OutlinedTextField(
+                    value = state.email,
+                    onValueChange = viewModel::onRegisterEmailChange,
+                    label = { Text("Email") },
+                    isError = state.emailError != null,
+                    supportingText = { state.emailError?.let { Text(it) } },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Email,
+                        imeAction = ImeAction.Next
+                    )
+                )
+                OutlinedTextField(
+                    value = state.password,
+                    onValueChange = viewModel::onRegisterPasswordChange,
+                    label = { Text("Password") },
+                    visualTransformation = PasswordVisualTransformation(),
+                    isError = state.passwordError != null,
+                    supportingText = { state.passwordError?.let { Text(it) } },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(onDone = {
+                        viewModel.register { onRegistrationSuccess(state.email, state.password) }
+                    })
+                )
+                state.authError?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+                Button(
+                    onClick = { viewModel.register { onRegistrationSuccess(state.email, state.password) } },
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = isValid && !state.isLoading
+                ) {
+                    Text("Register")
+                }
+                TextButton(
+                    onClick = onBackToLogin,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Back to Login")
+                }
+            }
         }
-        TextButton(
-            onClick = onBackToLogin,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Back to Login")
+        if (state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

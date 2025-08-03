@@ -11,6 +11,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -54,6 +55,27 @@ class AuthRepository(private val context: Context) {
             val credential = GoogleAuthProvider.getCredential(idToken, null)
             auth.signInWithCredential(credential)
                 .addOnSuccessListener { cont.resume(auth.currentUser) }
+                .addOnFailureListener { cont.resumeWithException(it) }
+        }
+
+    suspend fun signInWithEmail(email: String, password: String): FirebaseUser? =
+        suspendCancellableCoroutine { cont ->
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener { cont.resume(it.user) }
+                .addOnFailureListener { cont.resumeWithException(it) }
+        }
+
+    suspend fun registerWithEmail(name: String, email: String, password: String): FirebaseUser? =
+        suspendCancellableCoroutine { cont ->
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnSuccessListener { result ->
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(name)
+                        .build()
+                    result.user?.updateProfile(profileUpdates)
+                        ?.addOnSuccessListener { cont.resume(result.user) }
+                        ?.addOnFailureListener { cont.resumeWithException(it) }
+                }
                 .addOnFailureListener { cont.resumeWithException(it) }
         }
 
