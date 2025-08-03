@@ -59,10 +59,7 @@ dependencies {
     implementation(libs.firebase.auth)            // <-- version is inherited from the BOM
     implementation(libs.credentials)
     implementation(libs.credentials.playservices)
-    implementation(libs.credentials)
-    implementation(libs.credentials.playservices)
     implementation("androidx.compose.material:material-icons-extended")
-    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
