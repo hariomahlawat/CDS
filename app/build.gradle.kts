@@ -70,6 +70,8 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    // Ensure KSP has access to Kotlin reflection classes
+    ksp(libs.kotlin.reflect)
     testImplementation(libs.junit)
     testImplementation(libs.androidx.room.testing)
     testImplementation(libs.androidx.test.core)
