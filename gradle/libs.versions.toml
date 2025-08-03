@@ -10,7 +10,7 @@ activityCompose = "1.10.1"
 composeBom = "2025.07.00"
 credentials = "1.5.0"
 firebase-bom = "34.0.0"
-firebase-auth = "23.2.1"
+firebase-auth-ktx = "23.2.1"
 googleid = "1.1.1"
 securityCrypto = "1.1.0-alpha06"
 room = "2.6.1"
@@ -41,7 +41,7 @@ googleid = { group = "com.google.android.libraries.identity.googleid", name = "g
 androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 
 firebase-bom   = { group = "com.google.firebase", name = "firebase-bom",  version.ref = "firebase-bom" }
-firebase-auth  = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebase-auth" }
+firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebase-auth-ktx" }
 
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
