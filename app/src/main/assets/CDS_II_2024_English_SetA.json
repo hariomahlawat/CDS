@@ -1,0 +1,2134 @@
+{
+  "exam_details": {
+    "exam_id": "CDS-II-2024-English",
+    "year": 2024,
+    "session": "II",
+    "subject": "English",
+    "total_questions": 120,
+    "max_marks": 100,
+    "exam_date": "2024-09-01"
+  },
+  "directions": [
+    {
+      "direction_id": "DIR_01",
+      "text": "Directions : Each item in this section consists of a sentence with an underlined word followed by four words or groups of words. Select the option that is opposite in meaning to the underlined word and mark your response on the answer sheet accordingly."
+    },
+    {
+      "direction_id": "DIR_02",
+      "text": "Directions : Each of the following sentences in this section has a blank space and is followed by four choices. Select the most appropriate choice to fill in the blank."
+    },
+    {
+      "direction_id": "DIR_03",
+      "text": "Directions : Given below are some idioms/phrases followed by four alternative meanings to each. Choose the response (a), (b), (c) or (d), which is the most appropriate meaning and mark your response on the Answer Sheet accordingly."
+    },
+    {
+      "direction_id": "DIR_04",
+      "text": "Directions: Each of the following items in this section consists of a sentence, parts of which have been jumbled. These parts have been labelled as P, Q, R and S. Given below each sentence are four sequences, namely (a), (b), (c) and (d). You are required to re-arrange the jumbled parts of the sentence and mark you response accordingly."
+    },
+    {
+      "direction_id": "DIR_05",
+      "text": "Directions : In this section, each item consists of six sentences of a passage. The first and sixth sentences are given as S1 and S6. The middle four sentences in each have been jumbled up and labelled as P, Q, R and S. You are required to find the proper sequence of the four sentences and mark your response accordingly on the Answer Sheet."
+    },
+    {
+      "direction_id": "DIR_06",
+      "text": "Directions : Each of the following sentences has а word/words underlined. Read the sentence carefully and find which word class the underlined word/words belongs/belong to. Indicate your response on the Answer Sheet accordingly."
+    },
+    {
+      "direction_id": "DIR_07",
+      "text": "Directions : Identify the part of the speech of the underlined word/phrase in the sentence and mark your response in the Answer Sheet accordingly."
+    },
+    {
+      "direction_id": "DIR_08",
+      "text": "Directions: In this section, you have two short passages. After each passage, you will find some items based on the passage. Read the passage carefully and answer the items based on it. You are required to select your answers based on the contents of the passage and the opinion of the author only."
+    },
+    {
+      "direction_id": "DIR_09",
+      "text": "Directions: Each of the following sentences in this section has a blank space with four options. Select whichever preposition or determiner you consider the most appropriate for the blank space and indicate your response on the Answer Sheet accordingly."
+    },
+    {
+      "direction_id": "DIR_10",
+      "text": "Directions : Each item in this section has a sentence with three underlined parts labelled as (a), (b) and (c). Read each sentence to find out whether there is any error in any underlined part and indicate your response on the Answer Sheet against the corresponding letter, i.e., (a) or (b) or (c). If you find no error, your response should be indicated as (d)."
+    },
+    {
+      "direction_id": "DIR_11",
+      "text": "Directions : Each item in this section consists of a sentence with an underlined word followed by four words/group of words. Select the option that is nearest in meaning to the underlined word and mark your response on the Answer Sheet accordingly."
+    },
+    {
+      "direction_id": "DIR_12",
+      "text": "Directions: In the following items, a word is given, followed by two suggested meanings. You are required to identify the correct meaning of the word and indicate your choice by using the code that follows:"
+    },
+    {
+      "direction_id": "DIR_13",
+      "text": "Directions : In the following items, a pair of sentences are given in which the keywords have been underlined. Identify the sentence/s in which the underlined words have been used correctly in the context and mark your choice using the code that follows:"
+    },
+    {
+      "direction_id": "DIR_14",
+      "text": "Directions : In the following items, two lists of words are provided. You are required to match the associations between List I and List II and mark your answer using the given code."
+    },
+    {
+      "direction_id": "DIR_15",
+      "text": "Directions : In the following items, two sentences are given. You are required to identify the option that most appropriately combines both the sentences into one sentence, and mark your response accordingly."
+    },
+    {
+      "direction_id": "DIR_16",
+      "text": "Directions : In the following items, a sentence is given with one or more underlined words. From the options provided mark the correct answer from among (a), (b) or (c), which is the most appropriate improvement over the word(s) to be substituted. If no improvement can be identified, mark your response as (d)."
+    },
+    {
+      "direction_id": "DIR_17",
+      "text": "Directions: In the following items, you are required to select the most appropriate voice of the given phrase and mark your response from the options that follow."
+    }
+  ],
+  "passages": [
+    {
+      "passage_id": "P1",
+      "title": "Passage 1",
+      "text": "It must not be imagined that a walking tour, as some would have us fancy, is merely a better or worse way of seeing the country. There are many ways of seeing landscape quite as good; and none more vivid, in spite of canting dilettantes, than from a railway train. But landscape on a walking tour is quite an accessory. He who is indeed of the brotherhood does not voyage in quest of the picturesque, but of certain jolly humours - of the hope and spirit with which the march begins at morning, and the peace and spiritual repletion of the evening's rest. He cannot tell whether he puts his knapsack on, or takes it off, with more delight. The excitement of the departure puts him in key for that of the arrival. Whatever he does is not only a reward in itself, but will be further rewarded in the sequel; and so pleasure leads on to pleasure in an endless chain. It is this that so few can understand; they will either be always lounging or always at five miles an hour; they do not play off the one against the other, prepare all day for the evening, and all evening for the next day.  Now, to be properly enjoyed, a walking tour should be gone upon alone. If you go in a company, or even in pairs, it is no longer a walking tour in anything but name; it is something else and more in the nature of a picnic. A walking tour should be gone upon alone, because freedom is of the essence; because you should be able to stop and go on, and follow this way or that, as the freak takes you; and because you must have your own pace, and neither trot alongside a champion walker, nor mince in time with a girl. And then you must be open to all impressions and let your thoughts take colour from what you see. You should be as a pipe for any wind to play upon. \"I cannot see the wit,\" says Hazlitt, \"of walking and talking at the same time. When I am in the country I wish to vegetate like the country\" - which is the gist of all that can be said upon the matter. There should be no cackle of voices at your elbow, to jar on the meditative silence of the morning. And so long as a man is reasoning he cannot surrender himself to that fine intoxication that comes of much motion in the open air, that begins in a sort of dazzle and sluggishness of the brain, and ends in a peace that passes comprehension."
+    },
+    {
+      "passage_id": "P2",
+      "title": "Passage 2",
+      "text": "Historical analysis combines several levels of thinking and study, posing a question about the past, setting up the problem in a form intended to facilitate its solution, solving the problem, and verifying the solution or interpretation. Academic history relies on formal analysis, based on rational and systematic apprehension of relevant evidence. Yet such formal analysis can be seen as a subset of the broader category of interpretation, including responses to evidence that are impressionistic and informal rather than formal and logically structured. Indeed, the many genres of academic and popular history run the full gamut from logically systematic to impressionistic.  Historians come from a widely varying range of philosophical traditions, and the varying philosophies lead to quite different ways of posing questions and answers. The distinctions among philosophical principles sketched here help to show how it is that different analytical priorities arise on the main topics proposed for analysis; they also show how historians can rely on similar data yet come to different or conflicting conclusions. Nineteenth century philosophical outlooks remain central to the world-historical analysis: most notably the dialectics of G.W.F. Hegel and the materialism of Karl Marx. Another great nineteenth-century current of thought was positivism, elaborated by Auguste Comte and focusing on study through breaking large problems into small ones, seeking deterministic relationship within the smaller problems. Philosophies of structuralism and post modernism have developed in more recent times, rejecting the positivist separation of problems into discrete sub-problems and emphasizing interaction among aspects of a problem."
+    }
+  ],
+  "questions": [
+    {
+      "question_number": 1,
+      "question": "The leader's views were equivocal on the contentious issue.",
+      "options": {
+        "A": "obscure",
+        "B": "ambiguous",
+        "C": "clear",
+        "D": "vague"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Antonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_01"
+    },
+    {
+      "question_number": 2,
+      "question": "The authorities interacted with a group of mutinous students.",
+      "options": {
+        "A": "unruly",
+        "B": "contumacious",
+        "C": "seditious",
+        "D": "obedient"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Antonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_01"
+    },
+    {
+      "question_number": 3,
+      "question": "His behaviour was quite belligerent.",
+      "options": {
+        "A": "bellicose",
+        "B": "antagonistic",
+        "C": "combative",
+        "D": "amiable"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Antonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_01"
+    },
+    {
+      "question_number": 4,
+      "question": "He was effusive in his praise.",
+      "options": {
+        "A": "exuberant",
+        "B": "profuse",
+        "C": "voluble",
+        "D": "reticent"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Antonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_01"
+    },
+    {
+      "question_number": 5,
+      "question": "He is often accused of being iniquitous in his conduct.",
+      "options": {
+        "A": "preposterous",
+        "B": "execrable",
+        "C": "virtuous",
+        "D": "revolting"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Antonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_01"
+    },
+    {
+      "question_number": 6,
+      "question": "Working in dim light as glaucoma.",
+      "options": {
+        "A": "contributes",
+        "B": "precipitates",
+        "C": "eradicates",
+        "D": "eliminates"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 7,
+      "question": "Hе owns several sports cars and has an ______ lifestyle.",
+      "options": {
+        "A": "opulent",
+        "B": "occult",
+        "C": "ocular",
+        "D": "obscure"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 8,
+      "question": "Those medicines, ____ are used to treat kidney infection, have been withdrawn from the market.",
+      "options": {
+        "A": "what",
+        "B": "which",
+        "C": "when",
+        "D": "who"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 9,
+      "question": "____ intake of sugar can cause health problems.",
+      "options": {
+        "A": "Access",
+        "B": "Excess of",
+        "C": "Excessive",
+        "D": "Excessively"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 10,
+      "question": "She suffered ____ pain because of the leg injury.",
+      "options": {
+        "A": "hurting",
+        "B": "excruciating",
+        "C": "consuming",
+        "D": "protracting"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 11,
+      "question": "The country's politics ____ complex, with more than ten parties competing for power.",
+      "options": {
+        "A": "are",
+        "B": "am",
+        "C": "is",
+        "D": "were"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 12,
+      "question": "The job advertisement stipulates that the applicant ____ three years' experience.",
+      "options": {
+        "A": "have",
+        "B": "had",
+        "C": "shall have",
+        "D": "must have"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 13,
+      "question": "Newspapers have reported heavy flooding in the coastal areas. The damage ____ to be extensive.",
+      "options": {
+        "A": "expected",
+        "B": "is expecting",
+        "C": "has been expected",
+        "D": "is expected"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 14,
+      "question": "The local bank was robbed by a group of men, ____ were armed.",
+      "options": {
+        "A": "four of whom",
+        "B": "four of these",
+        "C": "four of those",
+        "D": "four whom"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 15,
+      "question": "The country ____ several economic changes in the past two decades.",
+      "options": {
+        "A": "underwent",
+        "B": "had undergone",
+        "C": "will be undergoing",
+        "D": "have been undergoing"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Fill in the Blanks",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_02"
+    },
+    {
+      "question_number": 16,
+      "question": "A watched pot never boils",
+      "options": {
+        "A": "Surveillance destroys creativity",
+        "B": "To experience failure due to over eagerness",
+        "C": "To have no chance of achieving something",
+        "D": "Desperate anticipation makes time drag on"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Idioms and Phrases",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_03"
+    },
+    {
+      "question_number": 17,
+      "question": "Look to your laurels",
+      "options": {
+        "A": "To make an extra effort to secure one's position",
+        "B": "To look suitable for a particular situation",
+        "C": "To guard one's trophies",
+        "D": "To praise oneself"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Idioms and Phrases",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_03"
+    },
+    {
+      "question_number": 18,
+      "question": "Play devil's advocate",
+      "options": {
+        "A": "To try to defeat someone by tricking them",
+        "B": "To perform with a lot of skills",
+        "C": "To delay doing something",
+        "D": "To pretend to be against an idea in order to discuss it more carefully"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Idioms and Phrases",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_03"
+    },
+    {
+      "question_number": 19,
+      "question": "Вe in the same boat",
+      "options": {
+        "A": "To say two things in the same breath",
+        "B": "To be in the same unpleasant situation",
+        "C": "To do something that is dangerous",
+        "D": "To pretend to be something that you are not"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Idioms and Phrases",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_03"
+    },
+    {
+      "question_number": 20,
+      "question": "Tilt at windmills",
+      "options": {
+        "A": "To be young and inexperienced",
+        "B": "To celebrate good news",
+        "C": "To blow hot air",
+        "D": "To waste time dealing with enemies and problems that do not exist"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Idioms and Phrases",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_03"
+    },
+    {
+      "question_number": 21,
+      "question": "P: the essence of human resource development is Q: remedial role in R: balancing the socio-economic fabric of the country S: education which plays a significant and",
+      "options": {
+        "A": "PSQR",
+        "B": "PQSR",
+        "C": "RSQP",
+        "D": "RQSP"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 22,
+      "question": "P: in this endeavour Q: gender budgeting is a critical strategy R: is central to mitigate gender inequalities and S: financing for gender equality",
+      "options": {
+        "A": "QPRS",
+        "B": "QRPS",
+        "C": "SRQP",
+        "D": "SPRQ"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 23,
+      "question": "P: balanced diet and are vital items of Q: are essential ingredients for a wholesome and R: fruit and vegetables S: mass consumption",
+      "options": {
+        "A": "RQPS",
+        "B": "RPSQ",
+        "C": "SRPQ",
+        "D": "SQRP"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 24,
+      "question": "P: relating to the reduction of greenhouse gases Q: and extending financial support to R: developing countries S: India's position is reflected in decisions",
+      "options": {
+        "A": "SRPQ",
+        "B": "SPQR",
+        "C": "PRSQ",
+        "D": "RSPQ"
+      },
+      "correct_answer": "C",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 25,
+      "question": "P: disbursement of pension expeditiously all efforts Q: are made to process the R: once all requisite documents are received from S: the beneficiaries",
+      "options": {
+        "A": "QPSR",
+        "B": "RSQP",
+        "C": "PRSQ",
+        "D": "SPQR"
+      },
+      "correct_answer": "D",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 26,
+      "question": "P: than interpreting it Q: combating poverty continues R: understanding poverty is more important S: to elude humanity because",
+      "options": {
+        "A": "QSRP",
+        "B": "PRSQ",
+        "C": "SRQP",
+        "D": "RSPQ"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 27,
+      "question": "P: the National Education Policy-2020 envisages Q: and pedagogy in schools and colleges R: following the liberal approach S: a restructuring of existing curriculum",
+      "options": {
+        "A": "SRQP",
+        "B": "PQRS",
+        "C": "RPSQ",
+        "D": "RQSP"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 28,
+      "question": "P: the Amazon Basin in the central north Q: America's physiography is R: in the west and S: dominated by the Andes Mountains",
+      "options": {
+        "A": "RSPQ",
+        "B": "SPRQ",
+        "C": "QSRP",
+        "D": "PQRS"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 29,
+      "question": "P: encompassing a great many Q: has been eclectic R: historically and culturally Indian society S: differences and contradictions",
+      "options": {
+        "A": "RQPS",
+        "B": "RSQP",
+        "C": "PQRS",
+        "D": "PQSR"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 30,
+      "question": "P: systems of India and is considered Q: the Siddha system is R: to be a form of age-old experiential wisdom S: one of the ancient comprehensive medical",
+      "options": {
+        "A": "RPSQ",
+        "B": "QSPR",
+        "C": "PSQR",
+        "D": "PRSQ"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Ordering of Sentences",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_04"
+    },
+    {
+      "question_number": 31,
+      "question": "S1: Indian defence forces are fully aligned with national agenda of Atmanirbhar Bharat and have already embarked in mission mode. S6: As a result, the Indian defence industry will be apprised about the anticipated requirements of the armed forces and is thus better prepared to realize its goal. P: This will provide opportunity to the Indian industry to harness their potential and build an ecosystem which can sustain itself by being responsive to the needs of the defence forces. Q: Two Positive Indigenization Lists, comprising 101 and 108 items respectively, have been issued. R: Projects fielded are aimed to encourage indigenization of defence technologies and reduce dependence on import. S: The lists intend to implement ban on import of these items in a staggered manner up to 2025 and promote indigenous production. The correct sequence should be :",
+      "options": {
+        "A": "PSRQ",
+        "B": "QPRS",
+        "C": "QSRP",
+        "D": "SRPQ"
+      },
+      "correct_answer": "C",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 32,
+      "question": "S1: Our Constitution makers were fully conscious of the fact that the Scheduled Castes and Scheduled Tribes had been oppressed and underprivileged sections of our society over the centuries and they deserved a special dispensation so that their condition may be vastly improved. S6: Consequently, adequate safeguards were provided for these communities in our Constitution. P: Similarly, they were also sensitive of the difficulties and problems which were likely to be faced by the persons belonging to the Anglo-Indian community in the country. Q: One such provision related to the reservation of seats for these communities in the Lok Sabha and State Legislative Assemblies. R: This provision found place in Article 330 and Article 332 of the Constitution. S: For this purpose, several special provisions were incorporated in our Constitution. The correct sequence should be:",
+      "options": {
+        "A": "SQRP",
+        "B": "SPRQ",
+        "C": "QPRS",
+        "D": "QRSP"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 33,
+      "question": "S1: Startup India is a flagship initiative of the Government of India. S6: Under the Startup India scheme, eligible companies can get recognized as startups in order to access a host of tax benefits, easier compliance, IPR fast-tracking and other benefits. P: These programmes are managed by a dedicated Startup India team, which reports to DPIIT. Q: It envisions transforming India into a country of job creators instead ofjob seekers. R: It intends to catalyse the startup culture and build a strong and inclusive ecosystem for innovation and entrepreneurship in India. S: Launched in 2016, Startup India has rolled out several programmes with the objective of supporting entrepreneurs and building up a robust startup ecosystem. The correct sequence should be :",
+      "options": {
+        "A": "PQSR",
+        "B": "PSQR",
+        "C": "PSRQ"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 34,
+      "question": "S1: In India the first Livestock Census was conducted during 1919 - 1920. S6: For the first time, data was collected through tablet computers, which reduced the time gap in data collection, data processing and report generation. P: Since its inception it is being conducted quinquennially by all States/UTs. Q: The 20th Livestock Census was conducted with participation of Animal Husbandry Departments of States/UTs. R: This five-yearly census is the only source which gives disaggregated information on various species of animals and poultry birds. S: The main objective of the census is to provide information on livestock population, species-wise and breed-wise, along with age, sex-composition, etc., in rural and urban areas. The correct sequence should be:",
+      "options": {
+        "A": "PRSQ",
+        "B": "PSQR",
+        "C": "QRSP",
+        "D": "QSPR"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 35,
+      "question": "S1: India has been a welfare state since Independence. S6: Elimination of poverty, ignorance, diseases and inequality of opportunities, and providing a better quality of life were the basic premise upon which all the plans of the development were built. P: The policies and programmes have been designed with the aim of alleviation of rural poverty. Q: The primary objective of all governmental endeavours has been the welfare of its rural population. R: It was realized that a sustainable strategy of poverty alleviation has to be based on increasing the productive employment opportunities in the process of growth itself. S: Ensuring rural welfare has been one of the main objectives of planned development in India. The correct sequence should be :",
+      "options": {
+        "A": "PRSQ",
+        "B": "QPSR",
+        "C": "RQSP",
+        "D": "SRPQ"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 36,
+      "question": "S1: Covid-19 pandemic threw a lot of challenges on the entire economy. S6: In order to address this need and to promote economic activities post pandemic, MoHUA initiated ARHCs, a sub-scheme under PMAY(U). P: These urban migrants stay in slums, informal settlements, unauthorized colonies, peri-urban areas to save cost on housing. Q: Hence, they need decent rental housing at affordable rate near their worksites. R: The biggest challenge was reverse migration of urban migrants/poor in the country. S: The migration took place due to the temporary shutting down of industries and other sectors. The correct sequence should be :",
+      "options": {
+        "A": "PQRS",
+        "B": "SRQP",
+        "C": "QSRP",
+        "D": "RSPQ"
+      },
+      "correct_answer": "D",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 37,
+      "question": "S1: Press Trust of India (PTI) is a non-profit making cooperative owned by the country's newspapers with a mandate to provide effective and unbiased news to all subscribers. S6: Increasingly, more and more subscribers are opting for satellite reception. P: It offers its news services in English and Hindi languages. Q: Over 500 newspapers and several news services subscribe to PTI, including many overseas news entities. R: PTI now has its own satellite delivery system. S: Bhasha is the Hindi language news service of the agency. The correct sequence should be:",
+      "options": {
+        "A": "QRSP",
+        "B": "QPSR",
+        "C": "RPSQ",
+        "D": "RQSP"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 38,
+      "question": "S1: The National School of Drama (NSD) was set up by the Sangeet Natak Akademi in 1959. S6: The NSD has promoted Children's Theatre as well. P: Post admission, the students at NSD are required to undergo training of three year's duration. Q: The eligible applicants for admission are screened through two stages. R: The objective of the NSD is to train students in all aspects of theatre, including theatre history, production, scene design, costume design, lighting, make-up, etc. S: In 1975, it became an autonomous organisation. The correct sequence should be :",
+      "options": {
+        "A": "PQRS",
+        "B": "SRQP",
+        "C": "QSRP",
+        "D": "RSPQ"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 39,
+      "question": "S1: Gaganyaan is a national programme wherein ISRO is leveraging the domain expertise of various agencies for expediting its execution. S6: It will lay the foundation for a sustained Indian human space exploration programme in the long run. P: With this programme, a new vertical has been created within ISRO to steer this growth. Q: The Gaganyaan Programme marks an inflection point in the growth profile of India's space endeavour. R: This new vertical envisages undertaking the demonstration of human space flight to Low Earth Orbit in the short-term. S: A new ISRO centre, Human Spaceflight Centre has been formed for Low Earth Orbit flights. The correct sequence should be:",
+      "options": {
+        "A": "QPRS",
+        "B": "QSRP",
+        "C": "RSPQ",
+        "D": "SPRQ"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 40,
+      "question": "S1: India has the largest youth population in the world. S6: The role of the Department of Youth Affairs is to act as a facilitator and catalytic agent for youth development. P: The Department has also recognised adolescents as an important segment of the youth. Q: Youth represent the most dynamic and vibrant segment of the population. R: To optimally tap their constructive and creative energies, the Department of Youth Affairs pursues the twin objectives of personality development and nation building. S: Other Ministries and the State Governments are also working to support youth development and to enable productive youth participation. The correct sequence should be :",
+      "options": {
+        "A": "PSRQ",
+        "B": "QRPS",
+        "C": "RPQS",
+        "D": "SPRQ"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Para-jumbles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_05"
+    },
+    {
+      "question_number": 41,
+      "question": "**(Consequently)**, this poses a threat to agriculture and human health.",
+      "options": {
+        "A": "Adjective",
+        "B": "Adverb",
+        "C": "Verb",
+        "D": "Noun"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Parts of Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_06"
+    },
+    {
+      "question_number": 42,
+      "question": "His **(only)** answer was a grunt.",
+      "options": {
+        "A": "Noun",
+        "B": "Adjective",
+        "C": "Pronoun",
+        "D": "Determiner"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Parts of Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_06"
+    },
+    {
+      "question_number": 43,
+      "question": "**(To swim)** every day is good for health.",
+      "options": {
+        "A": "Participle",
+        "B": "Infinitive verb",
+        "C": "Gerund",
+        "D": "Adjective"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Parts of Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_06"
+    },
+    {
+      "question_number": 44,
+      "question": "I didn't tell him anything **(except)** that I needed the money.",
+      "options": {
+        "A": "Adjective",
+        "B": "Adverb",
+        "C": "Preposition",
+        "D": "Conjunction"
+      },
+      "correct_answer": "C",
+      "topic": "Grammar",
+      "sub_topic": "Parts of Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_06"
+    },
+    {
+      "question_number": 45,
+      "question": "She married at 18 and gave birth to her first child shortly **(thereafter)**.",
+      "options": {
+        "A": "Pronoun",
+        "B": "Determiner",
+        "C": "Adjective",
+        "D": "Adverb"
+      },
+      "correct_answer": "D",
+      "topic": "Grammar",
+      "sub_topic": "Parts of Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_06"
+    },
+    {
+      "question_number": 46,
+      "question": "He is one of the tallest boys in **(his)** class.",
+      "options": {
+        "A": "Possessive Pronoun",
+        "B": "Noun",
+        "C": "Reflexive Pronoun",
+        "D": "Numeral Adjective"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Passage I",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_07"
+    },
+    {
+      "question_number": 47,
+      "question": "The **(mighty)** river Brahmaputra flows through the plains of Assam.",
+      "options": {
+        "A": "Adverb",
+        "B": "Adjective",
+        "C": "Noun",
+        "D": "Pronoun"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Passage I",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_07"
+    },
+    {
+      "question_number": 48,
+      "question": "The money which one earns is not the money for **(himself)**, it is for the family and society.",
+      "options": {
+        "A": "Noun",
+        "B": "Pronoun",
+        "C": "Verb",
+        "D": "Adverb"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Passage I",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_07"
+    },
+    {
+      "question_number": 49,
+      "question": "The Principal said, \"We should **(always)** be disciplined.\"",
+      "options": {
+        "A": "Preposition",
+        "B": "Adverb",
+        "C": "Adjective",
+        "D": "Determiner"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Passage I",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_07"
+    },
+    {
+      "question_number": 50,
+      "question": "The **(river)** that flows through the village is a tributary of the Cauvery.",
+      "options": {
+        "A": "Pronoun",
+        "B": "Noun",
+        "C": "Verb",
+        "D": "Adjective"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Passage I",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_07"
+    },
+    {
+      "question_number": 51,
+      "question": "According to the passage, what is the primary purpose of a walking tour?",
+      "options": {
+        "A": "Seeing the landscape",
+        "B": "Quest of the picturesque",
+        "C": "Longing for pleasure",
+        "D": "Desire for education"
+      },
+      "correct_answer": "C",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P1",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 52,
+      "question": "According to the passage, a walking tour should be gone upon alone because:",
+      "options": {
+        "A": "It is more in the nature of a picnic.",
+        "B": "He may put his knapsack on, or take it off, with more delight.",
+        "C": "It will add to individual excitement.",
+        "D": "It will provide freedom which is of the utmost importance."
+      },
+      "correct_answer": "D",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P1",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 53,
+      "question": "According to the passage, what can adversely affect the walking tour?",
+      "options": {
+        "A": "Walking and talking at the same time",
+        "B": "Walking to rise above the everyday worries of life",
+        "C": "Walking to experience the beauty of the surroundings",
+        "D": "Walking to meditate in silence"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P1",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 54,
+      "question": "Acсording to the passage, how should a walking tour conclude?",
+      "options": {
+        "A": "With the meditative peace above the real surroundings",
+        "B": "With a peace that delights you",
+        "C": "With the impressions of the surroundings",
+        "D": "With the sounds of the birds around you"
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P1",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 55,
+      "question": "What is the meaning of the word \"dilettantes\" in the passage?",
+      "options": {
+        "A": "Persons who cultivate an aesthetic pursuit without real interest",
+        "B": "Professionals",
+        "C": "Morning joggers",
+        "D": "Schooled travellers"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P1",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 56,
+      "question": "Which of the following does not amount to historical analysis?",
+      "options": {
+        "A": "Posing a question about the past, setting up the problem in a form intended to facilitate its solution.",
+        "B": "Solving the problem and verifying the solution or interpretation.",
+        "C": "Combines several levels of thinking and study to arrive at a conclusion.",
+        "D": "Drawing from evidence to make impressionistic and informal conclusion."
+      },
+      "correct_answer": "D",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P2",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 57,
+      "question": "The many genres of academic and popular history run the full gamut from logically systematic to impressionistic' means :",
+      "options": {
+        "A": "The range of texts varies from those based on objective analysis and those based on subjective assertions.",
+        "B": "Historical analysis that is rarely vague to that which establishes evidence.",
+        "C": "Historical analysis that is always vague to that which establishes no evidence.",
+        "D": "Historical analysis that is rarely systematic to that which establishes evidence."
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P2",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 58,
+      "question": "What, according to the author, makes historians come to conflicting conclusions? 1 - They are influenced by their philosophical beliefs in asking questions on the same data. 2 - They apply different interpretations on the same data. 3 - They go for the primary data and evidence. 4 - They are influenced by the current political developments. Select the correct answer using the code given below:",
+      "options": {
+        "A": "1 and 2 only",
+        "B": "3 and 4 only",
+        "C": "2 and 4 only",
+        "D": "1, 2, 3 and 4"
+      },
+      "correct_answer": "A",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P2",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 59,
+      "question": "Which word(s) from the passage can be substituted for the assertion that \"all events and human actions are ultimately shaped by causes external to the will\" ?",
+      "options": {
+        "A": "Impressionistic",
+        "B": "Idealist approach to history",
+        "C": "Deterministic relationship",
+        "D": "Dialectics"
+      },
+      "correct_answer": "C",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P2",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 60,
+      "question": "Which one of the following relates to the post-modernist approach to History?",
+      "options": {
+        "A": "Post-modernist approach builds on positivism.",
+        "B": "Post-modernist approach emphasises interaction among aspects of a problem.",
+        "C": "Post-modernist approach rejects both; the separation of problems into sub-problems and interaction among them.",
+        "D": "Post-modernist approach supports separation of problems and interaction among them."
+      },
+      "correct_answer": "B",
+      "topic": "Comprehension",
+      "sub_topic": "Passage II",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": "P2",
+      "direction_id": "DIR_08"
+    },
+    {
+      "question_number": 61,
+      "question": "I saw Nandini ____ she was waiting for the bus.",
+      "options": {
+        "A": "during",
+        "B": "while",
+        "C": "on",
+        "D": "for"
+      },
+      "correct_answer": "D",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 62,
+      "question": "This sauce has to be used ____ 23rd September.",
+      "options": {
+        "A": "by",
+        "B": "for",
+        "C": "into",
+        "D": "with"
+      },
+      "correct_answer": "A",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 63,
+      "question": "I'll be working on this report ____ 10:30 p.m.",
+      "options": {
+        "A": "during",
+        "B": "since",
+        "C": "until",
+        "D": "in"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 64,
+      "question": "I have ____ energy left to complete the work.",
+      "options": {
+        "A": "few",
+        "B": "many",
+        "C": "little",
+        "D": "any"
+      },
+      "correct_answer": "A",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 65,
+      "question": "I had ____ trouble finding the house.",
+      "options": {
+        "A": "any",
+        "B": "some",
+        "C": "few",
+        "D": "all"
+      },
+      "correct_answer": "C",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 66,
+      "question": "____ of these officers are very well-trained.",
+      "options": {
+        "A": "Much",
+        "B": "Not",
+        "C": "Most",
+        "D": "One"
+      },
+      "correct_answer": "C",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 67,
+      "question": "I don't like going to ____ dentist.",
+      "options": {
+        "A": "these",
+        "B": "an",
+        "C": "the",
+        "D": "no article"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 68,
+      "question": "They placed the African elephant ____ their endangered list.",
+      "options": {
+        "A": "in",
+        "B": "at",
+        "C": "about",
+        "D": "on"
+      },
+      "correct_answer": "C",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 69,
+      "question": "____ travel industry is changing rapidly.",
+      "options": {
+        "A": "An",
+        "B": "A",
+        "C": "The",
+        "D": "no article"
+      },
+      "correct_answer": "C",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 70,
+      "question": "She is ____ MP from Rajasthan.",
+      "options": {
+        "A": "any",
+        "B": "a",
+        "C": "an",
+        "D": "no article"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Prepositions/Articles",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_09"
+    },
+    {
+      "question_number": 71,
+      "question": "",
+      "options": {
+        "A": "Everything",
+        "B": "what happened",
+        "C": "was because of my actions.",
+        "D": "No error"
+      },
+      "correct_answer": "C",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 72,
+      "question": "",
+      "options": {
+        "A": "Some people",
+        "B": "could write well",
+        "C": "while others didn't.",
+        "D": "No error"
+      },
+      "correct_answer": "C",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 73,
+      "question": "",
+      "options": {
+        "A": "The police are working hard",
+        "B": "until they are able to",
+        "C": "arrest the culprits.",
+        "D": "No error"
+      },
+      "correct_answer": "B",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 74,
+      "question": "",
+      "options": {
+        "A": "Since he was going to live in South Korea for some time,",
+        "B": "he thought he should",
+        "C": "learn something about their culture.",
+        "D": "No error"
+      },
+      "correct_answer": "D",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 75,
+      "question": "",
+      "options": {
+        "A": "The company's phenomenal success",
+        "B": "are largely due to",
+        "C": "the new director and his team.",
+        "D": "No error"
+      },
+      "correct_answer": "B",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 76,
+      "question": "",
+      "options": {
+        "A": "I am owning",
+        "B": "two houses",
+        "C": "in Bengaluru.",
+        "D": "No error"
+      },
+      "correct_answer": "A",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 77,
+      "question": "",
+      "options": {
+        "A": "A boy was injured",
+        "B": "in the accident and was taken",
+        "C": "onto hospital.",
+        "D": "No error"
+      },
+      "correct_answer": "C",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 78,
+      "question": "",
+      "options": {
+        "A": "Mr. Malhotra is a historian",
+        "B": "who's books",
+        "C": "have won international acclaim.",
+        "D": "No error"
+      },
+      "correct_answer": "B",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 79,
+      "question": "",
+      "options": {
+        "A": "I hate it",
+        "B": "when I break",
+        "C": "in hives.",
+        "D": "No error"
+      },
+      "correct_answer": "B",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 80,
+      "question": "",
+      "options": {
+        "A": "Either Vikas",
+        "B": "or his friends",
+        "C": "is going to cook dinner.",
+        "D": "No error"
+      },
+      "correct_answer": "C",
+      "topic": "",
+      "sub_topic": "",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": null
+    },
+    {
+      "question_number": 81,
+      "question": "The village headman was old and **(cantankerous)**.",
+      "options": {
+        "A": "polite",
+        "B": "ill-tempered",
+        "C": "weak",
+        "D": "serious"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Synonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_11"
+    },
+    {
+      "question_number": 82,
+      "question": "Psychological problems among the youth can be attributed to the **(pernicious)** influence of the Internet.",
+      "options": {
+        "A": "harmful",
+        "B": "innocuous",
+        "C": "positive",
+        "D": "tricky"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Synonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_11"
+    },
+    {
+      "question_number": 83,
+      "question": "Our teacher told us not to be **(verbose)** while writing.",
+      "options": {
+        "A": "exaggerate",
+        "B": "short",
+        "C": "informal",
+        "D": "succinct"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Synonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_11"
+    },
+    {
+      "question_number": 84,
+      "question": "The actor narrated the story in a **(resonant)** voice.",
+      "options": {
+        "A": "soft",
+        "B": "harsh",
+        "C": "deeр",
+        "D": "quivering"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Synonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_11"
+    },
+    {
+      "question_number": 85,
+      "question": "They were fed-up with his **(doltish)** behaviour.",
+      "options": {
+        "A": "wise",
+        "B": "imbecilic",
+        "C": "clever",
+        "D": "precocious"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Synonyms",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_11"
+    },
+    {
+      "question_number": 86,
+      "question": "'Anarchism 1 - Absence of government and/or authority 2 - Chaos and disorder in the absence of government",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 87,
+      "question": "'Pristine' 1 - In the original condition 2 - In the defiled condition",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 88,
+      "question": "Enormity' 1 - The fact of something being serious and grave 2 - Abominable crime or sin",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 89,
+      "question": "'Quotidian' 1 - To quote inaccurately 2 - Someone fond of quoting others",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 90,
+      "question": "'Immolate' 1 - To kill somebody or self by burning 2 - To kill somebody or self or an animal as an act of sacrifice",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 91,
+      "question": "'Minimise' 1 - Reduce something to the smallest possible degree 2 - Reduce expenses, or the anything or of any activity",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 92,
+      "question": "Deify' 1 - To treat someone in high office with utmost reverence 2 - Worship or treat someone as a god",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 93,
+      "question": "'Raconteur' 1 - Someone who is capable of telling stories in an interesting manner 2 - Somebody who believes in only telling tall tales",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 94,
+      "question": "'Emasculate' 1 - Making someone strong and powerful 2 - Increase one's musculature",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 95,
+      "question": "'Perturbation' 1 - Mental anxiety and disturbance 2 - Deviation of a system or moving object caused by an outside influence",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Meaning",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_12"
+    },
+    {
+      "question_number": 96,
+      "question": "1 -  **(In spite)** the cold he decided to climb the mountain top. 2 - **(Despite)** of the warning she was determined to swim the entire distance.",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Usage",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_13"
+    },
+    {
+      "question_number": 97,
+      "question": "1 - The issue of human rights is **(immanent)** in the constitution of most countries. 2 - They invited an **(imminent)** person as the chief guest for the event.",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Usage",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_13"
+    },
+    {
+      "question_number": 98,
+      "question": "1 - **(Among)** those who had applied for the job I found four candidates to be outstanding. 2 - **(Amidst)** the confusion caused by the melee, the perpetrators slipped away.",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Usage",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_13"
+    },
+    {
+      "question_number": 99,
+      "question": "1 - They **(will)** soon be applying for the permission. 2 - They **(shall)** be pleased with the arrangements made by us.",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Usage",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_13"
+    },
+    {
+      "question_number": 100,
+      "question": "1 - You have been frivolous, **(whereas)** I have been serious. 2 - The difficulties seemed insurmountable; **(nevertheless)**, the courage to carry on was undaunted.",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Word Usage",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_13"
+    },
+    {
+      "question_number": 101,
+      "question": "Match List I with List II: List I (Game): A. Golf, B. Cricket, C. Polo, D. Tennis List II (Arena): 1. Court, 2. Pitch, 3. Course, 4. Ground Code: A B C D",
+      "options": {
+        "A": "3 2 4 1",
+        "B": "3 4 2 1",
+        "C": "1 4 2 3",
+        "D": "1 2 3 4"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Misc",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_14"
+    },
+    {
+      "question_number": 102,
+      "question": "Match List I with List II: List I (Animal): A. Dolphin, B. Elephant, C. Monkey, D. Cheetah List II (Sound): 1. trumpet, 2. Chatter, 3. Chirp, 4. Click Code: A B C D",
+      "options": {
+        "A": "3 2 1 4",
+        "B": "4 2 1 3",
+        "C": "4 1 2 3",
+        "D": "3 1 2 4"
+      },
+      "correct_answer": "C",
+      "topic": "Vocabulary",
+      "sub_topic": "Misc",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_14"
+    },
+    {
+      "question_number": 103,
+      "question": "Match List I with List II: List I (Animal): A. Fish, B. Ducks, C. Ants, D. Crows List II (Grouping): 1. Colony of, 2. Flock of, 3. Paddling of, 4. School of Code: A B C D",
+      "options": {
+        "A": "2 1 3 4",
+        "B": "4 3 1 2",
+        "C": "4 1 3 2",
+        "D": "2 3 1 4"
+      },
+      "correct_answer": "B",
+      "topic": "Vocabulary",
+      "sub_topic": "Misc",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_14"
+    },
+    {
+      "question_number": 104,
+      "question": "Match List I with List II: List I (Grouping): A. Clump of, B. Bunch of, C. Stack of, D. Bundle of List II (Object): 1. Clothes, 2. Firewood, 3. Flowers, 4. Grass Code: A B C D",
+      "options": {
+        "A": "1 3 2 4",
+        "B": "1 2 3 4",
+        "C": "4 2 3 1",
+        "D": "4 3 2 1"
+      },
+      "correct_answer": "D",
+      "topic": "Vocabulary",
+      "sub_topic": "Misc",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_14"
+    },
+    {
+      "question_number": 105,
+      "question": "Match List I with List II: List I (Sport): A. Swimming, B. Kho Kho, C. Kabaddi, D. Fencing List II (Related word): 1. Touche, 2. Butterfly, 3. Chaser, 4. Ankle hold Code: A B C D",
+      "options": {
+        "A": "2 4 3 1",
+        "B": "1 4 3 2",
+        "C": "1 3 4 2",
+        "D": "2 3 4 1"
+      },
+      "correct_answer": "A",
+      "topic": "Vocabulary",
+      "sub_topic": "Misc",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_14"
+    },
+    {
+      "question_number": 106,
+      "question": "He was adamant about refusing the honour bestowed upon him. He did not trust the credentials of the organisation that intended to recognise his contribution.",
+      "options": {
+        "A": "He was adamant about refusing the honour bestowed upon him as because he did not trust the credentials of the organisation that intended to recognise his contribution.",
+        "B": "He was adamant about refusing the honour bestowed upon him due to he did not trust the credentials of the organisation that intended to recognise his contribution.",
+        "C": "He was adamant about refusing the honour bestowed upon him since he did not trust the credentials of the organisation that intended to recognise his contribution.",
+        "D": "He was adamant about refusing the honour bestowed upon him whenever he did not trust the credentials of the organisation that intended to recognise his contribution."
+      },
+      "correct_answer": "C",
+      "topic": "Grammar",
+      "sub_topic": "Sentence Completion",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_15"
+    },
+    {
+      "question_number": 107,
+      "question": "He undertook the difficult task. He did so albeit the fact that he did not have any spare time.",
+      "options": {
+        "A": "He undertook the difficult task in spite of the fact that he did not have any spare time.",
+        "B": "He undertook the difficult task because of the fact that he did not have any spare time.",
+        "C": "He undertook the difficult task contrary to the fact that he did not have any spare time.",
+        "D": "He undertook the difficult task nevertheless for the fact that he did not have any spare time."
+      },
+      "correct_answer": "A",
+      "topic": "Grammar",
+      "sub_topic": "Sentence Completion",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_15"
+    },
+    {
+      "question_number": 108,
+      "question": "Не wrote the exam with the utmost confidence. He was grossly underprepared for the examination.",
+      "options": {
+        "A": "He wrote the exam with the utmost confidence so he was grossly underprepared for the examination.",
+        "B": "He wrote the exam with the utmost confidence for whenever he was grossly underprepared for the examination.",
+        "C": "Hе wrote the exam with the utmost confidence nevertheless he was grossly underprepared for the examination.",
+        "D": "He wrote the exam with the utmost confidence although he was grossly underprepared for the examination."
+      },
+      "correct_answer": "D",
+      "topic": "Grammar",
+      "sub_topic": "Sentence Completion",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_15"
+    },
+    {
+      "question_number": 109,
+      "question": "He pledged to donate his body parts. He was himself the beneficiary of organ transplantation.",
+      "options": {
+        "A": "He pledged to donate his body parts though he was himself the beneficiary of organ transplantation.",
+        "B": "He pledged to donate his body parts because he was himself the beneficiary of organ transplantation.",
+        "C": "He pledged to donate his body parts if he was himself the beneficiary of organ transplantation.",
+        "D": "He pledged to donate his body parts but he was himself the beneficiary of organ transplantation."
+      },
+      "correct_answer": "A",
+      "topic": "Grammar",
+      "sub_topic": "Sentence Completion",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_15"
+    },
+    {
+      "question_number": 110,
+      "question": "He was adamant to undertake the journey to the hills. He had promised to visit his school.",
+      "options": {
+        "A": "He was adamant to undertake the journey to the hills for he had promised to visit his school.",
+        "B": "He was adamant to undertake the journey to the hills even he had promised to visit his school.",
+        "C": "He was adamant to undertake the journey to the hills if he had promised to visit his school.",
+        "D": "He was adamant to undertake the journey to the hills forever he had promised to visit his school."
+      },
+      "correct_answer": "A",
+      "topic": "Grammar",
+      "sub_topic": "Sentence Completion",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_15"
+    },
+    {
+      "question_number": 111,
+      "question": "Similar mishaps are continually **(happening)** on the new highway because of improper signalling.",
+      "options": {
+        "A": "manifesting",
+        "B": "occurring",
+        "C": "repeating",
+        "D": "no improvement"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Transformation/Voice",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_16"
+    },
+    {
+      "question_number": 112,
+      "question": "The visiting school children **(circumnavigated)** around the Dal Lake with visible delight during their visit to Srinagar.",
+      "options": {
+        "A": "circumnavigated about",
+        "B": "circumnavigated on",
+        "C": "circumnavigated",
+        "D": "no improvement"
+      },
+      "correct_answer": "C",
+      "topic": "Grammar",
+      "sub_topic": "Transformation/Voice",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_16"
+    },
+    {
+      "question_number": 113,
+      "question": "The Principal of the school assembled the students and **(emphasised the importance)** of discipline in their everyday lives.",
+      "options": {
+        "A": "emphasised on the importance",
+        "B": "emphasised over the importance",
+        "C": "emphasised upon the importance",
+        "D": "no improvement"
+      },
+      "correct_answer": "D",
+      "topic": "Grammar",
+      "sub_topic": "Transformation/Voice",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_16"
+    },
+    {
+      "question_number": 114,
+      "question": "The group was accused of biased participation in the discussion because their entire attention was **(centred around)** their own proposal.",
+      "options": {
+        "A": "centred on",
+        "B": "centred in",
+        "C": "centred over",
+        "D": "no improvement"
+      },
+      "correct_answer": "A",
+      "topic": "Grammar",
+      "sub_topic": "Transformation/Voice",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_16"
+    },
+    {
+      "question_number": 115,
+      "question": "Hе claimed that he was merely **(an uninterested)** participant in the negotiation.",
+      "options": {
+        "A": "an interested",
+        "B": "a disinterested",
+        "C": "a uninterested",
+        "D": "no improvement"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Transformation/Voice",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_16"
+    },
+    {
+      "question_number": 116,
+      "question": "Change from Active to Passive voice : Respect your elders",
+      "options": {
+        "A": "You should respect elders",
+        "B": "Elders are respected",
+        "C": "Respect the elders",
+        "D": "Elders should be respected"
+      },
+      "correct_answer": "D",
+      "topic": "Grammar",
+      "sub_topic": "Reported Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_17"
+    },
+    {
+      "question_number": 117,
+      "question": "Change from Active to Passive voice: Shut the door",
+      "options": {
+        "A": "The door is to be shut",
+        "B": "Let the door be shut",
+        "C": "The door be shut",
+        "D": "No change"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Reported Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_17"
+    },
+    {
+      "question_number": 118,
+      "question": "Change from Passive to Active voice: Sujata was advised by her mother to carry an umbrella while stepping out into the rain",
+      "options": {
+        "A": "Her mother advised Sujata to carry an umbrella while stepping out into the rain",
+        "B": "Sujata advised her mother to carry an umbrella while stepping out into the rain",
+        "C": "The mother advised Sujata to carry an umbrella while stepping out into the rain",
+        "D": "No change"
+      },
+      "correct_answer": "A",
+      "topic": "Grammar",
+      "sub_topic": "Reported Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_17"
+    },
+    {
+      "question_number": 119,
+      "question": "Change from Passive to Active voice: He was said to be a good cricketer",
+      "options": {
+        "A": "They said he is a good cricketer",
+        "B": "They said he was a good cricketer",
+        "C": "He is a good cricketer",
+        "D": "No change"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Reported Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_17"
+    },
+    {
+      "question_number": 120,
+      "question": "Change from Passive to Active voice : His hair is being cut by a professional",
+      "options": {
+        "A": "A professional will be cutting his hair",
+        "B": "A professional is cutting his hair",
+        "C": "He will be getting a professional haircut",
+        "D": "No change"
+      },
+      "correct_answer": "B",
+      "topic": "Grammar",
+      "sub_topic": "Reported Speech",
+      "difficulty": "",
+      "remarks": "",
+      "passage_id": null,
+      "direction_id": "DIR_17"
+    }
+  ]
+}
