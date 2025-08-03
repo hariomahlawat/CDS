@@ -49,6 +49,7 @@ class MainActivity : ComponentActivity() {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
     }
+    private val skipAuthForTesting = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +59,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val currentUser = viewModel.currentUser
             val showRegister = viewModel.showRegister
+            val needsAuth = currentUser == null && !skipAuthForTesting
 
-            AnimatedContent(targetState = currentUser == null, label = "auth") { needsAuth ->
+            AnimatedContent(targetState = needsAuth, label = "auth") { needsAuth ->
                 if (needsAuth) {
                     AnimatedContent(
                         targetState = showRegister,
