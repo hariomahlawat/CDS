@@ -10,6 +10,7 @@ activityCompose = "1.10.1"
 composeBom = "2025.07.00"
 credentials = "1.5.0"
 firebase-bom = "34.0.0"
+firebase-auth = "23.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,7 +31,7 @@ credentials              = { module = "androidx.credentials:credentials",       
 credentials-playservices = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentials" }
 
 firebase-bom   = { group = "com.google.firebase", name = "firebase-bom",  version.ref = "firebase-bom" }
-firebase-auth  = { group = "com.google.firebase", name = "firebase-auth-ktx" }
+firebase-auth  = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebase-auth" }
 
 
 [plugins]
