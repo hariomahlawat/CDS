@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.credentials)
     implementation(libs.credentials.playservices)
     implementation(libs.googleid)
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.security.crypto)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
