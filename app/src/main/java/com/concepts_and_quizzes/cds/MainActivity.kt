@@ -25,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.concepts_and_quizzes.cds.auth.AuthViewModel
@@ -90,7 +91,7 @@ class MainActivity : ComponentActivity() {
                         name = currentUser?.displayName ?: "",
                         onSignOut = {
                             viewModel.signOut()
-                            prefs.edit().clear().apply()
+                            prefs.edit { clear() }
                         }
                     )
                 }
@@ -99,7 +100,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun cacheEmailPassword(email: String, password: String) {
-        prefs.edit().putString("email", email).putString("password", password).apply()
+        prefs.edit {
+            putString("email", email)
+            putString("password", password)
+        }
     }
 }
 
