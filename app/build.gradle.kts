@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.firebase.auth)            // <-- version is inherited from the BOM
     implementation(libs.credentials)
     implementation(libs.credentials.playservices)
+    implementation(libs.googleid)
     implementation("androidx.compose.material:material-icons-extended")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
