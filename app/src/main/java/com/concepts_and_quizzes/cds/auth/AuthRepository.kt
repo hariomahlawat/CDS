@@ -36,7 +36,7 @@ class AuthRepository(private val context: Context) {
         return try {
             val result = credentialManager.getCredential(context, googleRequest)
             (result.credential as? GoogleIdTokenCredential)?.let { firebaseAuthWithGoogle(it.idToken) }
-        } catch (e: GetCredentialException) {
+        } catch (_: GetCredentialException) {
             null
         }
     }

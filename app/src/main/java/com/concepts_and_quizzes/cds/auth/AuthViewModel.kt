@@ -36,7 +36,7 @@ class AuthViewModel(private val repository: AuthRepository) : ViewModel() {
         private set
     var registerState by androidx.compose.runtime.mutableStateOf(RegisterUiState())
         private set
-    var currentUser by androidx.compose.runtime.mutableStateOf<FirebaseUser?>(repository.currentUser)
+    var currentUser by androidx.compose.runtime.mutableStateOf(repository.currentUser)
         private set
     var showRegister by androidx.compose.runtime.mutableStateOf(false)
         private set
