@@ -55,11 +55,14 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
-    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation(platform(libs.firebase.bom))   // <-- BOM now comes from catalog
+    implementation(libs.firebase.auth)            // <-- version is inherited from the BOM
+    implementation(libs.credentials)
+    implementation(libs.credentials.playservices)
     implementation(libs.credentials)
     implementation(libs.credentials.playservices)
     implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
