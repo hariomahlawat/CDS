@@ -638,14 +638,15 @@
     {
       "question_number": 33,
       "question": "S1: Startup India is a flagship initiative of the Government of India. S6: Under the Startup India scheme, eligible companies can get recognized as startups in order to access a host of tax benefits, easier compliance, IPR fast-tracking and other benefits. P: These programmes are managed by a dedicated Startup India team, which reports to DPIIT. Q: It envisions transforming India into a country of job creators instead ofjob seekers. R: It intends to catalyse the startup culture and build a strong and inclusive ecosystem for innovation and entrepreneurship in India. S: Launched in 2016, Startup India has rolled out several programmes with the objective of supporting entrepreneurs and building up a robust startup ecosystem. The correct sequence should be :",
-      "options": {
-        "A": "PQSR",
-        "B": "PSQR",
-        "C": "PSRQ"
-      },
-      "correct_answer": "B",
-      "topic": "Comprehension",
-      "sub_topic": "Para-jumbles",
+    "options": {
+      "A": "PQSR",
+      "B": "PSQR",
+      "C": "PSRQ",
+      "D": "PQRS"
+    },
+    "correct_answer": "B",
+    "topic": "Comprehension",
+    "sub_topic": "Para-jumbles",
       "difficulty": "",
       "remarks": "",
       "passage_id": null,
