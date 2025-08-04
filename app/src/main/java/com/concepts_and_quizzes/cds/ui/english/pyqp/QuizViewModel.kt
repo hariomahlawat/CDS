@@ -33,7 +33,10 @@ class QuizViewModel @Inject constructor(
             repo.getQuestions(paperId).collect { qs ->
                 questions = qs
                 if (qs.isNotEmpty()) {
-                    _ui.value = QuizUi.Question(0, qs[0], null)
+                    index = 0
+                    if (!showIntroIfNeeded()) {
+                        _ui.value = QuizUi.Question(0, qs[0], null)
+                    }
                 }
             }
         }
@@ -48,12 +51,34 @@ class QuizViewModel @Inject constructor(
     fun next() {
         if (index < questions.lastIndex) {
             index++
-            val q = questions[index]
-            val sel = answers[index]
-            _ui.value = QuizUi.Question(index, q, sel)
+            if (!showIntroIfNeeded()) {
+                val q = questions[index]
+                val sel = answers[index]
+                _ui.value = QuizUi.Question(index, q, sel)
+            }
         } else {
             val correct = answers.count { (i, ans) -> questions[i].correct == ans }
             _ui.value = QuizUi.Result(correct, questions.size)
+        }
+    }
+
+    fun continueFromIntro() {
+        val q = questions[index]
+        val sel = answers[index]
+        _ui.value = QuizUi.Question(index, q, sel)
+    }
+
+    private fun showIntroIfNeeded(): Boolean {
+        val q = questions[index]
+        val prev = questions.getOrNull(index - 1)
+        val dir = q.direction.takeIf { it != null && it != prev?.direction }
+        val passageText = q.passage.takeIf { it != null && it != prev?.passage }
+        val passageTitle = q.passageTitle.takeIf { passageText != null }
+        return if (dir != null || passageText != null) {
+            _ui.value = QuizUi.SectionIntro(dir, passageTitle, passageText)
+            true
+        } else {
+            false
         }
     }
 
@@ -68,6 +93,7 @@ class QuizViewModel @Inject constructor(
 
     sealed class QuizUi {
         object Loading : QuizUi()
+        data class SectionIntro(val direction: String?, val passageTitle: String?, val passage: String?) : QuizUi()
         data class Question(val index: Int, val question: PyqpQuestion, val userAnswerIndex: Int?) : QuizUi()
         data class Result(val correct: Int, val total: Int) : QuizUi()
     }

@@ -4,5 +4,8 @@ data class PyqpQuestion(
     val id: String,
     val text: String,
     val options: List<String>,
-    val correct: Int
+    val correct: Int,
+    val direction: String? = null,
+    val passage: String? = null,
+    val passageTitle: String? = null
 )

@@ -13,12 +13,18 @@ data class PyqpQuestionEntity(
     val optionB: String,
     val optionC: String,
     val optionD: String,
-    val correctIndex: Int
+    val correctIndex: Int,
+    val direction: String? = null,
+    val passageTitle: String? = null,
+    val passageText: String? = null
 )
 
 fun PyqpQuestionEntity.toDomain() = PyqpQuestion(
     id = qid,
     text = question,
     options = listOf(optionA, optionB, optionC, optionD),
-    correct = correctIndex
+    correct = correctIndex,
+    direction = direction,
+    passage = passageText,
+    passageTitle = passageTitle
 )

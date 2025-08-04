@@ -55,6 +55,23 @@ class SeedUtil @Inject constructor(
             val file = "CDS_II_2024_English_SetA.json"
             val json = ctx.assets.open(file).bufferedReader().use { it.readText() }
             val root = JSONObject(json)
+            val directionsMap = mutableMapOf<String, String>()
+            val directionsJson = root.optJSONArray("directions")
+            if (directionsJson != null) {
+                for (i in 0 until directionsJson.length()) {
+                    val d = directionsJson.getJSONObject(i)
+                    directionsMap[d.getString("direction_id")] = d.getString("text")
+                }
+            }
+            val passagesMap = mutableMapOf<String, Pair<String, String>>()
+            val passagesJson = root.optJSONArray("passages")
+            if (passagesJson != null) {
+                for (i in 0 until passagesJson.length()) {
+                    val p = passagesJson.getJSONObject(i)
+                    passagesMap[p.getString("passage_id")] =
+                        p.getString("title") to p.getString("text")
+                }
+            }
             val questionsJson = root.getJSONArray("questions")
             val qs = mutableListOf<PyqpQuestionEntity>()
             for (i in 0 until questionsJson.length()) {
@@ -67,6 +84,9 @@ class SeedUtil @Inject constructor(
                     "D" -> 3
                     else -> 3
                 }
+                val dirText = directionsMap[q.optString("direction_id")]
+                val passageId = q.optString("passage_id")
+                val passage = passagesMap[passageId]
                 qs.add(
                     PyqpQuestionEntity(
                         qid = "$file-${q.getInt("question_number")}",
@@ -76,7 +96,10 @@ class SeedUtil @Inject constructor(
                         optionB = opts.optString("B"),
                         optionC = opts.optString("C"),
                         optionD = opts.optString("D"),
-                        correctIndex = correct
+                        correctIndex = correct,
+                        direction = dirText,
+                        passageTitle = passage?.first,
+                        passageText = passage?.second
                     )
                 )
             }

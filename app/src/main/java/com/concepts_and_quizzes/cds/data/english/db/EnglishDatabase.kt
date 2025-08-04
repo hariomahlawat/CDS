@@ -14,7 +14,7 @@ import com.concepts_and_quizzes.cds.data.english.model.PyqpQuestionEntity
         PyqpQuestionEntity::class,
         PyqpProgress::class
     ],
-    version = 3
+    version = 4
 )
 abstract class EnglishDatabase : RoomDatabase() {
     abstract fun topicDao(): EnglishTopicDao
