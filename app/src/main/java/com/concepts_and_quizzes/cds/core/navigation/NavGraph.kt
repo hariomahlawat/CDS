@@ -2,11 +2,15 @@ package com.concepts_and_quizzes.cds.core.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.concepts_and_quizzes.cds.ui.english.concepts.ConceptDetailScreen
 import com.concepts_and_quizzes.cds.ui.english.concepts.ConceptsHomeScreen
 import com.concepts_and_quizzes.cds.ui.english.dashboard.EnglishDashboardScreen
 import com.concepts_and_quizzes.cds.ui.english.quiz.QuizScreen
+import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqpPaperListScreen
+import com.concepts_and_quizzes.cds.ui.english.pyqp.QuizScreen as PyqpQuizScreen
 
 fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     composable("english/dashboard") { EnglishDashboardScreen(nav) }
@@ -18,5 +22,13 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     composable("english/quiz/{topicId}") { backStack ->
         val topicId = backStack.arguments?.getString("topicId") ?: return@composable
         QuizScreen(topicId, nav)
+    }
+    composable("english/pyqp") { PyqpPaperListScreen(nav) }
+    composable(
+        route = "english/pyqp/{paperId}",
+        arguments = listOf(navArgument("paperId") { type = NavType.StringType })
+    ) { back ->
+        val pid = back.arguments?.getString("paperId") ?: return@composable
+        PyqpQuizScreen(pid, nav)
     }
 }
