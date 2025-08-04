@@ -24,63 +24,114 @@ class QuizViewModel @Inject constructor(
     private val _ui = MutableStateFlow<QuizUi>(QuizUi.Loading)
     val ui: StateFlow<QuizUi> = _ui
 
-    private var index = 0
+    private var pageIndex = 0
+    private var pages: List<Item> = emptyList()
     private var questions: List<PyqpQuestion> = emptyList()
     private val answers = mutableMapOf<Int, Int>()
     private val flags = mutableSetOf<Int>()
 
+    val pageCount: Int get() = pages.size
     val questionCount: Int get() = questions.size
-    fun questionAt(i: Int) = questions[i]
-    fun answerFor(i: Int): Int? = answers[i]
-    fun isFlagged(i: Int) = flags.contains(i)
+
+    fun pageContent(i: Int): QuizPage {
+        val item = pages[i]
+        return when (item) {
+            is Item.Intro -> QuizPage.Intro(item.direction, item.passageTitle, item.passage)
+            is Item.Question -> QuizPage.Question(
+                item.questionIndex,
+                item.question,
+                answers[item.questionIndex],
+                flags.contains(item.questionIndex)
+            )
+        }
+    }
 
     init {
         viewModelScope.launch {
             repo.getQuestions(paperId).collect { qs ->
                 questions = qs
                 if (qs.isNotEmpty()) {
-                    index = 0
-                    emitQuestion()
+                    buildPages(qs)
+                    pageIndex = 0
+                    emitPage()
                 }
             }
         }
     }
 
-    private fun emitQuestion() {
-        val q = questions[index]
-        val sel = answers[index]
-        _ui.value = QuizUi.Question(index, questions.size, q, sel, flags.contains(index))
+    private fun buildPages(qs: List<PyqpQuestion>) {
+        pages = buildList {
+            var last: Section? = null
+            qs.forEachIndexed { idx, q ->
+                val sec = Section(q.direction, q.passage, q.passageTitle)
+                if (sec != last && (q.direction != null || q.passage != null)) {
+                    add(Item.Intro(q.direction, q.passageTitle, q.passage))
+                }
+                add(Item.Question(idx, q))
+                last = sec
+            }
+        }
+    }
+
+    private fun emitPage() {
+        val item = pages[pageIndex]
+        when (item) {
+            is Item.Intro -> _ui.value = QuizUi.Page(
+                pageIndex,
+                pages.size,
+                questions.size,
+                QuizPage.Intro(item.direction, item.passageTitle, item.passage)
+            )
+            is Item.Question -> _ui.value = QuizUi.Page(
+                pageIndex,
+                pages.size,
+                questions.size,
+                QuizPage.Question(
+                    item.questionIndex,
+                    item.question,
+                    answers[item.questionIndex],
+                    flags.contains(item.questionIndex)
+                )
+            )
+        }
     }
 
     fun select(idx: Int) {
-        answers[index] = idx
-        emitQuestion()
+        val item = pages[pageIndex]
+        if (item is Item.Question) {
+            answers[item.questionIndex] = idx
+            emitPage()
+        }
     }
 
     fun next() {
-        if (index < questions.lastIndex) {
-            index++
-            emitQuestion()
+        if (pageIndex < pages.lastIndex) {
+            pageIndex++
+            emitPage()
         } else {
             submit()
         }
     }
 
     fun prev() {
-        if (index > 0) {
-            index--
-            emitQuestion()
+        if (pageIndex > 0) {
+            pageIndex--
+            emitPage()
         }
     }
 
     fun goTo(i: Int) {
-        index = i.coerceIn(0, questions.lastIndex)
-        emitQuestion()
+        pageIndex = i.coerceIn(0, pages.lastIndex)
+        emitPage()
     }
 
     fun toggleFlag() {
-        if (!flags.add(index)) flags.remove(index)
-        emitQuestion()
+        val item = pages[pageIndex]
+        if (item is Item.Question) {
+            val qi = item.questionIndex
+            if (!flags.add(qi)) flags.remove(qi)
+            emitPage()
+        }
     }
 
     fun submit() {
@@ -97,15 +148,35 @@ class QuizViewModel @Inject constructor(
         }
     }
 
+    private data class Section(
+        val direction: String?,
+        val passage: String?,
+        val passageTitle: String?
+    )
+
+    private sealed class Item {
+        data class Intro(val direction: String?, val passageTitle: String?, val passage: String?) : Item()
+        data class Question(val questionIndex: Int, val question: PyqpQuestion) : Item()
+    }
+
     sealed class QuizUi {
         object Loading : QuizUi()
+        data class Page(
+            val pageIndex: Int,
+            val pageCount: Int,
+            val questionCount: Int,
+            val page: QuizPage
+        ) : QuizUi()
+        data class Result(val correct: Int, val total: Int) : QuizUi()
+    }
+
+    sealed class QuizPage {
+        data class Intro(val direction: String?, val passageTitle: String?, val passage: String?) : QuizPage()
         data class Question(
-            val index: Int,
-            val total: Int,
+            val questionIndex: Int,
             val question: PyqpQuestion,
             val userAnswerIndex: Int?,
             val flagged: Boolean
-        ) : QuizUi()
-        data class Result(val correct: Int, val total: Int) : QuizUi()
+        ) : QuizPage()
     }
 }

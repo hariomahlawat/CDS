@@ -32,8 +32,8 @@ It is intended to be updated whenever new features are added or existing functio
 - `ui/english/concepts/ConceptDetailViewModel.kt` – Loads a single topic based on navigation arguments.
 - `ui/english/concepts/ConceptDetailScreen.kt` – Shows the selected topic’s name and overview.
 - `ui/english/pyqp/PyqpPaperListScreen.kt` – Lists available previous year papers.
-- `ui/english/pyqp/QuizScreen.kt` – Runs a quiz for a selected paper.
-- `ui/english/pyqp/PyqpListViewModel.kt`, `QuizViewModel.kt` – View models for paper list and quiz screens.
+- `ui/english/pyqp/QuizScreen.kt` – Runs a quiz for a selected paper, showing section intro pages and collapsible headers for passages or directions.
+- `ui/english/pyqp/PyqpListViewModel.kt`, `QuizViewModel.kt` – View models for paper list and quiz screens with paging and section intro logic.
 - `ui/english/quiz/QuizScreen.kt` – Placeholder quiz view for a topic.
 - `ui/english/analysis/AnalysisScreen.kt` – Placeholder analysis screen.
 

@@ -1,9 +1,13 @@
 package com.concepts_and_quizzes.cds.ui.english.pyqp
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.outlined.Flag
@@ -11,6 +15,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -28,7 +33,7 @@ fun QuizScreen(
         is QuizViewModel.QuizUi.Loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
-        is QuizViewModel.QuizUi.Question -> QuestionPager(vm, state)
+        is QuizViewModel.QuizUi.Page -> QuizPager(vm, state)
         is QuizViewModel.QuizUi.Result -> ResultView(state) {
             vm.saveProgress()
             nav.popBackStack()
@@ -38,13 +43,13 @@ fun QuizScreen(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun QuestionPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Question) {
-    val pagerState = rememberPagerState(initialPage = state.index) { state.total }
-    LaunchedEffect(state.index) {
-        if (pagerState.currentPage != state.index) pagerState.scrollToPage(state.index)
+private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
+    val pagerState = rememberPagerState(initialPage = state.pageIndex) { state.pageCount }
+    LaunchedEffect(state.pageIndex) {
+        if (pagerState.currentPage != state.pageIndex) pagerState.scrollToPage(state.pageIndex)
     }
     LaunchedEffect(pagerState.currentPage) {
-        if (pagerState.currentPage != state.index) vm.goTo(pagerState.currentPage)
+        if (pagerState.currentPage != state.pageIndex) vm.goTo(pagerState.currentPage)
     }
 
     var remaining by remember { mutableStateOf(15 * 60) }
@@ -59,31 +64,61 @@ private fun QuestionPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Questio
 
     Column(Modifier.fillMaxSize().padding(16.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text("${state.index + 1} / ${state.total}")
-            Spacer(Modifier.weight(1f))
-            Text(String.format("%02d:%02d", remaining / 60, remaining % 60))
-            IconButton(onClick = vm::toggleFlag) {
-                if (state.flagged) Icon(Icons.Filled.Flag, contentDescription = "Flagged")
-                else Icon(Icons.Outlined.Flag, contentDescription = "Flag question")
+            when (val page = state.page) {
+                is QuizViewModel.QuizPage.Question -> {
+                    Text("${page.questionIndex + 1} / ${state.questionCount}")
+                    Spacer(Modifier.weight(1f))
+                    Text(String.format("%02d:%02d", remaining / 60, remaining % 60))
+                    IconButton(onClick = vm::toggleFlag) {
+                        if (page.flagged) Icon(Icons.Filled.Flag, contentDescription = "Flagged")
+                        else Icon(Icons.Outlined.Flag, contentDescription = "Flag question")
+                    }
+                }
+                is QuizViewModel.QuizPage.Intro -> {
+                    Spacer(Modifier.weight(1f))
+                    Text(String.format("%02d:%02d", remaining / 60, remaining % 60))
+                }
+            }
+        }
+        val progress = when (val p = state.page) {
+            is QuizViewModel.QuizPage.Question -> (p.questionIndex + 1) / state.questionCount.toFloat()
+            is QuizViewModel.QuizPage.Intro -> {
+                val next = if (state.pageIndex < state.pageCount - 1) vm.pageContent(state.pageIndex + 1) else null
+                if (next is QuizViewModel.QuizPage.Question) next.questionIndex / state.questionCount.toFloat() else 0f
             }
         }
         LinearProgressIndicator(
-            progress = (state.index + 1) / state.total.toFloat(),
+            progress = progress,
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
         )
         Spacer(Modifier.height(16.dp))
         HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { page ->
-            val q = vm.questionAt(page)
-            val sel = vm.answerFor(page)
-            QuestionPage(page, q, sel) { vm.select(it) }
+            when (val p = vm.pageContent(page)) {
+                is QuizViewModel.QuizPage.Intro -> IntroPage(p)
+                is QuizViewModel.QuizPage.Question -> QuestionPage(
+                    p.questionIndex + 1,
+                    p.question,
+                    p.userAnswerIndex,
+                    pagerState.currentPage,
+                    onSelect = { vm.select(it) }
+                )
+            }
         }
         Spacer(Modifier.height(16.dp))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            TextButton(onClick = vm::prev, enabled = state.index > 0) { Text("Previous") }
-            if (state.index == state.total - 1) {
-                Button(onClick = { showSubmit = true }) { Text("Submit") }
-            } else {
-                Button(onClick = vm::next) { Text("Next") }
+            when (val page = state.page) {
+                is QuizViewModel.QuizPage.Question -> {
+                    TextButton(onClick = vm::prev, enabled = page.questionIndex > 0) { Text("Previous") }
+                    if (page.questionIndex == state.questionCount - 1) {
+                        Button(onClick = { showSubmit = true }) { Text("Submit") }
+                    } else {
+                        Button(onClick = vm::next) { Text("Next") }
+                    }
+                }
+                is QuizViewModel.QuizPage.Intro -> {
+                    Spacer(Modifier.weight(1f))
+                    Button(onClick = vm::next) { Text("Continue") }
+                }
             }
         }
     }
@@ -105,29 +140,78 @@ private fun QuestionPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Questio
 
 @Composable
 private fun QuestionPage(
-    index: Int,
+    number: Int,
     question: PyqpQuestion,
     selected: Int?,
+    currentPage: Int,
     onSelect: (Int) -> Unit
 ) {
+    var show by remember { mutableStateOf(false) }
+    LaunchedEffect(currentPage) { show = false }
+
+    val hasInfo = question.direction != null || question.passage != null
     Column(Modifier.fillMaxSize()) {
-        question.direction?.let {
-            Text(it)
-            Spacer(Modifier.height(8.dp))
-        }
-        if (question.passage != null) {
-            question.passageTitle?.let {
-                Text(it, style = MaterialTheme.typography.titleMedium)
-                Spacer(Modifier.height(4.dp))
+        if (hasInfo) {
+            val label = if (question.passage != null) {
+                if (show) "Hide" else "Show passage"
+            } else {
+                if (show) "Hide" else "Show direction"
             }
-            Text(question.passage)
+            Surface(
+                modifier = Modifier.fillMaxWidth().clickable { show = !show },
+                color = MaterialTheme.colorScheme.secondaryContainer
+            ) { Text(label, Modifier.padding(8.dp)) }
+            AnimatedVisibility(show) {
+                val config = LocalConfiguration.current
+                val maxHeight = (config.screenHeightDp * 0.7f).dp
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = maxHeight)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Column(Modifier.padding(8.dp)) {
+                        question.direction?.let {
+                            Text(it)
+                            if (question.passage != null) Spacer(Modifier.height(8.dp))
+                        }
+                        if (question.passage != null) {
+                            question.passageTitle?.let {
+                                Text(it, style = MaterialTheme.typography.titleMedium)
+                                Spacer(Modifier.height(4.dp))
+                            }
+                            Text(question.passage)
+                        }
+                    }
+                }
+            }
             Spacer(Modifier.height(8.dp))
         }
-        Text("Q${index + 1}. ${question.text}")
+        Text("Q$number. ${question.text}")
         Spacer(Modifier.height(8.dp))
         question.options.forEachIndexed { idx, opt ->
             OptionCard(selected == idx, opt) { onSelect(idx) }
         }
+    }
+}
+
+@Composable
+private fun IntroPage(intro: QuizViewModel.QuizPage.Intro) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp)
+    ) {
+        intro.direction?.let {
+            Text(it)
+            Spacer(Modifier.height(8.dp))
+        }
+        intro.passageTitle?.let {
+            Text(it, style = MaterialTheme.typography.titleMedium)
+            Spacer(Modifier.height(4.dp))
+        }
+        intro.passage?.let { Text(it) }
     }
 }
 
