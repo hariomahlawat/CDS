@@ -1,27 +1,27 @@
 package com.concepts_and_quizzes.cds.core.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.compose.ui.graphics.vector.ImageVector
 
 private data class NavItem(val label: String, val icon: ImageVector, val route: String)
 
 @Composable
 fun CdsBottomNavBar(navController: NavHostController) {
     val items = listOf(
-        NavItem("Dashboard", Icons.Filled.Home, "dashboard"),
-        NavItem("Concepts", Icons.Filled.MenuBook, "concepts"),
-        NavItem("English", Icons.Filled.Language, "english")
+        NavItem("Dashboard", Icons.Filled.Home, "english/dashboard"),
+        NavItem("Concepts", Icons.Filled.MenuBook, "english/concepts"),
+        NavItem("Quiz", Icons.Filled.Edit, "english/quiz/t1")
     )
     NavigationBar {
         val navBackStackEntry = navController.currentBackStackEntryAsState().value
