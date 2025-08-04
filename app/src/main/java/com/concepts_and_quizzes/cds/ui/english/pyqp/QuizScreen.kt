@@ -72,7 +72,7 @@ private fun QuestionPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Questio
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
         )
         Spacer(Modifier.height(16.dp))
-        HorizontalPager(state.total, state = pagerState, modifier = Modifier.weight(1f)) { page ->
+        HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { page ->
             val q = vm.questionAt(page)
             val sel = vm.answerFor(page)
             QuestionPage(page, q, sel) { vm.select(it) }
