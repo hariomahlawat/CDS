@@ -150,7 +150,11 @@ private fun QuestionPage(
     LaunchedEffect(currentPage) { show = false }
 
     val hasInfo = question.direction != null || question.passage != null
-    Column(Modifier.fillMaxSize()) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
         if (hasInfo) {
             val label = if (question.passage != null) {
                 if (show) "Hide" else "Show passage"
