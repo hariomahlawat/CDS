@@ -1,4 +1,4 @@
-package com.concepts_and_quizzes.cds.ui.theme
+package com.concepts_and_quizzes.cds.core.theme
 
 import android.app.Activity
 import android.os.Build
