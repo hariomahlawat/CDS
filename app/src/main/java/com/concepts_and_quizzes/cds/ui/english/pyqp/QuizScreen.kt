@@ -194,7 +194,7 @@ private fun QuestionPage(
         Text("Q$number. ${question.text}")
         Spacer(Modifier.height(8.dp))
         question.options.forEachIndexed { idx, opt ->
-            OptionCard(selected == idx, opt) { onSelect(idx) }
+            OptionCard(selected == idx, opt.text) { onSelect(idx) }
         }
     }
 }

@@ -51,12 +51,23 @@ class QuizViewModelTest {
         }
         val vm = QuizViewModel(repo, progressDao, SavedStateHandle(mapOf("paperId" to "paper")))
         advanceUntilIdle()
-        vm.select(0)
+
+        val q1 = vm.pageContent(0) as QuizViewModel.QuizPage.Question
+        val idx0 = q1.question.options.indexOfFirst { it.isCorrect }
+        vm.select(idx0)
         vm.next()
-        vm.select(1)
+
+        val q2 = vm.pageContent(1) as QuizViewModel.QuizPage.Question
+        val idx1 = q2.question.options.indexOfFirst { it.isCorrect }
+        vm.select(idx1)
         vm.next()
-        vm.select(3) // wrong
+
+        val q3 = vm.pageContent(2) as QuizViewModel.QuizPage.Question
+        val correctIdx = q3.question.options.indexOfFirst { it.isCorrect }
+        val wrongIdx = (correctIdx + 1) % q3.question.options.size
+        vm.select(wrongIdx)
         vm.next()
+
         val res = vm.ui.value as QuizViewModel.QuizUi.Result
         assertEquals(2, res.correct)
         assertEquals(3, res.total)

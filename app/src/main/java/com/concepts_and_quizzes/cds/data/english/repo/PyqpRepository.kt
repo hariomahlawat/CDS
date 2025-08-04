@@ -3,6 +3,7 @@ package com.concepts_and_quizzes.cds.data.english.repo
 import com.concepts_and_quizzes.cds.data.english.db.PyqpDao
 import com.concepts_and_quizzes.cds.data.english.model.toDomain
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
+import com.concepts_and_quizzes.cds.domain.english.shuffledOptions
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -16,7 +17,7 @@ class PyqpRepository @Inject constructor(
         }
 
     fun getQuestions(paperId: String): Flow<List<PyqpQuestion>> =
-        dao.getQuestionsByPaper(paperId).map { list -> list.map { it.toDomain() } }
+        dao.getQuestionsByPaper(paperId).map { list -> list.map { it.toDomain().shuffledOptions() } }
 }
 
 data class PyqpPaper(val id: String, val year: Int)
