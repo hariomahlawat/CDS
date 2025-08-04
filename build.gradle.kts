@@ -6,3 +6,13 @@ plugins {
     alias(libs.plugins.kotlin.kapt) apply false
     id("com.google.gms.google-services") version "4.4.3" apply false
 }
+
+// Work around NoSuchMethodError for ClassName.canonicalName by forcing
+// a known compatible version of JavaPoet across all modules.
+allprojects {
+    configurations.all {
+        resolutionStrategy {
+            force("com.squareup:javapoet:1.13.0")
+        }
+    }
+}
