@@ -30,7 +30,7 @@ import com.concepts_and_quizzes.cds.core.components.CdsBottomNavBar
 import com.concepts_and_quizzes.cds.ui.concepts.ConceptsScreen
 import com.concepts_and_quizzes.cds.ui.dashboard.GlobalDashboardScreen
 import com.concepts_and_quizzes.cds.ui.english.EnglishScreen
-import com.concepts_and_quizzes.cds.ui.subjectchooser.SubjectChooserScreen
+import com.concepts_and_quizzes.cds.ui.home.SubjectChooserScreen
 
 class MainActivity : ComponentActivity() {
     private val viewModel: AuthViewModel by viewModels { AuthViewModelFactory(this) }
