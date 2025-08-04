@@ -1,9 +1,9 @@
 package com.concepts_and_quizzes.cds.core.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -20,7 +20,7 @@ private data class NavItem(val label: String, val icon: ImageVector, val route: 
 fun CdsBottomNavBar(navController: NavHostController) {
     val items = listOf(
         NavItem("Dashboard", Icons.Filled.Home, "english/dashboard"),
-        NavItem("Concepts", Icons.Filled.MenuBook, "english/concepts"),
+        NavItem("Concepts", Icons.AutoMirrored.Filled.MenuBook, "english/concepts"),
         NavItem("Quiz", Icons.Filled.Edit, "english/quiz/t1")
     )
     NavigationBar {
