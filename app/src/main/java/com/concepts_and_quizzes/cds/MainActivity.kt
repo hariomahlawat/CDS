@@ -20,6 +20,7 @@ import com.concepts_and_quizzes.cds.auth.RegisterScreen
 import com.concepts_and_quizzes.cds.core.theme.CDSTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -27,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.concepts_and_quizzes.cds.core.components.CdsBottomNavBar
+import com.concepts_and_quizzes.cds.core.model.Subject
 import com.concepts_and_quizzes.cds.ui.concepts.ConceptsScreen
 import com.concepts_and_quizzes.cds.ui.dashboard.GlobalDashboardScreen
 import com.concepts_and_quizzes.cds.ui.english.EnglishScreen
@@ -112,6 +114,14 @@ class MainActivity : ComponentActivity() {
                                 composable("dashboard") { GlobalDashboardScreen(navController) }
                                 composable("concepts") { ConceptsScreen() }
                                 composable("english") { EnglishScreen() }
+                                composable("subject/{subjectId}") { backStackEntry ->
+                                    when (backStackEntry.arguments?.getString("subjectId")) {
+                                        Subject.ENGLISH.id -> EnglishScreen()
+                                        Subject.MATHEMATICS.id -> ConceptsScreen()
+                                        Subject.GENERAL_KNOWLEDGE.id -> Text("General Knowledge")
+                                        else -> Text("Subject not found")
+                                    }
+                                }
                             }
                         }
                     }
