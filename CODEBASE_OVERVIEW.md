@@ -66,7 +66,7 @@ This document provides an overview of the files and current functionality of the
 - `src/main/res/values/` – String resources, colors and themes.
 - `src/main/res/drawable` & `mipmap*` – Launcher icons and backgrounds.
 - `src/main/res/xml/` – Backup and data extraction configuration.
-- `src/main/assets/CDS_II_2024_English_SetA.json` – Sample exam data used by `ExamDataImporter`.
+- `src/main/assets/CDS_II_2024_English_SetA.json` – PYQ Sample exam data used by `ExamDataImporter`. There will be more PYQs in the same format, which will be presented to the user in Quiz format.
 
 ### Tests
 - `src/test/java/.../ExampleUnitTest.kt` – Sample unit test.
