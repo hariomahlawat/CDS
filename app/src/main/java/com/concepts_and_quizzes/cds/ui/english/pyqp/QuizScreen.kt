@@ -1,18 +1,21 @@
 package com.concepts_and_quizzes.cds.ui.english.pyqp
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Flag
+import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
+import kotlinx.coroutines.delay
 
 @Composable
 fun QuizScreen(
@@ -22,9 +25,10 @@ fun QuizScreen(
 ) {
     val ui by vm.ui.collectAsState()
     when (val state = ui) {
-        is QuizViewModel.QuizUi.Loading -> CircularProgressIndicator()
-        is QuizViewModel.QuizUi.SectionIntro -> SectionIntroView(state, vm::continueFromIntro)
-        is QuizViewModel.QuizUi.Question -> QuestionView(state, vm)
+        is QuizViewModel.QuizUi.Loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            CircularProgressIndicator()
+        }
+        is QuizViewModel.QuizUi.Question -> QuestionPager(vm, state)
         is QuizViewModel.QuizUi.Result -> ResultView(state) {
             vm.saveProgress()
             nav.popBackStack()
@@ -32,92 +36,101 @@ fun QuizScreen(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun QuestionView(q: QuizViewModel.QuizUi.Question, vm: QuizViewModel) {
-    Column(Modifier.fillMaxSize().padding(16.dp)) {
-        CollapsibleHeader(q.question)
-        Text("Q${q.index + 1}. ${q.question.text}")
-        q.question.options.forEachIndexed { idx, opt ->
-            RadioButtonRow(
-                selected = q.userAnswerIndex == idx,
-                onSelect = { vm.select(idx) },
-                label = opt
-            )
-        }
-        Spacer(Modifier.height(16.dp))
-        Button(onClick = vm::next) { Text("Next") }
+private fun QuestionPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Question) {
+    val pagerState = rememberPagerState(initialPage = state.index) { state.total }
+    LaunchedEffect(state.index) {
+        if (pagerState.currentPage != state.index) pagerState.scrollToPage(state.index)
     }
-}
+    LaunchedEffect(pagerState.currentPage) {
+        if (pagerState.currentPage != state.index) vm.goTo(pagerState.currentPage)
+    }
 
-@Composable
-private fun SectionIntroView(intro: QuizViewModel.QuizUi.SectionIntro, onContinue: () -> Unit) {
+    var remaining by remember { mutableStateOf(15 * 60) }
+    LaunchedEffect(Unit) {
+        while (remaining > 0) {
+            delay(1000)
+            remaining--
+        }
+        vm.submit()
+    }
+    var showSubmit by remember { mutableStateOf(false) }
+
     Column(Modifier.fillMaxSize().padding(16.dp)) {
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .verticalScroll(rememberScrollState())
-        ) {
-            Column {
-                intro.direction?.let {
-                    Text("Directions", style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.height(8.dp))
-                    Text(it)
-                    if (intro.passage != null) Spacer(Modifier.height(16.dp))
-                }
-                intro.passage?.let {
-                    Text(intro.passageTitle ?: "Passage", style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.height(8.dp))
-                    Text(it)
-                }
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text("${state.index + 1} / ${state.total}")
+            Spacer(Modifier.weight(1f))
+            Text(String.format("%02d:%02d", remaining / 60, remaining % 60))
+            IconButton(onClick = vm::toggleFlag) {
+                if (state.flagged) Icon(Icons.Filled.Flag, contentDescription = "Flagged")
+                else Icon(Icons.Outlined.Flag, contentDescription = "Flag question")
             }
         }
+        LinearProgressIndicator(
+            progress = (state.index + 1) / state.total.toFloat(),
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+        )
         Spacer(Modifier.height(16.dp))
-        Button(onClick = onContinue, modifier = Modifier.align(Alignment.End)) { Text("Continue") }
+        HorizontalPager(state.total, state = pagerState, modifier = Modifier.weight(1f)) { page ->
+            val q = vm.questionAt(page)
+            val sel = vm.answerFor(page)
+            QuestionPage(page, q, sel) { vm.select(it) }
+        }
+        Spacer(Modifier.height(16.dp))
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            TextButton(onClick = vm::prev, enabled = state.index > 0) { Text("Previous") }
+            if (state.index == state.total - 1) {
+                Button(onClick = { showSubmit = true }) { Text("Submit") }
+            } else {
+                Button(onClick = vm::next) { Text("Next") }
+            }
+        }
     }
-}
 
-@Composable
-private fun CollapsibleHeader(q: PyqpQuestion) {
-    val hasText = q.direction != null || q.passage != null
-    if (!hasText) return
-    var expanded by remember(q.id) { mutableStateOf(false) }
-    val label = if (q.passage != null) "Show passage" else "Show direction"
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { expanded = !expanded }
-    ) {
-        Text(
-            if (expanded) "Hide ${if (q.passage != null) "passage" else "direction"}" else label,
-            modifier = Modifier.padding(8.dp)
+    if (showSubmit) {
+        AlertDialog(
+            onDismissRequest = { showSubmit = false },
+            confirmButton = {
+                TextButton(onClick = { showSubmit = false; vm.submit() }) { Text("Submit") }
+            },
+            dismissButton = {
+                TextButton(onClick = { showSubmit = false }) { Text("Cancel") }
+            },
+            title = { Text("Submit quiz?") },
+            text = { Text("Are you sure you want to submit?") }
         )
     }
-    if (expanded) {
-        val maxHeight = LocalConfiguration.current.screenHeightDp.dp * 0.7f
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(max = maxHeight)
-        ) {
-            Column(
-                Modifier
-                    .verticalScroll(rememberScrollState())
-                    .padding(16.dp)
-            ) {
-                q.direction?.let {
-                    Text("Directions", style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.height(8.dp))
-                    Text(it)
-                    if (q.passage != null) Spacer(Modifier.height(16.dp))
-                }
-                q.passage?.let {
-                    Text(q.passageTitle ?: "Passage", style = MaterialTheme.typography.titleMedium)
-                    Spacer(Modifier.height(8.dp))
-                    Text(it)
-                }
-            }
+}
+
+@Composable
+private fun QuestionPage(
+    index: Int,
+    question: PyqpQuestion,
+    selected: Int?,
+    onSelect: (Int) -> Unit
+) {
+    Column(Modifier.fillMaxSize()) {
+        Text("Q${index + 1}. ${question.text}")
+        Spacer(Modifier.height(8.dp))
+        question.options.forEachIndexed { idx, opt ->
+            OptionCard(selected == idx, opt) { onSelect(idx) }
         }
-        Spacer(Modifier.height(16.dp))
+    }
+}
+
+@Composable
+private fun OptionCard(selected: Boolean, text: String, onClick: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
+        onClick = onClick,
+        colors = CardDefaults.cardColors(
+            containerColor = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Text(text, Modifier.padding(16.dp))
     }
 }
 
@@ -125,24 +138,8 @@ private fun CollapsibleHeader(q: PyqpQuestion) {
 private fun ResultView(r: QuizViewModel.QuizUi.Result, onClose: () -> Unit) {
     AlertDialog(
         onDismissRequest = onClose,
-        confirmButton = {
-            TextButton(onClick = onClose) { Text("OK") }
-        },
+        confirmButton = { TextButton(onClick = onClose) { Text("OK") } },
         title = { Text("Result") },
         text = { Text("Score: ${r.correct}/${r.total}") }
     )
-}
-
-@Composable
-private fun RadioButtonRow(selected: Boolean, onSelect: () -> Unit, label: String) {
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp)
-            .clickable(onClick = onSelect)
-    ) {
-        RadioButton(selected = selected, onClick = null)
-        Spacer(Modifier.width(8.dp))
-        Text(label)
-    }
 }

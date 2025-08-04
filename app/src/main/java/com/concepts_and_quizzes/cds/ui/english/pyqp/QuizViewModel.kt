@@ -27,6 +27,12 @@ class QuizViewModel @Inject constructor(
     private var index = 0
     private var questions: List<PyqpQuestion> = emptyList()
     private val answers = mutableMapOf<Int, Int>()
+    private val flags = mutableSetOf<Int>()
+
+    val questionCount: Int get() = questions.size
+    fun questionAt(i: Int) = questions[i]
+    fun answerFor(i: Int): Int? = answers[i]
+    fun isFlagged(i: Int) = flags.contains(i)
 
     init {
         viewModelScope.launch {
@@ -34,52 +40,52 @@ class QuizViewModel @Inject constructor(
                 questions = qs
                 if (qs.isNotEmpty()) {
                     index = 0
-                    if (!showIntroIfNeeded()) {
-                        _ui.value = QuizUi.Question(0, qs[0], null)
-                    }
+                    emitQuestion()
                 }
             }
         }
     }
 
+    private fun emitQuestion() {
+        val q = questions[index]
+        val sel = answers[index]
+        _ui.value = QuizUi.Question(index, questions.size, q, sel, flags.contains(index))
+    }
+
     fun select(idx: Int) {
         answers[index] = idx
-        val q = questions[index]
-        _ui.value = QuizUi.Question(index, q, idx)
+        emitQuestion()
     }
 
     fun next() {
         if (index < questions.lastIndex) {
             index++
-            if (!showIntroIfNeeded()) {
-                val q = questions[index]
-                val sel = answers[index]
-                _ui.value = QuizUi.Question(index, q, sel)
-            }
+            emitQuestion()
         } else {
-            val correct = answers.count { (i, ans) -> questions[i].correct == ans }
-            _ui.value = QuizUi.Result(correct, questions.size)
+            submit()
         }
     }
 
-    fun continueFromIntro() {
-        val q = questions[index]
-        val sel = answers[index]
-        _ui.value = QuizUi.Question(index, q, sel)
+    fun prev() {
+        if (index > 0) {
+            index--
+            emitQuestion()
+        }
     }
 
-    private fun showIntroIfNeeded(): Boolean {
-        val q = questions[index]
-        val prev = questions.getOrNull(index - 1)
-        val dir = q.direction.takeIf { it != null && it != prev?.direction }
-        val passageText = q.passage.takeIf { it != null && it != prev?.passage }
-        val passageTitle = q.passageTitle.takeIf { passageText != null }
-        return if (dir != null || passageText != null) {
-            _ui.value = QuizUi.SectionIntro(dir, passageTitle, passageText)
-            true
-        } else {
-            false
-        }
+    fun goTo(i: Int) {
+        index = i.coerceIn(0, questions.lastIndex)
+        emitQuestion()
+    }
+
+    fun toggleFlag() {
+        if (!flags.add(index)) flags.remove(index)
+        emitQuestion()
+    }
+
+    fun submit() {
+        val correct = answers.count { (i, ans) -> questions[i].correct == ans }
+        _ui.value = QuizUi.Result(correct, questions.size)
     }
 
     fun saveProgress() {
@@ -93,8 +99,13 @@ class QuizViewModel @Inject constructor(
 
     sealed class QuizUi {
         object Loading : QuizUi()
-        data class SectionIntro(val direction: String?, val passageTitle: String?, val passage: String?) : QuizUi()
-        data class Question(val index: Int, val question: PyqpQuestion, val userAnswerIndex: Int?) : QuizUi()
+        data class Question(
+            val index: Int,
+            val total: Int,
+            val question: PyqpQuestion,
+            val userAnswerIndex: Int?,
+            val flagged: Boolean
+        ) : QuizUi()
         data class Result(val correct: Int, val total: Int) : QuizUi()
     }
 }
