@@ -1,4 +1,4 @@
-package com.concepts_and_quizzes.cds.ui.theme
+package com.concepts_and_quizzes.cds.core.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
