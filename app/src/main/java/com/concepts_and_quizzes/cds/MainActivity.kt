@@ -31,7 +31,9 @@ import com.concepts_and_quizzes.cds.ui.concepts.ConceptsScreen
 import com.concepts_and_quizzes.cds.ui.dashboard.GlobalDashboardScreen
 import com.concepts_and_quizzes.cds.ui.english.EnglishScreen
 import com.concepts_and_quizzes.cds.ui.home.SubjectChooserScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: AuthViewModel by viewModels { AuthViewModelFactory(this) }
     private val masterKey by lazy {
