@@ -111,6 +111,18 @@ private fun QuestionPage(
     onSelect: (Int) -> Unit
 ) {
     Column(Modifier.fillMaxSize()) {
+        question.direction?.let {
+            Text(it)
+            Spacer(Modifier.height(8.dp))
+        }
+        if (question.passage != null) {
+            question.passageTitle?.let {
+                Text(it, style = MaterialTheme.typography.titleMedium)
+                Spacer(Modifier.height(4.dp))
+            }
+            Text(question.passage)
+            Spacer(Modifier.height(8.dp))
+        }
         Text("Q${index + 1}. ${question.text}")
         Spacer(Modifier.height(8.dp))
         question.options.forEachIndexed { idx, opt ->
