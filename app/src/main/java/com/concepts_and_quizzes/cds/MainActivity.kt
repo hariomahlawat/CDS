@@ -18,7 +18,19 @@ import com.concepts_and_quizzes.cds.auth.AuthViewModelFactory
 import com.concepts_and_quizzes.cds.auth.LoginScreen
 import com.concepts_and_quizzes.cds.auth.RegisterScreen
 import com.concepts_and_quizzes.cds.core.theme.CDSTheme
-import com.concepts_and_quizzes.cds.ui.dashboard.DashboardScreen
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.concepts_and_quizzes.cds.core.components.CdsBottomNavBar
+import com.concepts_and_quizzes.cds.ui.concepts.ConceptsScreen
+import com.concepts_and_quizzes.cds.ui.dashboard.GlobalDashboardScreen
+import com.concepts_and_quizzes.cds.ui.english.EnglishScreen
+import com.concepts_and_quizzes.cds.ui.subjectchooser.SubjectChooserScreen
 
 class MainActivity : ComponentActivity() {
     private val viewModel: AuthViewModel by viewModels { AuthViewModelFactory(this) }
@@ -77,13 +89,29 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     } else {
-                        DashboardScreen(
-                            name = currentUser?.displayName ?: "",
-                            onSignOut = {
-                                viewModel.signOut()
-                                prefs.edit { clear() }
+                        val navController = rememberNavController()
+                        val navBackStackEntry by navController.currentBackStackEntryAsState()
+                        val currentRoute = navBackStackEntry?.destination?.route
+                        val showBottomBar = currentRoute != "subjectChooser"
+
+                        Scaffold(
+                            bottomBar = {
+                                if (showBottomBar) {
+                                    CdsBottomNavBar(navController)
+                                }
                             }
-                        )
+                        ) { padding ->
+                            NavHost(
+                                navController = navController,
+                                startDestination = "subjectChooser",
+                                modifier = Modifier.padding(padding)
+                            ) {
+                                composable("subjectChooser") { SubjectChooserScreen(navController) }
+                                composable("dashboard") { GlobalDashboardScreen(navController) }
+                                composable("concepts") { ConceptsScreen() }
+                                composable("english") { EnglishScreen() }
+                            }
+                        }
                     }
                 }
             }
