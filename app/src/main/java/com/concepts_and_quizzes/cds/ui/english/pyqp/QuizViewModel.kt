@@ -135,12 +135,12 @@ class QuizViewModel @Inject constructor(
     }
 
     fun submit() {
-        val correct = answers.count { (i, ans) -> questions[i].correct == ans }
+        val correct = answers.count { (i, ans) -> questions[i].options[ans].isCorrect }
         _ui.value = QuizUi.Result(correct, questions.size)
     }
 
     fun saveProgress() {
-        val correct = answers.count { (i, ans) -> questions[i].correct == ans }
+        val correct = answers.count { (i, ans) -> questions[i].options[ans].isCorrect }
         viewModelScope.launch {
             progressDao.upsert(
                 PyqpProgress(paperId = paperId, correct = correct, attempted = questions.size)
