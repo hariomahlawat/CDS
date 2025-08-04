@@ -12,7 +12,7 @@ This document provides an overview of the files and current functionality of the
 ## App Module (`app/`)
 
 ### Build & Config
-- `build.gradle.kts` – Module level build script configuring Compose, Hilt, Room, Firebase and other dependencies.
+- `build.gradle.kts` – Module level build script configuring Compose, Hilt, Room, Firebase Auth (sign-in flow disabled) and other dependencies.
 - `google-services.json` – Firebase project configuration.
 - `proguard-rules.pro` – Placeholder for ProGuard/R8 rules.
 
@@ -20,13 +20,8 @@ This document provides an overview of the files and current functionality of the
 
 #### Application & Navigation
 - `CdsApplication.kt` – Application class annotated with `@HiltAndroidApp` to bootstrap Hilt.
-- `MainActivity.kt` – Entry activity hosting authentication flow and the main navigation host with bottom navigation.
+- `MainActivity.kt` – Entry activity hosting the main navigation with bottom navigation.
 - `core/navigation/NavGraph.kt` – Placeholder sealed class describing navigation destinations.
-
-#### Authentication (`auth/`)
-- `AuthRepository.kt` – Handles authentication with Firebase email/password and Google credentials using the Credential Manager API.
-- `AuthViewModel.kt` – Holds login and registration UI state, performs validation and delegates auth actions to `AuthRepository`.
-- `AuthScreens.kt` – Compose screens for login and registration.
 
 #### UI Screens
 - `ui/home/SubjectChooserViewModel.kt` – Provides subscription data to the subject chooser.
@@ -37,7 +32,6 @@ This document provides an overview of the files and current functionality of the
 - `ui/dashboard/ProgressCard.kt` – Visualizes completion percentage for a subject.
 - `ui/concepts/ConceptsScreen.kt` – Placeholder screen for subject concepts.
 - `ui/english/EnglishScreen.kt` – Placeholder English subject screen.
-- `exam/ExamViewModel.kt` – Loads exam questions from `ExamRepository` (not yet used by a UI screen).
 
 #### Core Components & Theme
 - `core/components/AppBar.kt` – Simple top app bar wrapper.
@@ -50,35 +44,33 @@ This document provides an overview of the files and current functionality of the
 #### Data Layer
 - `data/repository/ProgressRepository.kt` – Supplies placeholder `SubjectProgress` values.
 - `data/repository/SubscriptionRepository.kt` – Persists premium subscription flags using DataStore.
-- `data/repository/ExamRepository.kt` – Persists and queries exam, direction, passage and question data via DAOs.
-- `data/import/ExamDataImporter.kt` – Parses exam JSON files from assets and inserts data through `ExamRepository`.
-- `data/local/AppDatabase.kt` – Room database definition for exams, directions, passages and questions.
-- `data/local/entities/*` – Room entity classes (`ExamEntity`, `DirectionEntity`, `PassageEntity`, `QuestionEntity`, `QuestionWithDirectionAndPassage`).
-- `data/local/dao/*` – DAO interfaces for each entity (`ExamDao`, `DirectionDao`, `PassageDao`, `QuestionDao`).
+- `data/english/db/EnglishDatabase.kt` – Room database for English topics and questions.
+- `data/english/db/EnglishTopicDao.kt`, `EnglishQuestionDao.kt` – DAO interfaces for topics and questions.
+- `data/english/db/SeedUtil.kt` – Seeds the English database from `english_seed.json` if empty.
+- `data/english/repo/EnglishRepository.kt` – Repository combining DAOs for higher-level operations.
 
 #### Dependency Injection (`di/`)
 - `SubscriptionModule.kt` – Provides `SubscriptionRepository`.
 - `ProgressModule.kt` – Provides `ProgressRepository`.
-- `DatabaseModule.kt` – Creates `AppDatabase`, DAO instances and an `ExamRepository`.
+- `data/english/db/EnglishDatabaseModule.kt` – Provides the English Room database and DAOs.
 
 ### Resources & Assets
 - `src/main/AndroidManifest.xml` – Application manifest declaring permissions, application class and launcher activity.
 - `src/main/res/values/` – String resources, colors and themes.
 - `src/main/res/drawable` & `mipmap*` – Launcher icons and backgrounds.
 - `src/main/res/xml/` – Backup and data extraction configuration.
-- `src/main/assets/CDS_II_2024_English_SetA.json` – PYQ Sample exam data used by `ExamDataImporter`. There will be more PYQs in the same format, which will be presented to the user in Quiz format.
+- `src/main/assets/CDS_II_2024_English_SetA.json` – PYQ sample exam data that will be presented to the user in quiz format.
 
 ### Tests
 - `src/test/java/.../ExampleUnitTest.kt` – Sample unit test.
-- `src/test/java/.../data/ExamRepositoryTest.kt` – Unit test verifying question retrieval with multiple directions.
+- `src/test/java/.../data/english/db/EnglishDatabaseTest.kt` – Robolectric test ensuring the English database seeds two topics.
 - `src/androidTest/java/.../ExampleInstrumentedTest.kt` – Sample instrumented test.
 
 ## Existing Functionality Summary
-- Authentication via Firebase (email/password and Google sign-in).
 - Subject subscription storage with DataStore.
 - Dashboard showing per-subject progress (placeholder data).
 - Subject chooser and navigation between major destinations.
-- Room database schema for exams with import utility.
+- Room database for English topics and questions with seeding support.
 - Basic dependency injection setup using Hilt.
 
 This document should be updated whenever files are added, removed or significantly modified.
