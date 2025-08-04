@@ -59,11 +59,12 @@ class SeedUtil @Inject constructor(
             val qs = mutableListOf<PyqpQuestionEntity>()
             for (i in 0 until questionsJson.length()) {
                 val q = questionsJson.getJSONObject(i)
-                val opts = q.getJSONObject("options")
-                val correct = when (q.getString("correct_answer")) {
+                val opts = q.optJSONObject("options") ?: JSONObject()
+                val correct = when (q.optString("correct_answer")) {
                     "A" -> 0
                     "B" -> 1
                     "C" -> 2
+                    "D" -> 3
                     else -> 3
                 }
                 qs.add(
@@ -71,10 +72,10 @@ class SeedUtil @Inject constructor(
                         qid = "$file-${q.getInt("question_number")}",
                         paperId = file,
                         question = q.getString("question"),
-                        optionA = opts.getString("A"),
-                        optionB = opts.getString("B"),
-                        optionC = opts.getString("C"),
-                        optionD = opts.getString("D"),
+                        optionA = opts.optString("A"),
+                        optionB = opts.optString("B"),
+                        optionC = opts.optString("C"),
+                        optionD = opts.optString("D"),
                         correctIndex = correct
                     )
                 )
