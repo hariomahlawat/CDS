@@ -9,6 +9,11 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+hilt {
+    // disable Hilt’s aggregating task so it won’t call the missing JavaPoet method
+    enableAggregatingTask = false
+}
+
 android {
     namespace = "com.concepts_and_quizzes.cds"
     compileSdk = 36
