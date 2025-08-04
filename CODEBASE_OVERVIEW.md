@@ -25,11 +25,15 @@ It is intended to be updated whenever new features are added or existing functio
 - `core/navigation/NavGraph.kt` – Defines navigation routes for English dashboard, concepts, detail, and quiz screens.
 
 #### UI Screens
-- `ui/english/dashboard/EnglishDashboardScreen.kt` – Placeholder dashboard for English content.
+- `ui/english/dashboard/EnglishDashboardScreen.kt` – Dashboard showing PYQ summary and navigation.
+- `ui/english/dashboard/EnglishDashboardViewModel.kt` – Supplies dashboard data.
 - `ui/english/concepts/ConceptsHomeViewModel.kt` – Exposes English topics from the repository.
 - `ui/english/concepts/ConceptsHomeScreen.kt` – Lists topics and navigates to their details.
 - `ui/english/concepts/ConceptDetailViewModel.kt` – Loads a single topic based on navigation arguments.
 - `ui/english/concepts/ConceptDetailScreen.kt` – Shows the selected topic’s name and overview.
+- `ui/english/pyqp/PyqpPaperListScreen.kt` – Lists available previous year papers.
+- `ui/english/pyqp/QuizScreen.kt` – Runs a quiz for a selected paper.
+- `ui/english/pyqp/PyqpListViewModel.kt`, `QuizViewModel.kt` – View models for paper list and quiz screens.
 - `ui/english/quiz/QuizScreen.kt` – Placeholder quiz view for a topic.
 - `ui/english/analysis/AnalysisScreen.kt` – Placeholder analysis screen.
 
@@ -45,9 +49,11 @@ It is intended to be updated whenever new features are added or existing functio
 - `domain/english/EnglishTopic.kt`, `EnglishQuestion.kt` – Domain models for topics and questions.
 - `data/english/db/EnglishDatabase.kt` – Room database for English topics and questions.
 - `data/english/db/EnglishTopicDao.kt`, `EnglishQuestionDao.kt` – DAO interfaces for topics and questions.
-- `data/english/db/SeedUtil.kt` – Seeds the English database from `english_seed.json` if empty.
+- `data/english/db/SeedUtil.kt` – Seeds the English database and sample PYQ data if empty.
 - `data/english/model/EnglishTopicEntity.kt`, `EnglishQuestionEntity.kt` – Room entities with mappers to domain models.
+- `data/english/model/PyqpQuestionEntity.kt`, `PyqpProgress.kt` – Entities for previous year questions and progress.
 - `data/english/repo/EnglishRepository.kt` – Repository combining DAOs for higher-level operations.
+- `data/english/repo/PyqpRepository.kt` – Repository exposing PYQ papers and questions.
 
 #### Dependency Injection (`di/`)
 - `data/english/db/EnglishDatabaseModule.kt` – Provides the English Room database, DAOs, and repository.

@@ -8,6 +8,7 @@ import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import com.concepts_and_quizzes.cds.data.english.model.EnglishQuestionEntity
 import com.concepts_and_quizzes.cds.data.english.model.EnglishTopicEntity
+import com.concepts_and_quizzes.cds.data.english.model.PyqpQuestionEntity
 
 class SeedUtil @Inject constructor(
     @ApplicationContext private val ctx: Context,
@@ -49,6 +50,36 @@ class SeedUtil @Inject constructor(
             }
             db.topicDao().insertAll(topics)
             db.questionDao().insertAll(questions)
+        }
+        if (db.pyqpDao().count() == 0) {
+            val file = "CDS_II_2024_English_SetA.json"
+            val json = ctx.assets.open(file).bufferedReader().use { it.readText() }
+            val root = JSONObject(json)
+            val questionsJson = root.getJSONArray("questions")
+            val qs = mutableListOf<PyqpQuestionEntity>()
+            for (i in 0 until questionsJson.length()) {
+                val q = questionsJson.getJSONObject(i)
+                val opts = q.getJSONObject("options")
+                val correct = when (q.getString("correct_answer")) {
+                    "A" -> 0
+                    "B" -> 1
+                    "C" -> 2
+                    else -> 3
+                }
+                qs.add(
+                    PyqpQuestionEntity(
+                        qid = "$file-${q.getInt("question_number")}",
+                        paperId = file,
+                        question = q.getString("question"),
+                        optionA = opts.getString("A"),
+                        optionB = opts.getString("B"),
+                        optionC = opts.getString("C"),
+                        optionD = opts.getString("D"),
+                        correctIndex = correct
+                    )
+                )
+            }
+            db.pyqpDao().insertAll(qs)
         }
     }
 }
