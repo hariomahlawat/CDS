@@ -28,7 +28,10 @@ class QuizViewModel @Inject constructor(
     private val resumeStore: QuizResumeStore,
     private val state: SavedStateHandle
 ) : ViewModel() {
-    private val paperId: String = state["paperId"]!!
+    private val mode: String = state["mode"] ?: "FULL"
+    private val topic: String? = state["topic"]
+    private val paperId: String? = state["paperId"]
+    private val quizId: String = paperId ?: "WRONGS:${topic ?: ""}"
 
     private val _ui = MutableStateFlow<QuizUi>(QuizUi.Loading)
     val ui: StateFlow<QuizUi> = _ui
@@ -71,13 +74,26 @@ class QuizViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            repo.getQuestions(paperId).collect { qs ->
+            if (mode == "WRONGS") {
+                val t = topic ?: return@launch
+                val qs = repo.wrongOnlyQuestions(t)
                 questions = qs
                 if (qs.isNotEmpty()) {
                     buildPages(qs)
                     pageIndex = 0
                     emitPage()
                     resume()
+                }
+            } else {
+                val pid = paperId ?: return@launch
+                repo.getQuestions(pid).collect { qs ->
+                    questions = qs
+                    if (qs.isNotEmpty()) {
+                        buildPages(qs)
+                        pageIndex = 0
+                        emitPage()
+                        resume()
+                    }
                 }
             }
         }
@@ -146,7 +162,7 @@ class QuizViewModel @Inject constructor(
                     state["timerSec"] = next
                 }
                 if (next % 30 == 0) {
-                    resumeStore.save(paperId, answers, flags, pageIndex, next)
+                    resumeStore.save(quizId, answers, flags, pageIndex, next)
                 }
                 if (next == 0) {
                     submitQuiz()
@@ -161,7 +177,7 @@ class QuizViewModel @Inject constructor(
         timerJob?.cancel()
         timerJob = null
         state["timerSec"] = _timer.value
-        resumeStore.save(paperId, answers, flags, pageIndex, _timer.value)
+        resumeStore.save(quizId, answers, flags, pageIndex, _timer.value)
     }
 
     fun resume() {
@@ -278,7 +294,7 @@ class QuizViewModel @Inject constructor(
             val correct = ansIdx != null && q.options[ansIdx].isCorrect
             AttemptLogEntity(
                 qid = q.id,
-                quizId = paperId,
+                quizId = quizId,
                 correct = correct,
                 flagged = flags.contains(i),
                 durationMs = durations[i] ?: 0,
@@ -301,9 +317,11 @@ class QuizViewModel @Inject constructor(
     fun saveProgress() {
         val correct = answers.count { (i, ans) -> questions[i].options[ans].isCorrect }
         viewModelScope.launch {
-            progressDao.upsert(
-                PyqpProgress(paperId = paperId, correct = correct, attempted = questions.size)
-            )
+            if (mode == "FULL") {
+                progressDao.upsert(
+                    PyqpProgress(paperId = quizId, correct = correct, attempted = questions.size)
+                )
+            }
         }
     }
 

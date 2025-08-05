@@ -14,6 +14,23 @@ interface AttemptLogDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(attempts: List<AttemptLogEntity>)
 
+    @Query(
+        """
+        SELECT a.qid
+        FROM attempt_log a
+        JOIN english_questions q ON a.qid = q.qid
+        WHERE q.topicId = :topicId
+          AND a.timestamp = (
+              SELECT MAX(a2.timestamp)
+              FROM attempt_log a2
+              JOIN english_questions q2 ON a2.qid = q2.qid
+              WHERE q2.topicId = :topicId
+          )
+          AND a.correct = 0
+        """
+    )
+    suspend fun latestWrongQids(topicId: String): List<String>
+
     // --- Trend over time ---
     @Query(
         """

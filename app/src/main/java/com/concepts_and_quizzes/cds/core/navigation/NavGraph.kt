@@ -21,7 +21,20 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
         ConceptDetailScreen(id, nav)
     }
     composable("quizHub") { QuizHubScreen(nav) }
-    composable("english/pyqp") { PyqpPaperListScreen(nav) }
+    composable(
+        route = "english/pyqp?mode={mode}&topic={topic}",
+        arguments = listOf(
+            navArgument("mode") { type = NavType.StringType; defaultValue = "FULL" },
+            navArgument("topic") { type = NavType.StringType; nullable = true }
+        )
+    ) { back ->
+        val mode = back.arguments?.getString("mode") ?: "FULL"
+        if (mode == "WRONGS") {
+            PyqpQuizScreen("", nav)
+        } else {
+            PyqpPaperListScreen(nav)
+        }
+    }
     composable("analytics/pyq") { PyqAnalyticsScreen(nav) }
     composable(
         route = "english/pyqp/{paperId}",

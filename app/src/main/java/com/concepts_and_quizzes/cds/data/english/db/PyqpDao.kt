@@ -18,6 +18,9 @@ interface PyqpDao {
     @Query("SELECT * FROM pyqp_questions WHERE paperId = :paperId")
     fun getQuestionsByPaper(paperId: String): Flow<List<PyqpQuestionEntity>>
 
+    @Query("SELECT * FROM pyqp_questions WHERE qid IN (:qids)")
+    suspend fun getQuestionsByIds(qids: List<String>): List<PyqpQuestionEntity>
+
     @Query("SELECT COUNT(*) FROM pyqp_questions")
     suspend fun count(): Int
 }
