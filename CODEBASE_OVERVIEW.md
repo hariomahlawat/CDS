@@ -32,7 +32,7 @@ It is intended to be updated whenever new features are added or existing functio
 - `ui/english/concepts/ConceptDetailViewModel.kt` – Loads a single topic based on navigation arguments.
 - `ui/english/concepts/ConceptDetailScreen.kt` – Shows the selected topic’s name and overview.
 - `ui/english/pyqp/PyqpPaperListScreen.kt` – Lists available previous year papers.
-- `ui/english/pyqp/QuizScreen.kt` – Runs a quiz for a selected paper, showing section intro pages and collapsible headers for passages or directions.
+- `ui/english/pyqp/QuizScreen.kt` – Runs a quiz for a selected paper with timer, question flagging and a palette for quick navigation, showing section intro pages and collapsible headers for passages or directions.
 - `ui/english/pyqp/PyqpListViewModel.kt`, `QuizViewModel.kt` – View models for paper list and quiz screens with paging and section intro logic.
 - `ui/english/quiz/QuizScreen.kt` – Placeholder quiz view for a topic.
 - `ui/english/analysis/AnalysisScreen.kt` – Placeholder analysis screen.
@@ -75,7 +75,7 @@ It is intended to be updated whenever new features are added or existing functio
 - Bottom navigation linking English dashboard, concepts, and quiz screens.
 - English topics stored in a Room database with seed data and repository access.
 - Concept listing and detail views backed by Hilt-injected view models.
-- Placeholder quiz and analysis screens.
+- Quiz runtime supports timer, flagging and palette-based navigation.
 - Basic dependency injection setup using Hilt.
 
 This document should be updated whenever files are added, removed or significantly modified.
