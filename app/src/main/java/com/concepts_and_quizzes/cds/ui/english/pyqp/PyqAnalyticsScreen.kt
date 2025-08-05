@@ -62,7 +62,7 @@ private fun FilterChipRow(
     onSelect: (AnalyticsRepository.Window) -> Unit
 ) {
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        AnalyticsRepository.Window.values().forEach { w ->
+        AnalyticsRepository.Window.entries.forEach { w ->
             FilterChip(
                 selected = w == selected,
                 onClick = { onSelect(w) },
