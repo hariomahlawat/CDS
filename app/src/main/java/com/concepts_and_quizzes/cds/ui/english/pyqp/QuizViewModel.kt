@@ -1,5 +1,6 @@
 package com.concepts_and_quizzes.cds.ui.english.pyqp
 
+import android.os.SystemClock
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,7 +38,13 @@ class QuizViewModel @Inject constructor(
     private val flags = mutableSetOf<Int>()
     private val durations = mutableMapOf<Int, Int>()
     private var currentQuestion: Int? = null
-    private var questionStart = System.currentTimeMillis()
+    private var questionStartMs = SystemClock.elapsedRealtime()
+
+    private val _showResult = MutableStateFlow(state["showResult"] ?: false)
+    val showResult: StateFlow<Boolean> = _showResult
+
+    private val _result = MutableStateFlow<QuizResult?>(null)
+    val result: StateFlow<QuizResult?> = _result
 
     private val _timer = MutableStateFlow(state["timerSec"] ?: 120 * 60)
     val timer: StateFlow<Int> = _timer
@@ -101,7 +108,7 @@ class QuizViewModel @Inject constructor(
             }
             is Item.Question -> {
                 currentQuestion = item.questionIndex
-                questionStart = System.currentTimeMillis()
+                questionStartMs = SystemClock.elapsedRealtime()
                 _ui.value = QuizUi.Page(
                     pageIndex,
                     pages.size,
@@ -117,10 +124,12 @@ class QuizViewModel @Inject constructor(
         }
     }
 
-    private fun recordDuration() {
+    private fun flushDuration() {
         val idx = currentQuestion ?: return
-        val elapsed = (System.currentTimeMillis() - questionStart).toInt()
+        val now = SystemClock.elapsedRealtime()
+        val elapsed = (now - questionStartMs).toInt()
         durations[idx] = durations.getOrDefault(idx, 0) + elapsed
+        questionStartMs = now
     }
 
     private fun startTimer() {
@@ -142,7 +151,7 @@ class QuizViewModel @Inject constructor(
     }
 
     fun pause() {
-        recordDuration()
+        flushDuration()
         timerJob?.cancel()
         timerJob = null
         state["timerSec"] = _timer.value
@@ -150,7 +159,7 @@ class QuizViewModel @Inject constructor(
 
     fun resume() {
         if (_timer.value > 0) {
-            questionStart = System.currentTimeMillis()
+            questionStartMs = SystemClock.elapsedRealtime()
             startTimer()
         }
     }
@@ -165,25 +174,25 @@ class QuizViewModel @Inject constructor(
 
     fun next() {
         if (pageIndex < pages.lastIndex) {
-            recordDuration()
+            flushDuration()
             pageIndex++
             emitPage()
         } else {
-            recordDuration()
+            flushDuration()
             submitQuiz()
         }
     }
 
     fun prev() {
         if (pageIndex > 0) {
-            recordDuration()
+            flushDuration()
             pageIndex--
             emitPage()
         }
     }
 
     fun goTo(i: Int) {
-        recordDuration()
+        flushDuration()
         pageIndex = i.coerceIn(0, pages.lastIndex)
         emitPage()
     }
@@ -200,7 +209,7 @@ class QuizViewModel @Inject constructor(
     fun goToQuestion(questionIndex: Int) {
         val page = pages.indexOfFirst { it is Item.Question && it.questionIndex == questionIndex }
         if (page != -1) {
-            recordDuration()
+            flushDuration()
             pageIndex = page
             emitPage()
         }
@@ -217,7 +226,7 @@ class QuizViewModel @Inject constructor(
     fun submitQuiz() {
         timerJob?.cancel()
         timerJob = null
-        recordDuration()
+        flushDuration()
         val now = System.currentTimeMillis()
         val attempts = questions.mapIndexed { i, q ->
             val ansIdx = answers[i]
@@ -232,8 +241,17 @@ class QuizViewModel @Inject constructor(
             )
         }
         viewModelScope.launch { analytics.insertAttempts(attempts) }
-        _ui.value = QuizUi.Result(attempts.count { it.correct }, questions.size)
+        _result.value = QuizResult(attempts.count { it.correct }, questions.size)
+        _showResult.value = true
+        state["showResult"] = true
     }
+
+    fun dismissResult() {
+        _showResult.value = false
+        state["showResult"] = false
+    }
+
+    fun flush() = flushDuration()
 
     fun saveProgress() {
         val correct = answers.count { (i, ans) -> questions[i].options[ans].isCorrect }
@@ -263,8 +281,9 @@ class QuizViewModel @Inject constructor(
             val questionCount: Int,
             val page: QuizPage
         ) : QuizUi()
-        data class Result(val correct: Int, val total: Int) : QuizUi()
     }
+
+    data class QuizResult(val correct: Int, val total: Int)
 
     sealed class QuizPage {
         data class Intro(val direction: String?, val passageTitle: String?, val passage: String?) : QuizPage()
