@@ -1,6 +1,12 @@
 package com.concepts_and_quizzes.cds.ui.english.pyqp
 
 import androidx.lifecycle.SavedStateHandle
+import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
+import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
+import com.concepts_and_quizzes.cds.data.analytics.db.TopicDifficultyDb
+import com.concepts_and_quizzes.cds.data.analytics.db.TopicSnapshotDb
+import com.concepts_and_quizzes.cds.data.analytics.db.TopicTrendPointDb
+import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.english.db.PyqpDao
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
@@ -49,7 +55,18 @@ class QuizViewModelTest {
             override suspend fun upsert(progress: PyqpProgress) {}
             override fun getAll(): Flow<List<PyqpProgress>> = MutableStateFlow(emptyList())
         }
-        val vm = QuizViewModel(repo, progressDao, SavedStateHandle(mapOf("paperId" to "paper")))
+        val inserted = mutableListOf<AttemptLogEntity>()
+        val attemptDao = object : AttemptLogDao {
+            override suspend fun insertAll(attempts: List<AttemptLogEntity>) {
+                inserted.addAll(attempts)
+            }
+            override fun getTopicSnapshot(): Flow<List<TopicSnapshotDb>> = flowOf(emptyList())
+            override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
+            override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
+            override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> = flowOf(emptyList())
+        }
+        val analytics = AnalyticsRepository(attemptDao)
+        val vm = QuizViewModel(repo, progressDao, analytics, SavedStateHandle(mapOf("paperId" to "paper")))
         advanceUntilIdle()
 
         val q1 = vm.pageContent(0) as QuizViewModel.QuizPage.Question
@@ -67,9 +84,11 @@ class QuizViewModelTest {
         val wrongIdx = (correctIdx + 1) % q3.question.options.size
         vm.select(wrongIdx)
         vm.next()
+        advanceUntilIdle()
 
         val res = vm.ui.value as QuizViewModel.QuizUi.Result
         assertEquals(2, res.correct)
         assertEquals(3, res.total)
+        assertEquals(3, inserted.size)
     }
 }
