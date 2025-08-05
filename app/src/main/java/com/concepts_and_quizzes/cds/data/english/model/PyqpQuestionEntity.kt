@@ -2,8 +2,6 @@ package com.concepts_and_quizzes.cds.data.english.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.concepts_and_quizzes.cds.domain.english.AnswerOption
-import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
 
 @Entity(tableName = "pyqp_questions")
 data class PyqpQuestionEntity(
@@ -18,18 +16,4 @@ data class PyqpQuestionEntity(
     val direction: String? = null,
     val passageTitle: String? = null,
     val passageText: String? = null
-)
-
-fun PyqpQuestionEntity.toDomain() = PyqpQuestion(
-    id = qid,
-    text = question,
-    options = listOf(
-        AnswerOption(optionA, correctIndex == 0),
-        AnswerOption(optionB, correctIndex == 1),
-        AnswerOption(optionC, correctIndex == 2),
-        AnswerOption(optionD, correctIndex == 3)
-    ).shuffled(),
-    direction = direction,
-    passage = passageText,
-    passageTitle = passageTitle
 )

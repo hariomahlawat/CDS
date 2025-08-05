@@ -1,7 +1,7 @@
 package com.concepts_and_quizzes.cds.data.english.repo
 
 import com.concepts_and_quizzes.cds.data.english.db.PyqpDao
-import com.concepts_and_quizzes.cds.data.english.model.toDomain
+import com.concepts_and_quizzes.cds.domain.english.AnswerOption
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +16,23 @@ class PyqpRepository @Inject constructor(
         }
 
     fun getQuestions(paperId: String): Flow<List<PyqpQuestion>> =
-        dao.getQuestionsByPaper(paperId).map { list -> list.map { it.toDomain() } }
+        dao.getQuestionsByPaper(paperId).map { list ->
+            list.map { e ->
+                PyqpQuestion(
+                    id = e.qid,
+                    text = e.question,
+                    options = listOf(
+                        AnswerOption(e.optionA, e.correctIndex == 0),
+                        AnswerOption(e.optionB, e.correctIndex == 1),
+                        AnswerOption(e.optionC, e.correctIndex == 2),
+                        AnswerOption(e.optionD, e.correctIndex == 3)
+                    ).shuffled(),
+                    direction = e.direction,
+                    passage = e.passageText,
+                    passageTitle = e.passageTitle
+                )
+            }
+        }
 }
 
 data class PyqpPaper(val id: String, val year: Int)

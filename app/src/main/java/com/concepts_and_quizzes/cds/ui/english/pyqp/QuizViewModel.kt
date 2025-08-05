@@ -145,7 +145,7 @@ class QuizViewModel @Inject constructor(
                     state["timerSec"] = next
                 }
                 if (next % 30 == 0) {
-                    resumeStore.save(QuizResumeStore.Store(paperId, snapshot()))
+                    resumeStore.save(paperId, answers, flags, pageIndex, next)
                 }
                 if (next == 0) {
                     submitQuiz()
@@ -155,19 +155,12 @@ class QuizViewModel @Inject constructor(
         }
     }
 
-    private fun snapshot(): String {
-        val ans = answers.entries.joinToString(";") { "${it.key}:${it.value}" }
-        val flg = flags.joinToString(",")
-        val dur = durations.entries.joinToString(";") { "${it.key}:${it.value}" }
-        return listOf(pageIndex, ans, flg, dur, _timer.value).joinToString("|")
-    }
-
     fun pause() {
         flushDuration()
         timerJob?.cancel()
         timerJob = null
         state["timerSec"] = _timer.value
-        resumeStore.save(QuizResumeStore.Store(paperId, snapshot()))
+        resumeStore.save(paperId, answers, flags, pageIndex, _timer.value)
     }
 
     fun resume() {

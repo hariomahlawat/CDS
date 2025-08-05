@@ -12,8 +12,17 @@ class QuizResumeStore @Inject constructor() {
     private val _store = MutableStateFlow<Store?>(null)
     val store: StateFlow<Store?> = _store
 
-    fun save(store: Store) {
-        _store.value = store
+    fun save(
+        paperId: String,
+        answers: Map<Int, Int>,
+        flags: Set<Int>,
+        pageIndex: Int,
+        remaining: Int,
+    ) {
+        val ans = answers.entries.joinToString(";") { "${it.key}:${it.value}" }
+        val flg = flags.joinToString(",")
+        val snapshot = listOf(pageIndex, ans, flg, remaining).joinToString("|")
+        _store.value = Store(paperId, snapshot)
     }
 
     fun restore(snapshot: String) {
