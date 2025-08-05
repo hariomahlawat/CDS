@@ -28,7 +28,7 @@ fun PyqpQuestionEntity.toDomain() = PyqpQuestion(
         AnswerOption(optionB, correctIndex == 1),
         AnswerOption(optionC, correctIndex == 2),
         AnswerOption(optionD, correctIndex == 3)
-    ),
+    ).shuffled(),
     direction = direction,
     passage = passageText,
     passageTitle = passageTitle
