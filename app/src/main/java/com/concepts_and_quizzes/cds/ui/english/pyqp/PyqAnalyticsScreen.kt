@@ -45,7 +45,8 @@ fun PyqAnalyticsScreen(
 
             Spacer(Modifier.height(24.dp))
 
-            vm.weakestTopic()?.let { weak ->
+            val weak = vm.weakestTopic()
+            if (weak != null) {
                 Button(onClick = {
                     nav.navigate("english/pyqp/revision?topic=${weak.topic}")
                 }) {
