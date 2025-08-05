@@ -21,7 +21,7 @@ fun CdsBottomNavBar(navController: NavHostController) {
     val items = listOf(
         NavItem("Dashboard", Icons.Filled.Home, "english/dashboard"),
         NavItem("Concepts", Icons.AutoMirrored.Filled.MenuBook, "english/concepts"),
-        NavItem("Quiz", Icons.Filled.Edit, "english/quiz/t1")
+        NavItem("Quiz", Icons.Filled.Edit, "quizHub")
     )
     NavigationBar {
         val navBackStackEntry = navController.currentBackStackEntryAsState().value
