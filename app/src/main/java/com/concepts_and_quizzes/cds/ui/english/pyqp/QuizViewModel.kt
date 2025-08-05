@@ -144,6 +144,9 @@ class QuizViewModel @Inject constructor(
                 if (next % 60 == 0) {
                     state["timerSec"] = next
                 }
+                if (next % 30 == 0) {
+                    resumeStore.save(QuizResumeStore.Store(paperId, snapshot()))
+                }
                 if (next == 0) {
                     submitQuiz()
                     break
