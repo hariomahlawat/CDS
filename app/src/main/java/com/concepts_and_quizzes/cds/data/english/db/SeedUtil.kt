@@ -75,35 +75,40 @@ class SeedUtil @Inject constructor(
             val questionsJson = root.getJSONArray("questions")
             val qs = mutableListOf<PyqpQuestionEntity>()
             for (i in 0 until questionsJson.length()) {
-                val q = questionsJson.getJSONObject(i)
-                val opts = q.optJSONObject("options") ?: JSONObject()
-                val correct = when (q.optString("correct_answer")) {
-                    "A" -> 0
-                    "B" -> 1
-                    "C" -> 2
-                    "D" -> 3
-                    else -> 3
-                }
-                val dirText = directionsMap[q.optString("direction_id")]
-                val passageId = q.optString("passage_id")
-                val passage = passagesMap[passageId]
-                qs.add(
-                    PyqpQuestionEntity(
-                        qid = "$file-${q.getInt("question_number")}",
-                        paperId = file,
-                        question = q.getString("question"),
-                        optionA = opts.optString("A"),
-                        optionB = opts.optString("B"),
-                        optionC = opts.optString("C"),
-                        optionD = opts.optString("D"),
-                        correctIndex = correct,
-                        direction = dirText,
-                        passageTitle = passage?.first,
-                        passageText = passage?.second,
-                        topic = q.optString("topic"),
-                        subTopic = q.optString("sub_topic")
+                try {
+                    val q = questionsJson.getJSONObject(i)
+                    val opts = q.optJSONObject("options") ?: JSONObject()
+                    val correct = when (q.optString("correct_answer")) {
+                        "A" -> 0
+                        "B" -> 1
+                        "C" -> 2
+                        "D" -> 3
+                        else -> 3
+                    }
+                    val dirText = directionsMap[q.optString("direction_id")]
+                    val passageId = q.optString("passage_id")
+                    val passage = passagesMap[passageId]
+                    qs.add(
+                        PyqpQuestionEntity(
+                            qid = "$file-${q.getInt("question_number")}",
+                            paperId = file,
+                            question = q.getString("question"),
+                            optionA = opts.optString("A"),
+                            optionB = opts.optString("B"),
+                            optionC = opts.optString("C"),
+                            optionD = opts.optString("D"),
+                            correctIndex = correct,
+                            direction = dirText,
+                            passageTitle = passage?.first,
+                            passageText = passage?.second,
+                            topic = q.optString("topic"),
+                            subTopic = q.optString("sub_topic")
+                        )
                     )
-                )
+                } catch (e: org.json.JSONException) {
+                    // Skip malformed questions instead of crashing the seeding process
+                    continue
+                }
             }
             db.pyqpDao().insertAll(qs)
         }
