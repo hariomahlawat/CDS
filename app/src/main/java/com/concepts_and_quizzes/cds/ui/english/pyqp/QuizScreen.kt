@@ -12,6 +12,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.GridOn
@@ -20,13 +21,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
-import kotlinx.coroutines.delay
 
 @Composable
 fun QuizScreen(
@@ -58,13 +60,18 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
         if (pagerState.currentPage != state.pageIndex) vm.goTo(pagerState.currentPage)
     }
 
-    var remaining by remember { mutableStateOf(15 * 60) }
-    LaunchedEffect(Unit) {
-        while (remaining > 0) {
-            delay(1000)
-            remaining--
+    val remaining by vm.timer.collectAsState()
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    DisposableEffect(lifecycle) {
+        val obs = LifecycleEventObserver { _, e ->
+            when (e) {
+                Lifecycle.Event.ON_START -> vm.resume()
+                Lifecycle.Event.ON_STOP -> vm.pause()
+                else -> Unit
+            }
         }
-        vm.submit()
+        lifecycle.addObserver(obs)
+        onDispose { lifecycle.removeObserver(obs) }
     }
     var showSubmit by remember { mutableStateOf(false) }
     var showPalette by remember { mutableStateOf(false) }
@@ -75,7 +82,12 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
                 is QuizViewModel.QuizPage.Question -> {
                     Text("${page.questionIndex + 1} / ${state.questionCount}")
                     Spacer(Modifier.weight(1f))
-                    Text(String.format("%02d:%02d", remaining / 60, remaining % 60))
+                    val color = when {
+                        remaining <= 5 * 60 -> MaterialTheme.colorScheme.error
+                        remaining <= 10 * 60 -> MaterialTheme.colorScheme.tertiary
+                        else -> LocalContentColor.current
+                    }
+                    Text(String.format("%02d:%02d", remaining / 60, remaining % 60), color = color)
                     IconButton(onClick = { showPalette = true }) {
                         Icon(Icons.Filled.GridOn, contentDescription = "Question palette")
                     }
@@ -86,7 +98,12 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
                 }
                 is QuizViewModel.QuizPage.Intro -> {
                     Spacer(Modifier.weight(1f))
-                    Text(String.format("%02d:%02d", remaining / 60, remaining % 60))
+                    val color = when {
+                        remaining <= 5 * 60 -> MaterialTheme.colorScheme.error
+                        remaining <= 10 * 60 -> MaterialTheme.colorScheme.tertiary
+                        else -> LocalContentColor.current
+                    }
+                    Text(String.format("%02d:%02d", remaining / 60, remaining % 60), color = color)
                     IconButton(onClick = { showPalette = true }) {
                         Icon(Icons.Filled.GridOn, contentDescription = "Question palette")
                     }
