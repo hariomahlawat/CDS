@@ -21,9 +21,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -75,16 +75,16 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
         lifecycle.addObserver(obs)
         onDispose { lifecycle.removeObserver(obs) }
     }
-    val accessibilityManager = LocalAccessibilityManager.current
+    val view = LocalView.current
     var announcedTen by remember { mutableStateOf(false) }
     var announcedFive by remember { mutableStateOf(false) }
     LaunchedEffect(remaining) {
         if (!announcedTen && remaining == 10 * 60) {
-            accessibilityManager?.announceForAccessibility("10 minutes remaining")
+            view.announceForAccessibility("10 minutes remaining")
             announcedTen = true
         }
         if (!announcedFive && remaining == 5 * 60) {
-            accessibilityManager?.announceForAccessibility("5 minutes remaining")
+            view.announceForAccessibility("5 minutes remaining")
             announcedFive = true
         }
     }
