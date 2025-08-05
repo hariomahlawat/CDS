@@ -8,13 +8,19 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.background
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Flag
+import androidx.compose.material.icons.filled.GridOn
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -61,6 +67,7 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
         vm.submit()
     }
     var showSubmit by remember { mutableStateOf(false) }
+    var showPalette by remember { mutableStateOf(false) }
 
     Column(Modifier.fillMaxSize().padding(16.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -69,6 +76,9 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
                     Text("${page.questionIndex + 1} / ${state.questionCount}")
                     Spacer(Modifier.weight(1f))
                     Text(String.format("%02d:%02d", remaining / 60, remaining % 60))
+                    IconButton(onClick = { showPalette = true }) {
+                        Icon(Icons.Filled.GridOn, contentDescription = "Question palette")
+                    }
                     IconButton(onClick = vm::toggleFlag) {
                         if (page.flagged) Icon(Icons.Filled.Flag, contentDescription = "Flagged")
                         else Icon(Icons.Outlined.Flag, contentDescription = "Flag question")
@@ -77,6 +87,9 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
                 is QuizViewModel.QuizPage.Intro -> {
                     Spacer(Modifier.weight(1f))
                     Text(String.format("%02d:%02d", remaining / 60, remaining % 60))
+                    IconButton(onClick = { showPalette = true }) {
+                        Icon(Icons.Filled.GridOn, contentDescription = "Question palette")
+                    }
                 }
             }
         }
@@ -134,6 +147,17 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
             },
             title = { Text("Submit quiz?") },
             text = { Text("Are you sure you want to submit?") }
+        )
+    }
+
+    if (showPalette) {
+        PaletteDialog(
+            vm.questionPalette(),
+            onSelect = {
+                vm.goToQuestion(it)
+                showPalette = false
+            },
+            onDismiss = { showPalette = false }
         )
     }
 }
@@ -232,6 +256,42 @@ private fun OptionCard(selected: Boolean, text: String, onClick: () -> Unit) {
     ) {
         Text(text, Modifier.padding(16.dp))
     }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun PaletteDialog(
+    entries: List<QuizViewModel.PaletteEntry>,
+    onSelect: (Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {},
+        title = { Text("Jump to question") },
+        text = {
+            LazyVerticalGrid(columns = GridCells.Fixed(5), modifier = Modifier.heightIn(max = 200.dp)) {
+                items(entries.size) { idx ->
+                    val e = entries[idx]
+                    val color = when {
+                        e.flagged -> MaterialTheme.colorScheme.secondaryContainer
+                        e.answered -> MaterialTheme.colorScheme.primaryContainer
+                        else -> MaterialTheme.colorScheme.surfaceVariant
+                    }
+                    Box(
+                        modifier = Modifier
+                            .padding(4.dp)
+                            .size(48.dp)
+                            .background(color, RoundedCornerShape(8.dp))
+                            .clickable { onSelect(e.questionIndex) },
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("${e.questionIndex + 1}")
+                    }
+                }
+            }
+        }
+    )
 }
 
 @Composable

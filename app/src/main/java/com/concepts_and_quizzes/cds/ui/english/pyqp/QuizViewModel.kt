@@ -134,6 +134,22 @@ class QuizViewModel @Inject constructor(
         }
     }
 
+    fun goToQuestion(questionIndex: Int) {
+        val page = pages.indexOfFirst { it is Item.Question && it.questionIndex == questionIndex }
+        if (page != -1) {
+            pageIndex = page
+            emitPage()
+        }
+    }
+
+    data class PaletteEntry(val questionIndex: Int, val answered: Boolean, val flagged: Boolean)
+
+    fun questionPalette(): List<PaletteEntry> {
+        return (0 until questionCount).map { i ->
+            PaletteEntry(i, answers.containsKey(i), flags.contains(i))
+        }
+    }
+
     fun submit() {
         val correct = answers.count { (i, ans) -> questions[i].options[ans].isCorrect }
         _ui.value = QuizUi.Result(correct, questions.size)
