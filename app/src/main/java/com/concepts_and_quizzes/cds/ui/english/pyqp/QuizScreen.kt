@@ -14,16 +14,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import android.app.Activity
+import android.os.SystemClock
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.GridOn
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material3.*
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -32,6 +35,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
+import kotlinx.coroutines.launch
 
 @Composable
 fun QuizScreen(
@@ -42,12 +46,31 @@ fun QuizScreen(
     val ui by vm.ui.collectAsState()
     val showResult by vm.showResult.collectAsState()
     val result by vm.result.collectAsState()
+    val snackbarHost = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    var lastBack by remember { mutableStateOf(0L) }
 
-    when (val state = ui) {
-        is QuizViewModel.QuizUi.Loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator()
+    BackHandler {
+        vm.pause()
+        val now = SystemClock.elapsedRealtime()
+        if (now - lastBack < 2000) {
+            (context as? Activity)?.finish()
+        } else {
+            lastBack = now
+            scope.launch { snackbarHost.showSnackbar("Paused • tap again to exit") }
         }
-        is QuizViewModel.QuizUi.Page -> QuizPager(vm, state)
+    }
+
+    Scaffold(snackbarHost = { SnackbarHost(snackbarHost) }) { padding ->
+        Box(Modifier.padding(padding)) {
+            when (val state = ui) {
+                is QuizViewModel.QuizUi.Loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+                is QuizViewModel.QuizUi.Page -> QuizPager(vm, state)
+            }
+        }
     }
 
     if (showResult) {
