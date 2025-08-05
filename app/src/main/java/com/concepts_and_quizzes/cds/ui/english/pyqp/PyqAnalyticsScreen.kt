@@ -48,7 +48,7 @@ fun PyqAnalyticsScreen(
             val weak = vm.weakestTopic()
             if (weak != null) {
                 Button(onClick = {
-                    nav.navigate("english/pyqp/revision?topic=${weak.topic}")
+                    nav.navigate("english/pyqp?mode=WRONGS&topic=${weak.topic}")
                 }) {
                     Text("Retake weakest topic (${weak.topic})")
                 }
@@ -91,7 +91,7 @@ private fun TopicBarList(stats: List<TopicStat>) {
                 Canvas(Modifier.weight(1f).height(16.dp)) {
                     val frac = if (max == 0f) 0f else s.percent / max
                     drawRect(
-                        color = MaterialTheme.colorScheme.primary,
+                        color = MaterialTheme.colorScheme.tertiary,
                         size = Size(size.width * frac, size.height)
                     )
                 }

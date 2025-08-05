@@ -7,6 +7,9 @@ import com.concepts_and_quizzes.cds.data.analytics.db.TopicStat as PyqTopicStat
 import com.concepts_and_quizzes.cds.domain.analytics.QuestionDiscrimination
 import com.concepts_and_quizzes.cds.domain.analytics.TopicDifficulty
 import com.concepts_and_quizzes.cds.domain.analytics.TopicTrendPoint
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
 import javax.inject.Inject
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -29,7 +32,13 @@ class AnalyticsRepository @Inject constructor(
         LAST_7(7), LAST_30(30), LIFETIME(null);
 
         fun cutoff(now: Long = System.currentTimeMillis()): Long =
-            days?.let { now - it * 86_400_000L } ?: 0L
+            days?.let {
+                Instant.ofEpochMilli(now).atZone(ZoneId.systemDefault()).toLocalDate()
+                    .minusDays(it.toLong())
+                    .atStartOfDay(ZoneId.systemDefault())
+                    .toInstant()
+                    .toEpochMilli()
+            } ?: 0L
     }
 
     fun topicSnapshot(window: Window): Flow<List<PyqTopicStat>> =

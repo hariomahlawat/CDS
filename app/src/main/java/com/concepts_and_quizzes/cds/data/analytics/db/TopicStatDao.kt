@@ -13,12 +13,12 @@ interface TopicStatDao {
         """
         SELECT q.topic AS topic,
                COUNT(*) AS total,
-               SUM(CASE WHEN a.correct THEN 1 ELSE 0 END) AS correct
+               SUM(a.correct) AS correct
         FROM attempt_log AS a
         JOIN pyqp_questions AS q ON q.qid = a.qid
         WHERE a.timestamp >= :cutoffTime
         GROUP BY q.topic
-        ORDER BY correct * 1.0 / total DESC
+        ORDER BY (SUM(a.correct) * 1.0 / COUNT(*)) DESC
         """
     )
     fun topicSnapshot(cutoffTime: Long): Flow<List<TopicStat>>
