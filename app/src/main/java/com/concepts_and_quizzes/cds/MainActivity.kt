@@ -32,7 +32,14 @@ private fun CDSApp() {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
-        val showBottomBar = currentRoute != null
+        val bottomBarRoutes = setOf(
+            "english/dashboard",
+            "english/concepts",
+            "quizHub",
+            "english/pyqp?mode={mode}&topic={topic}",
+            "analytics/pyq"
+        )
+        val showBottomBar = currentRoute in bottomBarRoutes
 
         Scaffold(bottomBar = { if (showBottomBar) CdsBottomNavBar(navController) }) { padding ->
             NavHost(

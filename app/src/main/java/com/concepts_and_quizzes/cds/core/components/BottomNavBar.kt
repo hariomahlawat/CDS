@@ -27,8 +27,16 @@ fun CdsBottomNavBar(navController: NavHostController) {
         val navBackStackEntry = navController.currentBackStackEntryAsState().value
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { item ->
+            val selected = when (item.route) {
+                "english/dashboard" -> currentRoute == "english/dashboard"
+                "english/concepts" -> currentRoute?.startsWith("english/concepts") == true
+                "quizHub" -> currentRoute == "quizHub" ||
+                    currentRoute?.startsWith("english/pyqp") == true ||
+                    currentRoute == "analytics/pyq"
+                else -> false
+            }
             NavigationBarItem(
-                selected = currentRoute == item.route,
+                selected = selected,
                 onClick = {
                     navController.navigate(item.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
