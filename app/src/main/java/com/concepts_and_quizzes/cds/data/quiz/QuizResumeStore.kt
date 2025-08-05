@@ -12,7 +12,7 @@ class QuizResumeStore @Inject constructor() {
     private val _store = MutableStateFlow<Store?>(null)
     val store: StateFlow<Store?> = _store
 
-    fun update(store: Store) {
+    fun save(store: Store) {
         _store.value = store
     }
 
