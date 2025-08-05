@@ -1,14 +1,16 @@
 package com.concepts_and_quizzes.cds.ui.english.pyqp
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.SavedStateHandle
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -17,9 +19,9 @@ import kotlinx.coroutines.launch
 class QuizViewModel @Inject constructor(
     private val repo: PyqpRepository,
     private val progressDao: PyqpProgressDao,
-    savedStateHandle: SavedStateHandle
+    private val state: SavedStateHandle
 ) : ViewModel() {
-    private val paperId: String = savedStateHandle["paperId"]!!
+    private val paperId: String = state["paperId"]!!
 
     private val _ui = MutableStateFlow<QuizUi>(QuizUi.Loading)
     val ui: StateFlow<QuizUi> = _ui
@@ -29,6 +31,10 @@ class QuizViewModel @Inject constructor(
     private var questions: List<PyqpQuestion> = emptyList()
     private val answers = mutableMapOf<Int, Int>()
     private val flags = mutableSetOf<Int>()
+
+    private val _timer = MutableStateFlow(state["timerSec"] ?: 120 * 60)
+    val timer: StateFlow<Int> = _timer
+    private var timerJob: Job? = null
 
     val pageCount: Int get() = pages.size
     val questionCount: Int get() = questions.size
@@ -54,6 +60,7 @@ class QuizViewModel @Inject constructor(
                     buildPages(qs)
                     pageIndex = 0
                     emitPage()
+                    resume()
                 }
             }
         }
@@ -94,6 +101,28 @@ class QuizViewModel @Inject constructor(
                 )
             )
         }
+    }
+
+    private fun startTimer() {
+        if (timerJob != null) return
+        timerJob = viewModelScope.launch {
+            while (_timer.value > 0) {
+                delay(1_000)
+                val next = _timer.value - 1
+                _timer.value = next
+                state["timerSec"] = next
+            }
+            submit()
+        }
+    }
+
+    fun pause() {
+        timerJob?.cancel()
+        timerJob = null
+    }
+
+    fun resume() {
+        if (_timer.value > 0) startTimer()
     }
 
     fun select(idx: Int) {
