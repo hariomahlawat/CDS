@@ -34,6 +34,7 @@ It is intended to be updated whenever new features are added or existing functio
 - `ui/english/pyqp/PyqpPaperListScreen.kt` – Lists available previous year papers.
 - `ui/english/pyqp/QuizScreen.kt` – Runs a quiz for a selected paper with a countdown timer (pause/resume on lifecycle events), question flagging and a palette for quick navigation, showing section intro pages and collapsible headers for passages or directions.
 - `ui/english/pyqp/PyqpListViewModel.kt`, `QuizViewModel.kt` – View models for paper list and quiz screens with paging and section intro logic.
+- `ui/english/quiz/QuizHubScreen.kt`, `QuizHubViewModel.kt` – Hub for starting or resuming previous year question practice and accessing analytics.
 - `ui/english/quiz/QuizScreen.kt` – Placeholder quiz view for a topic.
 - `ui/english/analysis/AnalysisScreen.kt` – Placeholder analysis screen.
 
