@@ -1,0 +1,25 @@
+package com.concepts_and_quizzes.cds.data.analytics.db
+
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+
+/**
+ * Room entity representing a single question attempt. One row per question per quiz attempt.
+ */
+@Entity(
+    tableName = "attempt_log",
+    indices = [
+        Index(value = ["qid"], name = "idx_attempt_qid"),
+        Index(value = ["timestamp"], name = "idx_attempt_time")
+    ]
+)
+data class AttemptLogEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val qid: String,
+    val quizId: String,
+    val correct: Boolean,
+    val flagged: Boolean,
+    val durationMs: Int,
+    val timestamp: Long
+)
