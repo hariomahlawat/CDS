@@ -51,7 +51,10 @@ object EnglishDatabaseModule {
 
     @Provides
     @Singleton
-    fun providePyqpRepository(pyqpDao: PyqpDao): PyqpRepository = PyqpRepository(pyqpDao)
+    fun providePyqpRepository(
+        pyqpDao: PyqpDao,
+        attemptDao: AttemptLogDao
+    ): PyqpRepository = PyqpRepository(pyqpDao, attemptDao)
 
     @Provides
     @Singleton

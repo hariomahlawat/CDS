@@ -2,13 +2,7 @@ package com.concepts_and_quizzes.cds.ui.english.pyqp
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.FilterChip
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -20,6 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicStat
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -88,16 +84,23 @@ private fun TopicBarList(stats: List<TopicStat>) {
         stats.take(10).forEach { s ->
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(s.topic, Modifier.width(120.dp))
-                Canvas(Modifier.weight(1f).height(16.dp)) {
+                val pct = "%.0f".format(s.percent)
+                val container = MaterialTheme.colorScheme.tertiaryContainer
+                val content = contentColorFor(container)
+                Canvas(
+                    Modifier
+                        .weight(1f)
+                        .height(16.dp)
+                        .semantics { contentDescription = "${s.topic} $pct percent correct" }
+                ) {
                     val frac = if (max == 0f) 0f else s.percent / max
                     drawRect(
-                        color = MaterialTheme.colorScheme.tertiary,
+                        color = container,
                         size = Size(size.width * frac, size.height)
                     )
                 }
                 Spacer(Modifier.width(8.dp))
-                val pct = "%.0f".format(s.percent)
-                Text("$pct %")
+                Text("$pct %", color = content)
             }
         }
     }

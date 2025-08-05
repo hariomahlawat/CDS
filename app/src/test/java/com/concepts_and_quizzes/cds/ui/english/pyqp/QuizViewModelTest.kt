@@ -11,6 +11,7 @@ import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
 import com.concepts_and_quizzes.cds.data.english.model.PyqpQuestionEntity
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
+import com.concepts_and_quizzes.cds.data.quiz.QuizResumeStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
@@ -47,9 +48,9 @@ class QuizViewModelTest {
             override suspend fun insertAll(questions: List<PyqpQuestionEntity>) {}
             override fun getDistinctPaperIds(): Flow<List<String>> = flowOf(listOf("paper"))
             override fun getQuestionsByPaper(paperId: String): Flow<List<PyqpQuestionEntity>> = flowOf(questions)
+            override suspend fun getQuestionsByIds(qids: List<String>): List<PyqpQuestionEntity> = emptyList()
             override suspend fun count(): Int = 0
         }
-        val repo = PyqpRepository(dao)
         val progressDao = object : PyqpProgressDao {
             override suspend fun upsert(progress: PyqpProgress) {}
             override fun getAll(): Flow<List<PyqpProgress>> = MutableStateFlow(emptyList())
@@ -59,6 +60,7 @@ class QuizViewModelTest {
             override suspend fun insertAll(attempts: List<AttemptLogEntity>) {
                 inserted.addAll(attempts)
             }
+            override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
             override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
             override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
             override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> = flowOf(emptyList())
@@ -67,7 +69,8 @@ class QuizViewModelTest {
             override fun topicSnapshot(cutoffTime: Long): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.TopicStat>> = flowOf(emptyList())
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
-        val vm = QuizViewModel(repo, progressDao, analytics, SavedStateHandle(mapOf("paperId" to "paper")))
+        val repo = PyqpRepository(dao, attemptDao)
+        val vm = QuizViewModel(repo, progressDao, analytics, QuizResumeStore(), SavedStateHandle(mapOf("paperId" to "paper")))
         advanceUntilIdle()
 
         val q1 = vm.pageContent(0) as QuizViewModel.QuizPage.Question
@@ -91,5 +94,42 @@ class QuizViewModelTest {
         assertEquals(2, res.correct)
         assertEquals(3, res.total)
         assertEquals(3, inserted.size)
+    }
+
+    @Test
+    fun loadsWrongOnlyQuestions() = runTest {
+        val dao = object : PyqpDao {
+            override suspend fun insertAll(questions: List<PyqpQuestionEntity>) {}
+            override fun getDistinctPaperIds(): Flow<List<String>> = flowOf(emptyList())
+            override fun getQuestionsByPaper(paperId: String): Flow<List<PyqpQuestionEntity>> = flowOf(emptyList())
+            override suspend fun getQuestionsByIds(qids: List<String>): List<PyqpQuestionEntity> =
+                questions.filter { it.qid in qids }
+            override suspend fun count(): Int = 0
+        }
+        val progressDao = object : PyqpProgressDao {
+            override suspend fun upsert(progress: PyqpProgress) {}
+            override fun getAll(): Flow<List<PyqpProgress>> = MutableStateFlow(emptyList())
+        }
+        val attemptDao = object : AttemptLogDao {
+            override suspend fun insertAll(attempts: List<AttemptLogEntity>) {}
+            override suspend fun latestWrongQids(topicId: String): List<String> = listOf("q1", "q2")
+            override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
+            override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
+            override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> = flowOf(emptyList())
+        }
+        val topicStatDao = object : com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao {
+            override fun topicSnapshot(cutoffTime: Long): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.TopicStat>> = flowOf(emptyList())
+        }
+        val analytics = AnalyticsRepository(attemptDao, topicStatDao)
+        val repo = PyqpRepository(dao, attemptDao)
+        val vm = QuizViewModel(
+            repo,
+            progressDao,
+            analytics,
+            QuizResumeStore(),
+            SavedStateHandle(mapOf("mode" to "WRONGS", "topic" to "grammar"))
+        )
+        advanceUntilIdle()
+        assertEquals(2, vm.questionCount)
     }
 }
