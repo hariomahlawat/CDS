@@ -14,21 +14,6 @@ interface AttemptLogDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(attempts: List<AttemptLogEntity>)
 
-    // --- Topic snapshot ---
-    @Query(
-        """
-        SELECT q.topicId AS topicId,
-               COUNT(*) AS total,
-               SUM(CASE WHEN a.correct THEN 1 ELSE 0 END) AS correct,
-               AVG(a.durationMs) AS avgDurationMs,
-               SUM(CASE WHEN a.flagged THEN 1 ELSE 0 END) AS flagged
-        FROM attempt_log a
-        JOIN english_questions q ON a.qid = q.qid
-        GROUP BY q.topicId
-        """
-    )
-    fun getTopicSnapshot(): Flow<List<TopicSnapshotDb>>
-
     // --- Trend over time ---
     @Query(
         """
@@ -84,14 +69,6 @@ interface AttemptLogDao {
 }
 
 // --- Data classes for query results ---
-
-data class TopicSnapshotDb(
-    val topicId: String,
-    val total: Int,
-    val correct: Int,
-    val avgDurationMs: Double,
-    val flagged: Int
-)
 
 data class TopicTrendPointDb(
     val topicId: String,

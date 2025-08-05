@@ -10,6 +10,7 @@ import com.concepts_and_quizzes.cds.ui.english.concepts.ConceptsHomeScreen
 import com.concepts_and_quizzes.cds.ui.english.dashboard.EnglishDashboardScreen
 import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqpPaperListScreen
+import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqAnalyticsScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.QuizScreen as PyqpQuizScreen
 
 fun NavGraphBuilder.rootGraph(nav: NavHostController) {
@@ -21,6 +22,7 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     }
     composable("quizHub") { QuizHubScreen(nav) }
     composable("english/pyqp") { PyqpPaperListScreen(nav) }
+    composable("analytics/pyq") { PyqAnalyticsScreen(nav) }
     composable(
         route = "english/pyqp/{paperId}",
         arguments = listOf(navArgument("paperId") { type = NavType.StringType })

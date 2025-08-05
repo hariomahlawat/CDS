@@ -15,5 +15,7 @@ data class PyqpQuestionEntity(
     val correctIndex: Int,
     val direction: String? = null,
     val passageTitle: String? = null,
-    val passageText: String? = null
+    val passageText: String? = null,
+    val topic: String = "",
+    val subTopic: String = ""
 )
