@@ -3,6 +3,7 @@ package com.concepts_and_quizzes.cds.ui.english.pyqp
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -20,6 +21,7 @@ import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicStat
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PyqAnalyticsScreen(
     nav: NavController,
