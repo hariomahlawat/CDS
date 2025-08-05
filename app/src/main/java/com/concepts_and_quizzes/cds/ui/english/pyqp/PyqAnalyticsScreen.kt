@@ -38,18 +38,18 @@ fun PyqAnalyticsScreen(
 
             if (stats.isEmpty()) {
                 Text("Attempt a PYQ to unlock analytics.")
-                return@Column
-            }
+            } else {
+                TopicBarList(stats)
 
-            TopicBarList(stats)
+                Spacer(Modifier.height(24.dp))
 
-            Spacer(Modifier.height(24.dp))
-
-            vm.weakestTopic()?.let { weak ->
-                Button(onClick = {
-                    nav.navigate("english/pyqp/revision?topic=${weak.topic}")
-                }) {
-                    Text("Retake weakest topic (${weak.topic})")
+                val weak = vm.weakestTopic()
+                if (weak != null) {
+                    Button(onClick = {
+                        nav.navigate("english/pyqp/revision?topic=${weak.topic}")
+                    }) {
+                        Text("Retake weakest topic (${weak.topic})")
+                    }
                 }
             }
         }
