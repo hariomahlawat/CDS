@@ -51,6 +51,7 @@ class QuizViewModel @Inject constructor(
     private val _timer = MutableStateFlow(state["timerSec"] ?: 120 * 60)
     val timer: StateFlow<Int> = _timer
     private var timerJob: Job? = null
+    private var submitted = false
 
     val pageCount: Int get() = pages.size
     val questionCount: Int get() = questions.size
@@ -170,6 +171,43 @@ class QuizViewModel @Inject constructor(
         }
     }
 
+    fun restore(snapshot: String) {
+        val parts = snapshot.split("|")
+        if (parts.size < 4) return
+        pageIndex = parts[0].toIntOrNull() ?: 0
+        answers.clear()
+        if (parts[1].isNotBlank()) {
+            parts[1].split(";").forEach { entry ->
+                val kv = entry.split(":")
+                if (kv.size == 2) {
+                    val q = kv[0].toIntOrNull()
+                    val a = kv[1].toIntOrNull()
+                    if (q != null && a != null) {
+                        answers[q] = a
+                    }
+                }
+            }
+        }
+        flags.clear()
+        if (parts[2].isNotBlank()) {
+            parts[2].split(",").forEach { f ->
+                f.toIntOrNull()?.let { flags.add(it) }
+            }
+        }
+        val remaining = parts[3].toIntOrNull() ?: 0
+        _timer.value = remaining
+        state["timerSec"] = remaining
+        submitted = false
+        _result.value = null
+        _showResult.value = false
+        state["showResult"] = false
+        emitPage()
+        if (remaining > 0) {
+            questionStartMs = SystemClock.elapsedRealtime()
+            startTimer()
+        }
+    }
+
     fun select(idx: Int) {
         val item = pages[pageIndex]
         if (item is Item.Question) {
@@ -232,6 +270,7 @@ class QuizViewModel @Inject constructor(
     fun submitQuiz() {
         timerJob?.cancel()
         timerJob = null
+        submitted = true
         flushDuration()
         val now = System.currentTimeMillis()
         val attempts = questions.mapIndexed { i, q ->
