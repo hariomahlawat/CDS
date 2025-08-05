@@ -3,6 +3,7 @@ package com.concepts_and_quizzes.cds.ui.english.pyqp
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -298,6 +299,7 @@ private fun OptionCard(selected: Boolean, text: String, onClick: () -> Unit) {
             .fillMaxWidth()
             .padding(vertical = 4.dp),
         onClick = onClick,
+        border = if (selected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else null,
         colors = CardDefaults.cardColors(
             containerColor = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
         )

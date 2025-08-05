@@ -8,6 +8,3 @@ data class PyqpQuestion(
     val passage: String? = null,
     val passageTitle: String? = null
 )
-
-fun PyqpQuestion.shuffledOptions(): PyqpQuestion =
-    copy(options = options.shuffled())
