@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.concepts_and_quizzes.cds.data.english.repo.EnglishRepository
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
+import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
+import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,6 +36,9 @@ object EnglishDatabaseModule {
     fun providePyqpProgressDao(db: EnglishDatabase): PyqpProgressDao = db.pyqpProgressDao()
 
     @Provides
+    fun provideAttemptLogDao(db: EnglishDatabase): AttemptLogDao = db.attemptLogDao()
+
+    @Provides
     @Singleton
     fun provideEnglishRepository(
         topicDao: EnglishTopicDao,
@@ -43,4 +48,9 @@ object EnglishDatabaseModule {
     @Provides
     @Singleton
     fun providePyqpRepository(pyqpDao: PyqpDao): PyqpRepository = PyqpRepository(pyqpDao)
+
+    @Provides
+    @Singleton
+    fun provideAnalyticsRepository(attemptDao: AttemptLogDao): AnalyticsRepository =
+        AnalyticsRepository(attemptDao)
 }
