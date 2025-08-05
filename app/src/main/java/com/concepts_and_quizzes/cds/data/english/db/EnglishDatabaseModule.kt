@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.concepts_and_quizzes.cds.data.english.repo.EnglishRepository
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
+import com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import dagger.Module
 import dagger.Provides
@@ -39,6 +40,9 @@ object EnglishDatabaseModule {
     fun provideAttemptLogDao(db: EnglishDatabase): AttemptLogDao = db.attemptLogDao()
 
     @Provides
+    fun provideTopicStatDao(db: EnglishDatabase): TopicStatDao = db.topicStatDao()
+
+    @Provides
     @Singleton
     fun provideEnglishRepository(
         topicDao: EnglishTopicDao,
@@ -51,6 +55,9 @@ object EnglishDatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAnalyticsRepository(attemptDao: AttemptLogDao): AnalyticsRepository =
-        AnalyticsRepository(attemptDao)
+    fun provideAnalyticsRepository(
+        attemptDao: AttemptLogDao,
+        topicStatDao: TopicStatDao
+    ): AnalyticsRepository =
+        AnalyticsRepository(attemptDao, topicStatDao)
 }

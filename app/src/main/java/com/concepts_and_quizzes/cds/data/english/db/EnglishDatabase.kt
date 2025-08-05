@@ -16,7 +16,7 @@ import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
         PyqpProgress::class,
         AttemptLogEntity::class
     ],
-    version = 5
+    version = 6
 )
 abstract class EnglishDatabase : RoomDatabase() {
     abstract fun topicDao(): EnglishTopicDao
@@ -24,4 +24,5 @@ abstract class EnglishDatabase : RoomDatabase() {
     abstract fun pyqpDao(): PyqpDao
     abstract fun pyqpProgressDao(): PyqpProgressDao
     abstract fun attemptLogDao(): com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
+    abstract fun topicStatDao(): com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
 }

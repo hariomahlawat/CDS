@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicDifficultyDb
-import com.concepts_and_quizzes.cds.data.analytics.db.TopicSnapshotDb
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicTrendPointDb
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.english.db.PyqpDao
@@ -60,12 +59,14 @@ class QuizViewModelTest {
             override suspend fun insertAll(attempts: List<AttemptLogEntity>) {
                 inserted.addAll(attempts)
             }
-            override fun getTopicSnapshot(): Flow<List<TopicSnapshotDb>> = flowOf(emptyList())
             override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
             override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
             override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> = flowOf(emptyList())
         }
-        val analytics = AnalyticsRepository(attemptDao)
+        val topicStatDao = object : com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao {
+            override fun topicSnapshot(cutoffTime: Long): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.TopicStat>> = flowOf(emptyList())
+        }
+        val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val vm = QuizViewModel(repo, progressDao, analytics, SavedStateHandle(mapOf("paperId" to "paper")))
         advanceUntilIdle()
 

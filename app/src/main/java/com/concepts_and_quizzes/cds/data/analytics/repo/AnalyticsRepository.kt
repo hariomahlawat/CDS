@@ -2,9 +2,10 @@ package com.concepts_and_quizzes.cds.data.analytics.repo
 
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
+import com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
+import com.concepts_and_quizzes.cds.data.analytics.db.TopicStat as PyqTopicStat
 import com.concepts_and_quizzes.cds.domain.analytics.QuestionDiscrimination
 import com.concepts_and_quizzes.cds.domain.analytics.TopicDifficulty
-import com.concepts_and_quizzes.cds.domain.analytics.TopicStat
 import com.concepts_and_quizzes.cds.domain.analytics.TopicTrendPoint
 import javax.inject.Inject
 import kotlin.math.pow
@@ -18,18 +19,21 @@ import kotlinx.coroutines.flow.map
  * Repository exposing analytics metrics as [Flow]s.
  */
 class AnalyticsRepository @Inject constructor(
-    private val attemptDao: AttemptLogDao
+    private val attemptDao: AttemptLogDao,
+    private val topicStatDao: TopicStatDao
 ) {
     suspend fun insertAttempts(attempts: List<AttemptLogEntity>) =
         attemptDao.insertAll(attempts)
 
-    fun getTopicSnapshot(): Flow<List<TopicStat>> =
-        attemptDao.getTopicSnapshot()
-            .map { list ->
-                list.map {
-                    TopicStat(it.topicId, it.total, it.correct, it.avgDurationMs, it.flagged)
-                }
-            }
+    enum class Window(val days: Int?) {
+        LAST_7(7), LAST_30(30), LIFETIME(null);
+
+        fun cutoff(now: Long = System.currentTimeMillis()): Long =
+            days?.let { now - it * 86_400_000L } ?: 0L
+    }
+
+    fun topicSnapshot(window: Window): Flow<List<PyqTopicStat>> =
+        topicStatDao.topicSnapshot(window.cutoff())
             .flowOn(Dispatchers.IO)
 
     fun getTrend(periodDays: Int = 30): Flow<List<TopicTrendPoint>> {

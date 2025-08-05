@@ -75,7 +75,7 @@ fun QuizScreen(
 
     if (showResult) {
         result?.let { r ->
-            ResultView(r) {
+            ResultView(r, nav) {
                 vm.saveProgress()
                 vm.dismissResult()
                 nav.popBackStack()
@@ -392,11 +392,26 @@ private fun LegendChip(color: Color, label: String) {
 }
 
 @Composable
-private fun ResultView(r: QuizViewModel.QuizResult, onClose: () -> Unit) {
+private fun ResultView(
+    r: QuizViewModel.QuizResult,
+    nav: NavController,
+    onClose: () -> Unit
+) {
     AlertDialog(
         onDismissRequest = onClose,
         confirmButton = { TextButton(onClick = onClose) { Text("Done") } },
         title = { Text("Result") },
-        text = { Text("Score: ${r.correct}/${r.total}") }
+        text = {
+            Column {
+                Text("Score: ${r.correct}/${r.total}")
+                Spacer(Modifier.height(12.dp))
+                Button(onClick = {
+                    onClose()
+                    nav.navigate("analytics/pyq")
+                }) {
+                    Text("View analytics")
+                }
+            }
+        }
     )
 }

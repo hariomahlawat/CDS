@@ -99,7 +99,9 @@ class SeedUtil @Inject constructor(
                         correctIndex = correct,
                         direction = dirText,
                         passageTitle = passage?.first,
-                        passageText = passage?.second
+                        passageText = passage?.second,
+                        topic = q.optString("topic"),
+                        subTopic = q.optString("sub_topic")
                     )
                 )
             }

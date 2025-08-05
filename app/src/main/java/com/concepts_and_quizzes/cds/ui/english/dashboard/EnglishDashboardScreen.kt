@@ -21,7 +21,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
         CdsCard {
             Column(
                 Modifier
-                    .clickable { nav.navigate("english/pyqp") }
+                    .clickable { nav.navigate("analytics/pyq") }
                     .padding(16.dp)
             ) {
                 Text("PYQ Summary")
