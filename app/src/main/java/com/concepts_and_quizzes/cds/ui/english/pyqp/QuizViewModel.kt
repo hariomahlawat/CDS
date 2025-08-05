@@ -9,6 +9,7 @@ import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
+import com.concepts_and_quizzes.cds.data.quiz.QuizResumeStore
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -24,6 +25,7 @@ class QuizViewModel @Inject constructor(
     private val repo: PyqpRepository,
     private val progressDao: PyqpProgressDao,
     private val analytics: AnalyticsRepository,
+    private val resumeStore: QuizResumeStore,
     private val state: SavedStateHandle
 ) : ViewModel() {
     private val paperId: String = state["paperId"]!!
@@ -150,11 +152,19 @@ class QuizViewModel @Inject constructor(
         }
     }
 
+    private fun snapshot(): String {
+        val ans = answers.entries.joinToString(";") { "${it.key}:${it.value}" }
+        val flg = flags.joinToString(",")
+        val dur = durations.entries.joinToString(";") { "${it.key}:${it.value}" }
+        return listOf(pageIndex, ans, flg, dur, _timer.value).joinToString("|")
+    }
+
     fun pause() {
         flushDuration()
         timerJob?.cancel()
         timerJob = null
         state["timerSec"] = _timer.value
+        resumeStore.save(QuizResumeStore.Store(paperId, snapshot()))
     }
 
     fun resume() {
