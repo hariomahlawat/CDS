@@ -3,6 +3,8 @@ package com.concepts_and_quizzes.cds.ui.english.pyqp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
+import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
@@ -20,6 +22,7 @@ import kotlinx.coroutines.launch
 class QuizViewModel @Inject constructor(
     private val repo: PyqpRepository,
     private val progressDao: PyqpProgressDao,
+    private val analytics: AnalyticsRepository,
     private val state: SavedStateHandle
 ) : ViewModel() {
     private val paperId: String = state["paperId"]!!
@@ -32,6 +35,9 @@ class QuizViewModel @Inject constructor(
     private var questions: List<PyqpQuestion> = emptyList()
     private val answers = mutableMapOf<Int, Int>()
     private val flags = mutableSetOf<Int>()
+    private val durations = mutableMapOf<Int, Int>()
+    private var currentQuestion: Int? = null
+    private var questionStart = System.currentTimeMillis()
 
     private val _timer = MutableStateFlow(state["timerSec"] ?: 120 * 60)
     val timer: StateFlow<Int> = _timer
@@ -84,24 +90,37 @@ class QuizViewModel @Inject constructor(
     private fun emitPage() {
         val item = pages[pageIndex]
         when (item) {
-            is Item.Intro -> _ui.value = QuizUi.Page(
-                pageIndex,
-                pages.size,
-                questions.size,
-                QuizPage.Intro(item.direction, item.passageTitle, item.passage)
-            )
-            is Item.Question -> _ui.value = QuizUi.Page(
-                pageIndex,
-                pages.size,
-                questions.size,
-                QuizPage.Question(
-                    item.questionIndex,
-                    item.question,
-                    answers[item.questionIndex],
-                    flags.contains(item.questionIndex)
+            is Item.Intro -> {
+                currentQuestion = null
+                _ui.value = QuizUi.Page(
+                    pageIndex,
+                    pages.size,
+                    questions.size,
+                    QuizPage.Intro(item.direction, item.passageTitle, item.passage)
                 )
-            )
+            }
+            is Item.Question -> {
+                currentQuestion = item.questionIndex
+                questionStart = System.currentTimeMillis()
+                _ui.value = QuizUi.Page(
+                    pageIndex,
+                    pages.size,
+                    questions.size,
+                    QuizPage.Question(
+                        item.questionIndex,
+                        item.question,
+                        answers[item.questionIndex],
+                        flags.contains(item.questionIndex)
+                    )
+                )
+            }
         }
+    }
+
+    private fun recordDuration() {
+        val idx = currentQuestion ?: return
+        val elapsed = (System.currentTimeMillis() - questionStart).toInt()
+        durations[idx] = durations.getOrDefault(idx, 0) + elapsed
     }
 
     private fun startTimer() {
@@ -114,19 +133,26 @@ class QuizViewModel @Inject constructor(
                 if (next % 60 == 0) {
                     state["timerSec"] = next
                 }
+                if (next == 0) {
+                    submitQuiz()
+                    break
+                }
             }
-            submit()
         }
     }
 
     fun pause() {
+        recordDuration()
         timerJob?.cancel()
         timerJob = null
         state["timerSec"] = _timer.value
     }
 
     fun resume() {
-        if (_timer.value > 0) startTimer()
+        if (_timer.value > 0) {
+            questionStart = System.currentTimeMillis()
+            startTimer()
+        }
     }
 
     fun select(idx: Int) {
@@ -139,21 +165,25 @@ class QuizViewModel @Inject constructor(
 
     fun next() {
         if (pageIndex < pages.lastIndex) {
+            recordDuration()
             pageIndex++
             emitPage()
         } else {
-            submit()
+            recordDuration()
+            submitQuiz()
         }
     }
 
     fun prev() {
         if (pageIndex > 0) {
+            recordDuration()
             pageIndex--
             emitPage()
         }
     }
 
     fun goTo(i: Int) {
+        recordDuration()
         pageIndex = i.coerceIn(0, pages.lastIndex)
         emitPage()
     }
@@ -170,6 +200,7 @@ class QuizViewModel @Inject constructor(
     fun goToQuestion(questionIndex: Int) {
         val page = pages.indexOfFirst { it is Item.Question && it.questionIndex == questionIndex }
         if (page != -1) {
+            recordDuration()
             pageIndex = page
             emitPage()
         }
@@ -183,9 +214,25 @@ class QuizViewModel @Inject constructor(
         }
     }
 
-    fun submit() {
-        val correct = answers.count { (i, ans) -> questions[i].options[ans].isCorrect }
-        _ui.value = QuizUi.Result(correct, questions.size)
+    fun submitQuiz() {
+        timerJob?.cancel()
+        timerJob = null
+        recordDuration()
+        val now = System.currentTimeMillis()
+        val attempts = questions.mapIndexed { i, q ->
+            val ansIdx = answers[i]
+            val correct = ansIdx != null && q.options[ansIdx].isCorrect
+            AttemptLogEntity(
+                qid = q.id,
+                quizId = paperId,
+                correct = correct,
+                flagged = flags.contains(i),
+                durationMs = durations[i] ?: 0,
+                timestamp = now
+            )
+        }
+        viewModelScope.launch { analytics.insertAttempts(attempts) }
+        _ui.value = QuizUi.Result(attempts.count { it.correct }, questions.size)
     }
 
     fun saveProgress() {

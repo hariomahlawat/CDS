@@ -172,7 +172,7 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
         AlertDialog(
             onDismissRequest = { showSubmit = false },
             confirmButton = {
-                TextButton(onClick = { showSubmit = false; vm.submit() }) { Text("Submit") }
+                TextButton(onClick = { showSubmit = false; vm.submitQuiz() }) { Text("Submit") }
             },
             dismissButton = {
                 TextButton(onClick = { showSubmit = false }) { Text("Cancel") }
@@ -330,7 +330,7 @@ private fun PaletteDialog(
 private fun ResultView(r: QuizViewModel.QuizUi.Result, onClose: () -> Unit) {
     AlertDialog(
         onDismissRequest = onClose,
-        confirmButton = { TextButton(onClick = onClose) { Text("OK") } },
+        confirmButton = { TextButton(onClick = onClose) { Text("Done") } },
         title = { Text("Result") },
         text = { Text("Score: ${r.correct}/${r.total}") }
     )
