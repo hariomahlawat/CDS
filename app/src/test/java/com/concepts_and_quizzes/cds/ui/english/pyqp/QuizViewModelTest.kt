@@ -86,7 +86,7 @@ class QuizViewModelTest {
         vm.next()
         advanceUntilIdle()
 
-        val res = vm.ui.value as QuizViewModel.QuizUi.Result
+        val res = vm.result.value!!
         assertEquals(2, res.correct)
         assertEquals(3, res.total)
         assertEquals(3, inserted.size)

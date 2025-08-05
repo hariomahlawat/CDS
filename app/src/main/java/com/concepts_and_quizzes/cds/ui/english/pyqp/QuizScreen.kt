@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -38,14 +39,23 @@ fun QuizScreen(
     vm: QuizViewModel = hiltViewModel()
 ) {
     val ui by vm.ui.collectAsState()
+    val showResult by vm.showResult.collectAsState()
+    val result by vm.result.collectAsState()
+
     when (val state = ui) {
         is QuizViewModel.QuizUi.Loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
         is QuizViewModel.QuizUi.Page -> QuizPager(vm, state)
-        is QuizViewModel.QuizUi.Result -> ResultView(state) {
-            vm.saveProgress()
-            nav.popBackStack()
+    }
+
+    if (showResult) {
+        result?.let { r ->
+            ResultView(r) {
+                vm.saveProgress()
+                vm.dismissResult()
+                nav.popBackStack()
+            }
         }
     }
 }
@@ -69,6 +79,7 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
             when (e) {
                 Lifecycle.Event.ON_START,
                 Lifecycle.Event.ON_RESUME -> vm.resume()
+                Lifecycle.Event.ON_PAUSE -> vm.flush()
                 Lifecycle.Event.ON_STOP -> vm.pause()
                 else -> Unit
             }
@@ -307,23 +318,34 @@ private fun PaletteDialog(
         confirmButton = {},
         title = { Text("Jump to question") },
         text = {
-            LazyVerticalGrid(columns = GridCells.Fixed(5), modifier = Modifier.heightIn(max = 200.dp)) {
-                items(entries.size) { idx ->
-                    val e = entries[idx]
-                    val color = when {
-                        e.flagged -> MaterialTheme.colorScheme.secondaryContainer
-                        e.answered -> MaterialTheme.colorScheme.primaryContainer
-                        else -> MaterialTheme.colorScheme.surfaceVariant
-                    }
-                    Box(
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .size(48.dp)
-                            .background(color, RoundedCornerShape(8.dp))
-                            .clickable { onSelect(e.questionIndex) },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("${e.questionIndex + 1}")
+            Column {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    LegendChip(MaterialTheme.colorScheme.primaryContainer, "Answered")
+                    LegendChip(MaterialTheme.colorScheme.secondaryContainer, "Flagged")
+                    LegendChip(MaterialTheme.colorScheme.surfaceVariant, "Not Answered")
+                }
+                Spacer(Modifier.height(8.dp))
+                LazyVerticalGrid(columns = GridCells.Fixed(5), modifier = Modifier.heightIn(max = 200.dp)) {
+                    items(entries.size) { idx ->
+                        val e = entries[idx]
+                        val color = when {
+                            e.flagged -> MaterialTheme.colorScheme.secondaryContainer
+                            e.answered -> MaterialTheme.colorScheme.primaryContainer
+                            else -> MaterialTheme.colorScheme.surfaceVariant
+                        }
+                        Box(
+                            modifier = Modifier
+                                .padding(4.dp)
+                                .size(48.dp)
+                                .background(color, RoundedCornerShape(8.dp))
+                                .clickable { onSelect(e.questionIndex) },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("${e.questionIndex + 1}")
+                        }
                     }
                 }
             }
@@ -332,7 +354,20 @@ private fun PaletteDialog(
 }
 
 @Composable
-private fun ResultView(r: QuizViewModel.QuizUi.Result, onClose: () -> Unit) {
+private fun LegendChip(color: Color, label: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            modifier = Modifier
+                .size(12.dp)
+                .background(color, RoundedCornerShape(2.dp))
+        )
+        Spacer(Modifier.width(4.dp))
+        Text(label)
+    }
+}
+
+@Composable
+private fun ResultView(r: QuizViewModel.QuizResult, onClose: () -> Unit) {
     AlertDialog(
         onDismissRequest = onClose,
         confirmButton = { TextButton(onClick = onClose) { Text("Done") } },
