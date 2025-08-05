@@ -9,6 +9,7 @@ import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -105,12 +106,14 @@ class QuizViewModel @Inject constructor(
 
     private fun startTimer() {
         if (timerJob != null) return
-        timerJob = viewModelScope.launch {
+        timerJob = viewModelScope.launch(Dispatchers.Default) {
             while (_timer.value > 0) {
                 delay(1_000)
                 val next = _timer.value - 1
                 _timer.value = next
-                state["timerSec"] = next
+                if (next % 60 == 0) {
+                    state["timerSec"] = next
+                }
             }
             submit()
         }
@@ -119,6 +122,7 @@ class QuizViewModel @Inject constructor(
     fun pause() {
         timerJob?.cancel()
         timerJob = null
+        state["timerSec"] = _timer.value
     }
 
     fun resume() {
