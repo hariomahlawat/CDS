@@ -83,6 +83,7 @@ private fun FilterChipRow(
 @Composable
 private fun TopicBarList(stats: List<TopicStat>) {
     val max = stats.maxOf { it.percent }
+    val barColor = MaterialTheme.colorScheme.primary
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         stats.take(10).forEach { s ->
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -90,7 +91,7 @@ private fun TopicBarList(stats: List<TopicStat>) {
                 Canvas(Modifier.weight(1f).height(16.dp)) {
                     val frac = if (max == 0f) 0f else s.percent / max
                     drawRect(
-                        color = MaterialTheme.colorScheme.primary,
+                        color = barColor,
                         size = Size(size.width * frac, size.height)
                     )
                 }
