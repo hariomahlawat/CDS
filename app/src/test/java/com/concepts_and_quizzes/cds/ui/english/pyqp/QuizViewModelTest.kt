@@ -12,6 +12,8 @@ import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
 import com.concepts_and_quizzes.cds.data.english.model.PyqpQuestionEntity
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import com.concepts_and_quizzes.cds.data.quiz.QuizResumeStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -75,7 +77,8 @@ class QuizViewModelTest {
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
-        val vm = QuizViewModel(repo, progressDao, analytics, QuizResumeStore(), SavedStateHandle(mapOf("paperId" to "paper")))
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val vm = QuizViewModel(repo, progressDao, analytics, QuizResumeStore(context), SavedStateHandle(mapOf("paperId" to "paper")))
         advanceUntilIdle()
 
         val q1 = vm.pageContent(0) as QuizViewModel.QuizPage.Question
@@ -128,11 +131,12 @@ class QuizViewModelTest {
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
+        val context = ApplicationProvider.getApplicationContext<Context>()
         val vm = QuizViewModel(
             repo,
             progressDao,
             analytics,
-            QuizResumeStore(),
+            QuizResumeStore(context),
             SavedStateHandle(mapOf("mode" to "WRONGS", "topic" to "grammar"))
         )
         advanceUntilIdle()
@@ -165,7 +169,8 @@ class QuizViewModelTest {
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
-        val resumeStore = QuizResumeStore()
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val resumeStore = QuizResumeStore(context)
         resumeStore.save("paper", mapOf(1 to 2), setOf(1), 1, 0, mapOf(1 to 500))
         val vm = QuizViewModel(repo, progressDao, analytics, resumeStore, SavedStateHandle(mapOf("paperId" to "paper")))
         advanceUntilIdle()
