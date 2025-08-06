@@ -26,15 +26,14 @@ interface TopicStatDao {
     @Query(
         """
         SELECT
-          strftime('%Y-%W', datetime(timestamp/1000,'unixepoch')) AS week_key,
-          MIN(timestamp)                        AS weekStart,
-          COUNT(*)                              AS total,
-          SUM(correct = 1)                      AS correct
+          strftime('%Y%W', timestamp/1000,'unixepoch') AS week,
+          COUNT(*)                                     AS total,
+          SUM(correct = 1)                             AS correct
         FROM attempt_log
         WHERE quizId LIKE 'CDS%'
           AND timestamp >= :cutoffTime
-        GROUP BY week_key
-        ORDER BY week_key DESC
+        GROUP BY week
+        ORDER BY week DESC
         LIMIT 10
         """
     )
@@ -53,7 +52,7 @@ data class TopicStat(
 }
 
 data class TrendPoint(
-    val weekStart: Long,   // Monday 00:00 millis (device TZ)
+    val week: String,
     val total: Int,
     val correct: Int
 ) {

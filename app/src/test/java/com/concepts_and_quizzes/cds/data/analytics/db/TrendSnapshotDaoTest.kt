@@ -50,7 +50,7 @@ class TrendSnapshotDaoTest {
         val points = dao.trendSnapshot(0L).first()
         assertEquals(10, points.size)
         for (i in 1 until points.size) {
-            assertTrue(points[i - 1].weekStart > points[i].weekStart)
+            assertTrue(points[i - 1].week > points[i].week)
         }
         assertEquals(50f, points.first().percent)
     }
