@@ -3,12 +3,12 @@ package com.concepts_and_quizzes.cds.ui.english.pyqp
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -25,10 +25,17 @@ fun PyqAnalyticsScreen(
 ) {
     val window by vm.window.collectAsState()
     val stats by vm.stats.collectAsState()
+    var highContrast by remember { mutableStateOf(false) }
 
     Scaffold(topBar = { TopAppBar(title = { Text("PYQ Analytics") }) }) { pad ->
         Column(Modifier.padding(pad).padding(16.dp)) {
             FilterChipRow(window) { vm.setWindow(it) }
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("High contrast")
+                Spacer(Modifier.width(8.dp))
+                Switch(checked = highContrast, onCheckedChange = { highContrast = it })
+            }
 
             Spacer(Modifier.height(16.dp))
 
@@ -37,7 +44,7 @@ fun PyqAnalyticsScreen(
                 return@Column
             }
 
-            TopicBarList(stats)
+            TopicBarList(stats, highContrast)
 
             Spacer(Modifier.height(24.dp))
 
@@ -78,7 +85,7 @@ private fun FilterChipRow(
 }
 
 @Composable
-private fun TopicBarList(stats: List<TopicStat>) {
+private fun TopicBarList(stats: List<TopicStat>, highContrast: Boolean) {
     val max = stats.maxOf { it.percent }
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         stats.take(10).forEach { s ->
@@ -94,10 +101,23 @@ private fun TopicBarList(stats: List<TopicStat>) {
                         .semantics { contentDescription = "${s.topic} $pct percent correct" }
                 ) {
                     val frac = if (max == 0f) 0f else s.percent / max
-                    drawRect(
-                        color = container,
-                        size = Size(size.width * frac, size.height)
-                    )
+                    val barWidth = size.width * frac
+                    if (highContrast) {
+                        drawRect(color = Color.Gray, size = Size(barWidth, size.height))
+                        val step = 8.dp.toPx()
+                        var x = -size.height
+                        while (x < barWidth) {
+                            drawLine(
+                                color = Color.DarkGray,
+                                start = Offset(x, 0f),
+                                end = Offset(x + size.height, size.height),
+                                strokeWidth = 2.dp.toPx()
+                            )
+                            x += step
+                        }
+                    } else {
+                        drawRect(color = container, size = Size(barWidth, size.height))
+                    }
                 }
                 Spacer(Modifier.width(8.dp))
                 Text("$pct %", color = content)
