@@ -4,6 +4,7 @@ import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicStat as PyqTopicStat
+import com.concepts_and_quizzes.cds.data.analytics.db.TrendPoint
 import com.concepts_and_quizzes.cds.domain.analytics.QuestionDiscrimination
 import com.concepts_and_quizzes.cds.domain.analytics.TopicDifficulty
 import com.concepts_and_quizzes.cds.domain.analytics.TopicTrendPoint
@@ -43,6 +44,11 @@ class AnalyticsRepository @Inject constructor(
 
     fun topicSnapshot(window: Window): Flow<List<PyqTopicStat>> =
         topicStatDao.topicSnapshot(window.cutoff())
+            .flowOn(Dispatchers.IO)
+
+    fun trendSnapshot(window: Window): Flow<List<TrendPoint>> =
+        topicStatDao.trendSnapshot(window.cutoff())
+            .map { it.reversed() }
             .flowOn(Dispatchers.IO)
 
     fun getTrend(periodDays: Int = 30): Flow<List<TopicTrendPoint>> {
