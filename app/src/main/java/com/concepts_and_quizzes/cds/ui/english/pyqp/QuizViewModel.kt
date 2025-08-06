@@ -51,7 +51,7 @@ class QuizViewModel @Inject constructor(
     private val _result = MutableStateFlow<QuizResult?>(null)
     val result: StateFlow<QuizResult?> = _result
 
-    private val _timer = MutableStateFlow(state["timerSec"] ?: 120 * 60)
+    private val _timer = MutableStateFlow(state["timerSec"] ?: 0)
     val timer: StateFlow<Int> = _timer
     private var timerJob: Job? = null
     private var submitted = false
@@ -100,11 +100,17 @@ class QuizViewModel @Inject constructor(
         if (s != null && s.paperId == quizId) {
             restore(s.snapshot)
         } else {
+            resumeStore.clear()
             pageIndex = 0
+            _timer.value = state["timerSec"] ?: defaultTime()
+            state["timerSec"] = _timer.value
             emitPage()
             resume()
         }
     }
+
+    private fun defaultTime(): Int =
+        if (mode == "WRONGS") questions.size * 60 else 120 * 60
 
     private fun buildPages(qs: List<PyqpQuestion>) {
         pages = buildList {
@@ -325,6 +331,8 @@ class QuizViewModel @Inject constructor(
         _result.value = QuizResult(attempts.count { it.correct }, questions.size)
         _showResult.value = true
         state["showResult"] = true
+        resumeStore.clear()
+        state.remove("timerSec")
     }
 
     fun dismissResult() {
