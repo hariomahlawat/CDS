@@ -18,13 +18,12 @@ interface AttemptLogDao {
         """
         SELECT a.qid
         FROM attempt_log a
-        JOIN english_questions q ON a.qid = q.qid
-        WHERE q.topicId = :topicId
+        JOIN pyqp_questions q ON a.qid = q.qid
+        WHERE q.topic = :topicId
           AND a.timestamp = (
               SELECT MAX(a2.timestamp)
               FROM attempt_log a2
-              JOIN english_questions q2 ON a2.qid = q2.qid
-              WHERE q2.topicId = :topicId
+              WHERE a2.qid = a.qid
           )
           AND a.correct = 0
         """
