@@ -6,6 +6,7 @@ import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicDifficultyDb
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicTrendPointDb
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
+import com.concepts_and_quizzes.cds.data.analytics.db.TrendPoint
 import com.concepts_and_quizzes.cds.data.english.db.PyqpDao
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
@@ -24,7 +25,10 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class QuizViewModelTest {
     private val questions = listOf(
         PyqpQuestionEntity("q1", "paper", "q1", "a", "b", "c", "d", 0),
@@ -67,6 +71,7 @@ class QuizViewModelTest {
         }
         val topicStatDao = object : com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao {
             override fun topicSnapshot(cutoffTime: Long): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.TopicStat>> = flowOf(emptyList())
+            override fun trendSnapshot(cutoffTime: Long): Flow<List<TrendPoint>> = flowOf(emptyList())
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
@@ -119,6 +124,7 @@ class QuizViewModelTest {
         }
         val topicStatDao = object : com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao {
             override fun topicSnapshot(cutoffTime: Long): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.TopicStat>> = flowOf(emptyList())
+            override fun trendSnapshot(cutoffTime: Long): Flow<List<TrendPoint>> = flowOf(emptyList())
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
@@ -155,6 +161,7 @@ class QuizViewModelTest {
         }
         val topicStatDao = object : com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao {
             override fun topicSnapshot(cutoffTime: Long): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.TopicStat>> = flowOf(emptyList())
+            override fun trendSnapshot(cutoffTime: Long): Flow<List<TrendPoint>> = flowOf(emptyList())
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
