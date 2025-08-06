@@ -26,8 +26,8 @@ fun CDSTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> darkColorScheme(seed = brandSeed)
-        else -> lightColorScheme(seed = brandSeed)
+        darkTheme -> darkColorScheme().copy(primary = brandSeed)
+        else -> lightColorScheme().copy(primary = brandSeed)
     }
 
     MaterialTheme(
