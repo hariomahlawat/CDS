@@ -332,7 +332,7 @@ class QuizViewModel @Inject constructor(
         _showResult.value = true
         state["showResult"] = true
         resumeStore.clear()
-        state.remove("timerSec")
+        state.remove<Int>("timerSec")
     }
 
     fun dismissResult() {
