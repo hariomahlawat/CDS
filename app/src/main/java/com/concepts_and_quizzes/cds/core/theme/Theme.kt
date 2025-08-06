@@ -9,16 +9,8 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-
-private val DarkColorScheme = darkColorScheme(
-    primary = DarkPrimary,
-    secondary = DarkSecondary
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = LightPrimary,
-    secondary = LightSecondary
-)
+import androidx.compose.ui.res.colorResource
+import com.concepts_and_quizzes.cds.R
 
 @Composable
 fun CDSTheme(
@@ -27,14 +19,23 @@ fun CDSTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    val darkColors = darkColorScheme(
+        primary = colorResource(id = R.color.primary_dark),
+        secondary = colorResource(id = R.color.secondary_dark)
+    )
+    val lightColors = lightColorScheme(
+        primary = colorResource(id = R.color.primary_light),
+        secondary = colorResource(id = R.color.secondary_light)
+    )
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> darkColors
+        else -> lightColors
     }
 
     MaterialTheme(
