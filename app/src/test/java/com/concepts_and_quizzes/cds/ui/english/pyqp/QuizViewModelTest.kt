@@ -159,7 +159,7 @@ class QuizViewModelTest {
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
         val resumeStore = QuizResumeStore()
-        resumeStore.save("paper", mapOf(1 to 2), setOf(1), 1, 0)
+        resumeStore.save("paper", mapOf(1 to 2), setOf(1), 1, 0, mapOf(1 to 500))
         val vm = QuizViewModel(repo, progressDao, analytics, resumeStore, SavedStateHandle(mapOf("paperId" to "paper")))
         advanceUntilIdle()
         val ui = vm.ui.value as QuizViewModel.QuizUi.Page
