@@ -18,10 +18,12 @@ class QuizResumeStore @Inject constructor() {
         flags: Set<Int>,
         pageIndex: Int,
         remaining: Int,
+        durations: Map<Int, Int> = emptyMap(),
     ) {
         val ans = answers.entries.joinToString(";") { "${it.key}:${it.value}" }
         val flg = flags.joinToString(",")
-        val snapshot = listOf(pageIndex, ans, flg, remaining).joinToString("|")
+        val dur = durations.entries.joinToString(";") { "${it.key}:${it.value}" }
+        val snapshot = listOf(pageIndex, ans, flg, remaining, dur).joinToString("|")
         _store.value = Store(paperId, snapshot)
     }
 

@@ -169,7 +169,7 @@ class QuizViewModel @Inject constructor(
                     state["timerSec"] = next
                 }
                 if (next % 30 == 0) {
-                    resumeStore.save(quizId, answers, flags, pageIndex, next)
+                    resumeStore.save(quizId, answers, flags, pageIndex, next, durations)
                 }
                 if (next == 0) {
                     submitQuiz()
@@ -184,7 +184,7 @@ class QuizViewModel @Inject constructor(
         timerJob?.cancel()
         timerJob = null
         state["timerSec"] = _timer.value
-        resumeStore.save(quizId, answers, flags, pageIndex, _timer.value)
+        resumeStore.save(quizId, answers, flags, pageIndex, _timer.value, durations)
     }
 
     fun resume() {
@@ -220,6 +220,19 @@ class QuizViewModel @Inject constructor(
         val remaining = parts[3].toIntOrNull() ?: 0
         _timer.value = remaining
         state["timerSec"] = remaining
+        durations.clear()
+        if (parts.size >= 5 && parts[4].isNotBlank()) {
+            parts[4].split(";").forEach { entry ->
+                val kv = entry.split(":")
+                if (kv.size == 2) {
+                    val q = kv[0].toIntOrNull()
+                    val d = kv[1].toIntOrNull()
+                    if (q != null && d != null) {
+                        durations[q] = d
+                    }
+                }
+            }
+        }
         submitted = false
         _result.value = null
         _showResult.value = false
