@@ -130,6 +130,8 @@ private fun TopicBarList(stats: List<TopicStat>, highContrast: Boolean) {
                 val pct = "%.0f".format(s.percent)
                 val container = MaterialTheme.colorScheme.tertiaryContainer
                 val content = contentColorFor(container)
+                val barColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                val stripeColor = MaterialTheme.colorScheme.onSurface
                 Canvas(
                     Modifier
                         .weight(1f)
@@ -139,8 +141,7 @@ private fun TopicBarList(stats: List<TopicStat>, highContrast: Boolean) {
                     val frac = if (max == 0f) 0f else s.percent / max
                     val barWidth = size.width * frac
                     if (highContrast) {
-                        val barColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                        val stripeColor = MaterialTheme.colorScheme.onSurface
+
                         drawRect(color = barColor, size = Size(barWidth, size.height))
                         val step = 8.dp.toPx()
                         var x = -size.height
