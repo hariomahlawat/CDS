@@ -1,5 +1,6 @@
 package com.concepts_and_quizzes.cds.ui.english.quiz
 
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,7 +34,13 @@ fun QuizHubScreen(nav: NavHostController, vm: QuizHubViewModel = hiltViewModel()
                 Column(
                     Modifier
                         .clickable {
-                            nav.navigate("english/pyqp/${s.paperId}") {
+                            val dest = if (s.paperId.startsWith("WRONGS:")) {
+                                val topic = Uri.encode(s.paperId.removePrefix("WRONGS:"))
+                                "english/pyqp?mode=WRONGS&topic=$topic"
+                            } else {
+                                "english/pyqp/${s.paperId}"
+                            }
+                            nav.navigate(dest) {
                                 popUpTo("quizHub")
                             }
                             vm.restore(s.snapshot)

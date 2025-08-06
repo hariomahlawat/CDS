@@ -80,9 +80,7 @@ class QuizViewModel @Inject constructor(
                 questions = qs
                 if (qs.isNotEmpty()) {
                     buildPages(qs)
-                    pageIndex = 0
-                    emitPage()
-                    resume()
+                    restoreOrStart()
                 }
             } else {
                 val pid = paperId ?: return@launch
@@ -90,12 +88,21 @@ class QuizViewModel @Inject constructor(
                     questions = qs
                     if (qs.isNotEmpty()) {
                         buildPages(qs)
-                        pageIndex = 0
-                        emitPage()
-                        resume()
+                        restoreOrStart()
                     }
                 }
             }
+        }
+    }
+
+    private fun restoreOrStart() {
+        val s = resumeStore.store.value
+        if (s != null && s.paperId == quizId) {
+            restore(s.snapshot)
+        } else {
+            pageIndex = 0
+            emitPage()
+            resume()
         }
     }
 
