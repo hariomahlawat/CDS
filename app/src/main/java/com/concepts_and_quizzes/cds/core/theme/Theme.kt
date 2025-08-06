@@ -8,9 +8,8 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import com.concepts_and_quizzes.cds.R
 
 @Composable
 fun CDSTheme(
@@ -19,14 +18,7 @@ fun CDSTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val darkColors = darkColorScheme(
-        primary = colorResource(id = R.color.primary_dark),
-        secondary = colorResource(id = R.color.secondary_dark)
-    )
-    val lightColors = lightColorScheme(
-        primary = colorResource(id = R.color.primary_light),
-        secondary = colorResource(id = R.color.secondary_light)
-    )
+    val brandSeed = Color(0xFF0046FF)
 
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
@@ -34,8 +26,8 @@ fun CDSTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> darkColors
-        else -> lightColors
+        darkTheme -> darkColorScheme(seed = brandSeed)
+        else -> lightColorScheme(seed = brandSeed)
     }
 
     MaterialTheme(

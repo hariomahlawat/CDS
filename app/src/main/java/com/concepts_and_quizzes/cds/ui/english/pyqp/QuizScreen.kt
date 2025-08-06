@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.GridOn
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material3.*
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +30,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.unit.dp
@@ -270,9 +272,25 @@ private fun QuestionPage(
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(max = maxHeight)
-                        .verticalScroll(rememberScrollState())
+                        .verticalScroll(rememberScrollState()),
+                    shape = RoundedCornerShape(24.dp),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
+                    )
                 ) {
-                    Column(Modifier.padding(8.dp)) {
+                    Column(
+                        Modifier
+                            .background(
+                                Brush.verticalGradient(
+                                    listOf(
+                                        MaterialTheme.colorScheme.primary.copy(alpha = 0.05f),
+                                        Color.Transparent
+                                    )
+                                )
+                            )
+                            .padding(8.dp)
+                    ) {
                         question.direction?.let {
                             Text(it)
                             if (question.passage != null) Spacer(Modifier.height(8.dp))
@@ -329,11 +347,24 @@ private fun OptionCard(selected: Boolean, text: String, onClick: () -> Unit) {
             onClick()
         },
         border = if (selected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else null,
+        shape = RoundedCornerShape(24.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface
+            containerColor = if (selected) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp)
         )
     ) {
-        Text(text, Modifier.padding(16.dp))
+        Box(
+            Modifier.background(
+                Brush.verticalGradient(
+                    listOf(
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.05f),
+                        Color.Transparent
+                    )
+                )
+            )
+        ) {
+            Text(text, Modifier.padding(16.dp))
+        }
     }
 }
 
