@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -24,6 +23,8 @@ import com.concepts_and_quizzes.cds.data.analytics.db.TrendPoint
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.platform.LocalContext
+import android.provider.Settings
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -138,12 +139,14 @@ private fun TopicBarList(stats: List<TopicStat>, highContrast: Boolean) {
                     val frac = if (max == 0f) 0f else s.percent / max
                     val barWidth = size.width * frac
                     if (highContrast) {
-                        drawRect(color = Color.Gray, size = Size(barWidth, size.height))
+                        val barColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                        val stripeColor = MaterialTheme.colorScheme.onSurface
+                        drawRect(color = barColor, size = Size(barWidth, size.height))
                         val step = 8.dp.toPx()
                         var x = -size.height
                         while (x < barWidth) {
                             drawLine(
-                                color = Color.DarkGray,
+                                color = stripeColor,
                                 start = Offset(x, 0f),
                                 end = Offset(x + size.height, size.height),
                                 strokeWidth = 2.dp.toPx()
@@ -181,7 +184,21 @@ private fun TrendTab(points: List<TrendPoint>, highContrast: Boolean) {
 private fun SparkLineChart(points: List<TrendPoint>, highContrast: Boolean) {
     val max = points.maxOf { it.percent }
     val anim = remember { Animatable(0f) }
-    LaunchedEffect(points) { anim.animateTo(1f, tween(600)) }
+    val context = LocalContext.current
+    val animationsDisabled = remember {
+        Settings.Global.getFloat(
+            context.contentResolver,
+            Settings.Global.ANIMATOR_DURATION_SCALE,
+            1f
+        ) == 0f
+    }
+    LaunchedEffect(points, animationsDisabled) {
+        if (animationsDisabled) {
+            anim.snapTo(1f)
+        } else {
+            anim.animateTo(1f, tween(600))
+        }
+    }
 
     val desc = points.joinToString {
         val pct = "%.0f".format(it.percent)
@@ -189,7 +206,7 @@ private fun SparkLineChart(points: List<TrendPoint>, highContrast: Boolean) {
         "$week : $pct percent"
     }
 
-    val baseColor = if (highContrast) Color.Black else MaterialTheme.colorScheme.primary
+    val baseColor = if (highContrast) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.primary
     val effect = if (highContrast) PathEffect.dashPathEffect(floatArrayOf(10f, 10f)) else null
 
     Canvas(
