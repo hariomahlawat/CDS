@@ -37,6 +37,7 @@ import com.concepts_and_quizzes.cds.data.analytics.db.TopicStat
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.ui.analytics.TrendTab
 import androidx.compose.material3.contentColorFor
+import androidx.compose.runtime.setValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
