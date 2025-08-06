@@ -100,7 +100,7 @@ class QuizViewModel @Inject constructor(
         if (s != null && s.paperId == quizId) {
             restore(s.snapshot)
         } else {
-            resumeStore.clear()
+            viewModelScope.launch { resumeStore.clear() }
             pageIndex = 0
             _timer.value = state["timerSec"] ?: defaultTime()
             state["timerSec"] = _timer.value
@@ -190,7 +190,7 @@ class QuizViewModel @Inject constructor(
         timerJob?.cancel()
         timerJob = null
         state["timerSec"] = _timer.value
-        resumeStore.save(quizId, answers, flags, pageIndex, _timer.value, durations)
+        viewModelScope.launch { resumeStore.save(quizId, answers, flags, pageIndex, _timer.value, durations) }
     }
 
     fun resume() {
@@ -331,7 +331,7 @@ class QuizViewModel @Inject constructor(
         _result.value = QuizResult(attempts.count { it.correct }, questions.size)
         _showResult.value = true
         state["showResult"] = true
-        resumeStore.clear()
+        viewModelScope.launch { resumeStore.clear() }
         state.remove<Int>("timerSec")
     }
 

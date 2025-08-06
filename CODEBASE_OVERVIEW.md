@@ -21,8 +21,10 @@ It is intended to be updated whenever new features are added or existing functio
 
 #### Application & Navigation
 - `CdsApplication.kt` – Application class annotated with `@HiltAndroidApp` to bootstrap Hilt.
-- `MainActivity.kt` – Entry activity hosting the navigation scaffold and bottom bar.
+- `MainActivity.kt` – Entry activity hosting the navigation scaffold and bottom bar with first-run onboarding.
 - `core/navigation/NavGraph.kt` – Defines navigation routes for English dashboard, concepts, detail, and quiz screens.
+- `AppViewModel.kt` – Root view model exposing onboarding state.
+- `ui/onboarding/OnboardingScreen.kt` – Simple carousel shown on first launch.
 
 #### UI Screens
 - `ui/english/dashboard/EnglishDashboardScreen.kt` – Dashboard showing PYQ summary and navigation.
@@ -34,7 +36,7 @@ It is intended to be updated whenever new features are added or existing functio
 - `ui/english/pyqp/PyqpPaperListScreen.kt` – Lists available previous year papers.
 - `ui/english/pyqp/QuizScreen.kt` – Runs a quiz for a selected paper with a countdown timer (pause/resume on lifecycle events), question flagging and a palette for quick navigation, showing section intro pages and collapsible headers for passages or directions.
 - `ui/english/pyqp/PyqpListViewModel.kt`, `QuizViewModel.kt` – View models for paper list and quiz screens with paging and section intro logic.
-- `ui/english/quiz/QuizHubScreen.kt`, `QuizHubViewModel.kt` – Hub for starting or resuming previous year question practice and accessing analytics.
+- `ui/english/quiz/QuizHubScreen.kt`, `QuizHubViewModel.kt` – Hub for starting or resuming previous year question practice and accessing analytics with a snackbar to resume the last test.
 - `ui/english/quiz/QuizScreen.kt` – Placeholder quiz view for a topic.
 - `ui/english/analysis/AnalysisScreen.kt` – Placeholder analysis screen.
 
@@ -44,7 +46,7 @@ It is intended to be updated whenever new features are added or existing functio
 - `core/components/CdsCard.kt` – Convenience wrapper around Material `Card`.
 - `core/model/Subject.kt` – Enum describing supported subjects and associated icons.
 - `core/model/SubjectProgress.kt` – Model representing progress for a subject.
-- `core/theme/Color.kt`, `core/theme/Type.kt`, `core/theme/Theme.kt` – Material3 theme definitions and typography.
+- `core/theme/Color.kt`, `core/theme/Type.kt`, `core/theme/Theme.kt` – Material3 theme definitions and typography with custom light/dark color tokens.
 
 #### Domain & Data Layer
 - `domain/english/EnglishTopic.kt`, `EnglishQuestion.kt` – Domain models for topics and questions.
@@ -55,6 +57,8 @@ It is intended to be updated whenever new features are added or existing functio
 - `data/english/model/PyqpQuestionEntity.kt`, `PyqpProgress.kt` – Entities for previous year questions and progress.
 - `data/english/repo/EnglishRepository.kt` – Repository combining DAOs for higher-level operations.
 - `data/english/repo/PyqpRepository.kt` – Repository exposing PYQ papers and questions.
+- `data/quiz/QuizResumeStore.kt` – DataStore-backed persistence for resuming quizzes.
+- `data/settings/UserPreferences.kt` – Stores onboarding completion flag.
 
 #### Dependency Injection (`di/`)
 - `data/english/db/EnglishDatabaseModule.kt` – Provides the English Room database, DAOs, and repository.
