@@ -27,7 +27,12 @@ fun PyqpPaperListScreen(nav: NavController, vm: PyqpListViewModel = hiltViewMode
             items(papers) { paper ->
                 ListItem(
                     headlineContent = { Text("CDS ${paper.year}  ${paper.id.takeLast(5)}") },
-                    trailingContent = { Icon(Icons.Filled.ChevronRight, null) },
+                    trailingContent = {
+                        Icon(
+                            Icons.Filled.ChevronRight,
+                            contentDescription = "Open paper"
+                        )
+                    },
                     modifier = Modifier.clickable {
                         nav.navigate("english/pyqp/${paper.id}")
                     }
