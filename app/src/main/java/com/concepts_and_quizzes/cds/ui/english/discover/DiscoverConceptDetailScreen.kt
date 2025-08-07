@@ -68,7 +68,11 @@ fun DiscoverConceptDetailScreen(nav: NavHostController, vm: DiscoverConceptViewM
                             Icon(
                                 imageVector = if (bookmarked) Icons.Filled.Star else Icons.Outlined.StarBorder,
                                 contentDescription = null,
-                                tint = if (bookmarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                                tint = if (bookmarked) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                }
                             )
                         }
                     }

@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -51,7 +52,16 @@ fun AnalysisScreen(
     Box {
         FlowRow(horizontalArrangement = spacedBy(8.dp)) {
             report.suggestions.forEach {
-                AssistChip(onClick = { }, label = { Text(it) })
+                AssistChip(
+                    onClick = { },
+                    label = {
+                        Text(
+                            it,
+                            maxLines = 3,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+                )
             }
         }
 
