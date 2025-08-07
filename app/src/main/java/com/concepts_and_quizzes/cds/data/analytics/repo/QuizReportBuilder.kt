@@ -3,6 +3,7 @@ package com.concepts_and_quizzes.cds.data.analytics.repo
 import com.concepts_and_quizzes.cds.data.analytics.AnalyticsConfig
 import com.concepts_and_quizzes.cds.data.analytics.db.QuizTrace
 import kotlin.math.roundToInt
+import kotlin.math.max
 
 /** Builds a [QuizReport] from a list of [QuizTrace] records. */
 class QuizReportBuilder(private val traces: List<QuizTrace>) {
@@ -13,11 +14,25 @@ class QuizReportBuilder(private val traces: List<QuizTrace>) {
         val correct = traces.count { it.isCorrect }
         val wrong = attempted - correct
 
+        if (attempted == 0) {
+            return QuizReport(
+                total = total,
+                attempted = attempted,
+                correct = 0,
+                wrong = 0,
+                strongestTopic = null,
+                weakestTopic = null,
+                timePerSection = emptyList(),
+                bottlenecks = emptyList(),
+                suggestions = emptyList()
+            )
+        }
+
         val perTopic = traces.groupBy { it.topicId }.map { (topicId, list) ->
             val attempts = list.count { it.answeredAt != 0L }
             val corrects = list.count { it.isCorrect }
             val avgTime = list.filter { it.answeredAt != 0L }
-                .map { it.answeredAt - it.startedAt }
+                .map { max(0L, it.answeredAt - it.startedAt) }
                 .average()
             val acc = if (attempts == 0) 0.0 else corrects * 100.0 / attempts
             TopicSummary(topicId, acc, avgTime, attempts)
@@ -28,12 +43,12 @@ class QuizReportBuilder(private val traces: List<QuizTrace>) {
         val weakest = eligibleTopics.minByOrNull { it.accuracy }?.topicId
 
         val durations = traces.filter { it.answeredAt != 0L }
-            .map { it.answeredAt - it.startedAt }
+            .map { max(0L, it.answeredAt - it.startedAt) }
             .sorted()
         val p90 = if (durations.isEmpty()) 0L else durations[((durations.size - 1) * 0.9).roundToInt()]
         val bottlenecks = traces
-            .filter { !it.isCorrect && (it.answeredAt - it.startedAt) >= p90 }
-            .sortedByDescending { it.answeredAt - it.startedAt }
+            .filter { !it.isCorrect && max(0L, it.answeredAt - it.startedAt) >= p90 }
+            .sortedByDescending { max(0L, it.answeredAt - it.startedAt) }
             .take(3)
 
         val globalAvg = durations.average()
