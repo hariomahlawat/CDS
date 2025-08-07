@@ -93,8 +93,7 @@ fun DiscoverCarousel(
         modifier = Modifier.focusable(),
         reverseLayout = false,
         contentPadding = PaddingValues(horizontal = 24.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        beyondBoundsItemCount = 1
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(tips, key = { it.id }) { concept ->
             val bookmarked by vm.isBookmarked(concept.id).collectAsState(initial = false)
