@@ -31,7 +31,8 @@ class PyqpRepository @Inject constructor(
                     ).shuffled(),
                     direction = e.direction,
                     passage = e.passageText,
-                    passageTitle = e.passageTitle
+                    passageTitle = e.passageTitle,
+                    topic = e.topic
                 )
             }
         }
@@ -51,7 +52,8 @@ class PyqpRepository @Inject constructor(
                 ).shuffled(),
                 direction = e.direction,
                 passage = e.passageText,
-                passageTitle = e.passageTitle
+                passageTitle = e.passageTitle,
+                topic = e.topic
             )
         }
     }

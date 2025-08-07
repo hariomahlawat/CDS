@@ -7,6 +7,9 @@ import com.concepts_and_quizzes.cds.data.analytics.db.TopicDifficultyDb
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicTrendPointDb
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.TrendPoint
+import com.concepts_and_quizzes.cds.data.analytics.db.QuizTrace
+import com.concepts_and_quizzes.cds.data.analytics.db.QuizTraceDao
+import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
 import com.concepts_and_quizzes.cds.data.english.db.PyqpDao
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
@@ -77,8 +80,14 @@ class QuizViewModelTest {
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
+        val traces = mutableListOf<QuizTrace>()
+        val traceDao = object : QuizTraceDao {
+            override suspend fun insertTrace(trace: QuizTrace) { traces.add(trace) }
+            override suspend fun tracesForSession(sid: String): List<QuizTrace> = traces.filter { it.sessionId == sid }
+        }
+        val reportRepo = QuizReportRepository(traceDao)
         val context = ApplicationProvider.getApplicationContext<Context>()
-        val vm = QuizViewModel(repo, progressDao, analytics, QuizResumeStore(context), SavedStateHandle(mapOf("paperId" to "paper")))
+        val vm = QuizViewModel(repo, progressDao, analytics, reportRepo, QuizResumeStore(context), SavedStateHandle(mapOf("paperId" to "paper")))
         advanceUntilIdle()
 
         val q1 = vm.pageContent(0) as QuizViewModel.QuizPage.Question
@@ -131,11 +140,17 @@ class QuizViewModelTest {
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
+        val traceDao = object : QuizTraceDao {
+            override suspend fun insertTrace(trace: QuizTrace) {}
+            override suspend fun tracesForSession(sid: String): List<QuizTrace> = emptyList()
+        }
+        val reportRepo = QuizReportRepository(traceDao)
         val context = ApplicationProvider.getApplicationContext<Context>()
         val vm = QuizViewModel(
             repo,
             progressDao,
             analytics,
+            reportRepo,
             QuizResumeStore(context),
             SavedStateHandle(mapOf("mode" to "WRONGS", "topic" to "grammar"))
         )
@@ -169,10 +184,15 @@ class QuizViewModelTest {
         }
         val analytics = AnalyticsRepository(attemptDao, topicStatDao)
         val repo = PyqpRepository(dao, attemptDao)
+        val traceDao = object : QuizTraceDao {
+            override suspend fun insertTrace(trace: QuizTrace) {}
+            override suspend fun tracesForSession(sid: String): List<QuizTrace> = emptyList()
+        }
+        val reportRepo = QuizReportRepository(traceDao)
         val context = ApplicationProvider.getApplicationContext<Context>()
         val resumeStore = QuizResumeStore(context)
         resumeStore.save("paper", mapOf(1 to 2), setOf(1), 1, 0, mapOf(1 to 500))
-        val vm = QuizViewModel(repo, progressDao, analytics, resumeStore, SavedStateHandle(mapOf("paperId" to "paper")))
+        val vm = QuizViewModel(repo, progressDao, analytics, reportRepo, resumeStore, SavedStateHandle(mapOf("paperId" to "paper")))
         advanceUntilIdle()
         val ui = vm.ui.value as QuizViewModel.QuizUi.Page
         assertEquals(1, ui.pageIndex)
