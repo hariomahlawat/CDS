@@ -17,11 +17,19 @@ class UserPreferences @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     private val ONBOARDING_DONE = booleanPreferencesKey("onboarding_done")
+    private val SHOW_CELEBRATIONS = booleanPreferencesKey("show_celebrations")
 
     val onboardingDone: Flow<Boolean> =
         context.userPrefsDataStore.data.map { it[ONBOARDING_DONE] ?: false }
 
+    val showCelebrations: Flow<Boolean> =
+        context.userPrefsDataStore.data.map { it[SHOW_CELEBRATIONS] ?: true }
+
     suspend fun setOnboardingDone() {
         context.userPrefsDataStore.edit { it[ONBOARDING_DONE] = true }
+    }
+
+    suspend fun setShowCelebrations(show: Boolean) {
+        context.userPrefsDataStore.edit { it[SHOW_CELEBRATIONS] = show }
     }
 }

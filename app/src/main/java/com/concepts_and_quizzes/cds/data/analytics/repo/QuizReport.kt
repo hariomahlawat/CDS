@@ -22,3 +22,6 @@ data class TopicSummary(
     val avgTime: Double,
     val attempts: Int
 )
+
+val QuizReport.accuracy: Float
+    get() = if (attempted == 0) 0f else correct.toFloat() / attempted.toFloat()
