@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -18,7 +17,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -50,7 +48,7 @@ fun PyqAnalyticsScreen(
     val tab by vm.tab.collectAsState()
     var highContrast by remember { mutableStateOf(false) }
 
-    Scaffold(topBar = { TopAppBar(title = { Text("PYQ Analytics") }) }) { pad ->
+    Scaffold { pad ->
         Column(Modifier.padding(pad).padding(16.dp)) {
             FilterChipRow(vm)
 
