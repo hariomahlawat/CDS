@@ -5,4 +5,8 @@
     <string name="sign_out">Sign out</string>
     <!-- Placeholder client ID used for development builds -->
     <string name="default_web_client_id">YOUR_WEB_CLIENT_ID</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="concepts">Concepts</string>
+    <string name="quiz">Quiz</string>
+    <string name="reports">Reports</string>
 </resources>

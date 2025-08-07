@@ -18,22 +18,23 @@ import com.concepts_and_quizzes.cds.core.components.CdsBottomNavBar
 import com.concepts_and_quizzes.cds.core.navigation.rootGraph
 import com.concepts_and_quizzes.cds.core.theme.CDSTheme
 import com.concepts_and_quizzes.cds.ui.onboarding.OnboardingScreen
+import com.concepts_and_quizzes.cds.core.config.RemoteConfig
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject lateinit var remoteConfig: RemoteConfig
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         setTheme(R.style.Theme_CDS)
         super.onCreate(savedInstanceState)
-        setContent {
-            CDSApp()
-        }
+        setContent { CDSApp(remoteConfig) }
     }
 }
 
 @Composable
-private fun CDSApp() {
+private fun CDSApp(remoteConfig: RemoteConfig) {
     CDSTheme {
         val appVm: AppViewModel = hiltViewModel()
         val showOnboarding by appVm.showOnboarding.collectAsState()
@@ -48,11 +49,12 @@ private fun CDSApp() {
                 "english/concepts",
                 "quizHub",
                 "english/pyqp?mode={mode}&topic={topic}",
-                "analytics/pyq"
+                "analytics/pyq",
+                "reports"
             )
             val showBottomBar = currentRoute in bottomBarRoutes
 
-            Scaffold(bottomBar = { if (showBottomBar) CdsBottomNavBar(navController) }) { padding ->
+            Scaffold(bottomBar = { if (showBottomBar) CdsBottomNavBar(navController, remoteConfig) }) { padding ->
                 NavHost(
                     navController = navController,
                     startDestination = "english/dashboard",
