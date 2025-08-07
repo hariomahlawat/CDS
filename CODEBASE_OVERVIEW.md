@@ -29,7 +29,7 @@ It is intended to be updated whenever new features are added or existing functio
 #### UI Screens
 - `ui/english/dashboard/EnglishDashboardScreen.kt` – Hero landing with greeting, progress ring, action chips, live stats and a discover carousel.
 - `ui/english/dashboard/EnglishDashboardViewModel.kt` – Supplies dashboard data including questions practised and daily tips with bookmarking.
-- `ui/english/dashboard/DiscoverComponents.kt` – Card and carousel composables for daily tips.
+- `ui/english/dashboard/DiscoverComponents.kt` – Card and carousel composables for daily tips with pre-cached items to reduce jank.
 - `ui/english/discover/DiscoverConceptDetailScreen.kt` – Detail view for a tip with bookmarking.
 - `ui/english/discover/DiscoverConceptViewModel.kt` – Loads a single tip and exposes bookmark state.
 - `ui/english/concepts/ConceptsHomeViewModel.kt` – Exposes English topics and bookmarked tips.
@@ -49,7 +49,7 @@ It is intended to be updated whenever new features are added or existing functio
 - `core/components/CdsCard.kt` – Convenience wrapper around Material `Card`.
 - `core/model/Subject.kt` – Enum describing supported subjects and associated icons.
 - `core/model/SubjectProgress.kt` – Model representing progress for a subject.
-- `core/theme/Color.kt`, `core/theme/Type.kt`, `core/theme/Theme.kt` – Material3 theme definitions and typography with custom light/dark color tokens.
+- `core/theme/Color.kt`, `core/theme/Type.kt`, `core/theme/Theme.kt` – Material3 theme definitions and typography with custom light/dark color tokens and boosted dark text contrast.
 
 #### Domain & Data Layer
 - `domain/english/EnglishTopic.kt`, `EnglishQuestion.kt` – Domain models for topics and questions.

@@ -26,7 +26,10 @@ fun CDSTheme(
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> darkColorScheme().copy(primary = brandSeed)
+        darkTheme -> darkColorScheme().copy(
+            primary = brandSeed,
+            onSurface = Color.White.copy(alpha = 0.88f)
+        )
         else -> lightColorScheme().copy(primary = brandSeed)
     }
 
