@@ -6,6 +6,7 @@ import kotlin.test.Test
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 import kotlin.test.assertFalse
+import kotlin.test.assertEquals
 
 class QuizReportBuilderTest {
 
@@ -77,5 +78,26 @@ class QuizReportBuilderTest {
         )
         val report = QuizReportBuilder(traces).build()
         assertTrue(report.suggestions.isEmpty())
+    }
+
+    @Test
+    fun Handles_noAttempts() {
+        val traces = listOf(
+            QuizTrace("s", 1, 1, 0L, 0L, false),
+            QuizTrace("s", 2, 1, 0L, 0L, false)
+        )
+        val report = QuizReportBuilder(traces).build()
+        assertEquals(0, report.attempted)
+        assertTrue(report.timePerSection.isEmpty())
+        assertTrue(report.bottlenecks.isEmpty())
+    }
+
+    @Test
+    fun Clamps_negativeDurations() {
+        val traces = listOf(
+            QuizTrace("s", 1, 1, 100L, 50L, false)
+        )
+        val report = QuizReportBuilder(traces).build()
+        assertEquals(0.0, report.timePerSection.first().avgTime)
     }
 }
