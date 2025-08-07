@@ -2,12 +2,13 @@ package com.concepts_and_quizzes.cds.core.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.concepts_and_quizzes.cds.R
@@ -19,10 +20,11 @@ fun CdsAppBar(title: String) {
         title = { Text(text = title) },
         navigationIcon = {
             Image(
-                painter = painterResource(R.drawable.logo2),
+                painter = painterResource(R.drawable.logo),
                 contentDescription = null,
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
-                    .size(32.dp)
+                    .width(32.dp)
                     .padding(start = 8.dp)
             )
         }

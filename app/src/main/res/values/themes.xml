@@ -4,7 +4,7 @@
     <style name="Theme.CDS" parent="android:Theme.Material.Light.NoActionBar" />
 
     <style name="Theme.CDS.Launch" parent="@style/Theme.SplashScreen">
-        <item name="android:windowSplashScreenBrandingImage">@drawable/logo</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo</item>
         <item name="windowSplashScreenBackground">@color/primaryContainer</item>
     </style>
 </resources>
