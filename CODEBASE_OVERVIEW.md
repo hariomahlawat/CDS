@@ -30,7 +30,7 @@ It is intended to be updated whenever new features are added or existing functio
 - `ui/english/dashboard/EnglishDashboardScreen.kt` – Hero landing with greeting, progress ring, action chips, live stats and a discover carousel.
 - `ui/english/dashboard/EnglishDashboardViewModel.kt` – Supplies dashboard data including questions practised and daily tips with bookmarking.
 - `ui/english/dashboard/DiscoverComponents.kt` – Card and carousel composables for daily tips with pre-cached items to reduce jank.
-- `ui/english/discover/DiscoverConceptDetailScreen.kt` – Detail view for a tip with bookmarking.
+- `ui/english/discover/DiscoverConceptDetailScreen.kt` – Full-screen detail view for a tip with bookmarking and a tip icon.
 - `ui/english/discover/DiscoverConceptViewModel.kt` – Loads a single tip and exposes bookmark state.
 - `ui/english/concepts/ConceptsHomeViewModel.kt` – Exposes English topics and bookmarked tips.
 - `ui/english/concepts/ConceptsHomeScreen.kt` – Lists topics with a Bookmarks tab for saved tips.
