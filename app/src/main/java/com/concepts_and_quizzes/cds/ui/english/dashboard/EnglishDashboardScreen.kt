@@ -2,7 +2,6 @@ package com.concepts_and_quizzes.cds.ui.english.dashboard
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -34,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -46,11 +44,9 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material3.ProgressIndicatorDefaults
-import androidx.compose.ui.res.painterResource
 import com.concepts_and_quizzes.cds.R
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -73,16 +69,6 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
     }
 
     Column {
-        Image(
-            painter = painterResource(R.drawable.logo),
-            contentDescription = "CDS logo",
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .width(96.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-        Spacer(Modifier.height(16.dp))
-
         Box(
             Modifier
                 .fillMaxWidth()
