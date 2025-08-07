@@ -65,7 +65,12 @@ fun DiscoverCard(
                 ) {
                     Icon(
                         imageVector = if (bookmarked) Icons.Filled.Star else Icons.Outlined.StarBorder,
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = if (bookmarked) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        }
                     )
                 }
             }
