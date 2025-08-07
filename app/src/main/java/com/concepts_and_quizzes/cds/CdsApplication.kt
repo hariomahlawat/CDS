@@ -15,8 +15,14 @@ class CdsApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
             seedUtil.seedIfEmpty()
         }
+    }
+
+    companion object {
+        lateinit var instance: CdsApplication
+            private set
     }
 }
