@@ -34,6 +34,9 @@ interface ConceptDao {
     @Query("SELECT id FROM concept WHERE id NOT IN (SELECT conceptId FROM daily_tip)")
     suspend fun unservedConceptIds(): List<Int>
 
+    @Query("SELECT id FROM concept")
+    suspend fun allConceptIds(): List<Int>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addBookmark(bookmark: BookmarkEntity)
 
