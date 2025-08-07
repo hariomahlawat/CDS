@@ -4,24 +4,18 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.filled.AutoStories
 import androidx.compose.material.icons.filled.QuestionAnswer
 import androidx.compose.material.icons.filled.School
@@ -39,12 +33,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.concepts_and_quizzes.cds.core.components.CdsCard
 import java.time.LocalTime
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntAsState
@@ -55,6 +47,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material3.ProgressIndicatorDefaults
+import com.concepts_and_quizzes.cds.ui.english.dashboard.DiscoverCarousel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
@@ -62,7 +55,7 @@ import androidx.compose.material3.ProgressIndicatorDefaults
 fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel = hiltViewModel()) {
     val summary by vm.summary.collectAsState()
     val questionsToday by vm.questionsToday.collectAsState()
-    val concepts by vm.concepts.collectAsState()
+    val concepts by vm.tips.collectAsState()
     val count by animateIntAsState(targetValue = questionsToday, label = "count")
 
     val greeting = remember {
@@ -144,48 +137,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             style = MaterialTheme.typography.titleMedium
         )
 
-        val listState = rememberLazyListState()
-        val fling = rememberSnapFlingBehavior(listState)
-        LazyRow(
-            state = listState,
-            flingBehavior = fling,
-            contentPadding = PaddingValues(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            items(concepts) { concept ->
-                Box(
-                    Modifier
-                        .width(200.dp)
-                        .height(120.dp)
-                ) {
-                    CdsCard(Modifier.matchParentSize()) {
-                        Column(Modifier.padding(16.dp)) {
-                            Text(
-                                concept.title,
-                                style = MaterialTheme.typography.titleMedium,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                            Spacer(Modifier.height(4.dp))
-                            Text(
-                                concept.overview,
-                                style = MaterialTheme.typography.bodySmall,
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                        }
-                    }
-                    Box(
-                        Modifier
-                            .align(Alignment.TopEnd)
-                            .offset(x = 12.dp, y = (-12).dp)
-                            .size(24.dp)
-                            .graphicsLayer { rotationZ = 45f }
-                            .background(MaterialTheme.colorScheme.secondaryContainer)
-                    )
-                }
-            }
-        }
+        DiscoverCarousel(concepts, vm, nav)
     }
 }
 

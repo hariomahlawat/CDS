@@ -7,6 +7,8 @@ import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
+import com.concepts_and_quizzes.cds.data.discover.db.ConceptDao
+import com.concepts_and_quizzes.cds.data.discover.DiscoverRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,6 +45,9 @@ object EnglishDatabaseModule {
     fun provideTopicStatDao(db: EnglishDatabase): TopicStatDao = db.topicStatDao()
 
     @Provides
+    fun provideConceptDao(db: EnglishDatabase): ConceptDao = db.conceptDao()
+
+    @Provides
     @Singleton
     fun provideEnglishRepository(
         topicDao: EnglishTopicDao,
@@ -63,4 +68,10 @@ object EnglishDatabaseModule {
         topicStatDao: TopicStatDao
     ): AnalyticsRepository =
         AnalyticsRepository(attemptDao, topicStatDao)
+
+    @Provides
+    @Singleton
+    fun provideDiscoverRepository(
+        conceptDao: ConceptDao
+    ): DiscoverRepository = DiscoverRepository(conceptDao)
 }

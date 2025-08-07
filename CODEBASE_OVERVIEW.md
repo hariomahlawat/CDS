@@ -28,9 +28,12 @@ It is intended to be updated whenever new features are added or existing functio
 
 #### UI Screens
 - `ui/english/dashboard/EnglishDashboardScreen.kt` – Hero landing with greeting, progress ring, action chips, live stats and a discover carousel.
-- `ui/english/dashboard/EnglishDashboardViewModel.kt` – Supplies dashboard data including questions practised and concept-of-the-day cards.
-- `ui/english/concepts/ConceptsHomeViewModel.kt` – Exposes English topics from the repository.
-- `ui/english/concepts/ConceptsHomeScreen.kt` – Lists topics and navigates to their details.
+- `ui/english/dashboard/EnglishDashboardViewModel.kt` – Supplies dashboard data including questions practised and daily tips with bookmarking.
+- `ui/english/dashboard/DiscoverComponents.kt` – Card and carousel composables for daily tips.
+- `ui/english/discover/DiscoverConceptDetailScreen.kt` – Detail view for a tip with bookmarking.
+- `ui/english/discover/DiscoverConceptViewModel.kt` – Loads a single tip and exposes bookmark state.
+- `ui/english/concepts/ConceptsHomeViewModel.kt` – Exposes English topics and bookmarked tips.
+- `ui/english/concepts/ConceptsHomeScreen.kt` – Lists topics with a Bookmarks tab for saved tips.
 - `ui/english/concepts/ConceptDetailViewModel.kt` – Loads a single topic based on navigation arguments.
 - `ui/english/concepts/ConceptDetailScreen.kt` – Shows the selected topic’s name and overview.
 - `ui/english/pyqp/PyqpPaperListScreen.kt` – Lists available previous year papers.
@@ -50,9 +53,12 @@ It is intended to be updated whenever new features are added or existing functio
 
 #### Domain & Data Layer
 - `domain/english/EnglishTopic.kt`, `EnglishQuestion.kt` – Domain models for topics and questions.
-- `data/english/db/EnglishDatabase.kt` – Room database for English topics and questions.
+- `data/english/db/EnglishDatabase.kt` – Room database for English topics, quizzes and daily concepts.
+- `data/discover/model/*` – Entities for concepts, daily tips and bookmarks.
+- `data/discover/db/ConceptDao.kt` – DAO for concepts, rotation and bookmarks.
+- `data/discover/DiscoverRepository.kt` – Repository handling tip rotation and bookmarking.
 - `data/english/db/EnglishTopicDao.kt`, `EnglishQuestionDao.kt` – DAO interfaces for topics and questions.
-- `data/english/db/SeedUtil.kt` – Seeds the English database and sample PYQ data if empty.
+- `data/english/db/SeedUtil.kt` – Seeds the English database, sample PYQ data and concepts if empty.
 - `data/english/model/EnglishTopicEntity.kt`, `EnglishQuestionEntity.kt` – Room entities with mappers to domain models.
 - `data/english/model/PyqpQuestionEntity.kt`, `PyqpProgress.kt` – Entities for previous year questions and progress.
 - `data/english/repo/EnglishRepository.kt` – Repository combining DAOs for higher-level operations.
@@ -61,7 +67,7 @@ It is intended to be updated whenever new features are added or existing functio
 - `data/settings/UserPreferences.kt` – Stores onboarding completion flag.
 
 #### Dependency Injection (`di/`)
-- `data/english/db/EnglishDatabaseModule.kt` – Provides the English Room database, DAOs, and repository.
+- `data/english/db/EnglishDatabaseModule.kt` – Provides the Room database, DAOs, and repositories including discover.
 
 ### Resources & Assets
 - `src/main/AndroidManifest.xml` – Application manifest declaring permissions, application class and launcher activity.
@@ -70,7 +76,7 @@ It is intended to be updated whenever new features are added or existing functio
 - `src/main/res/xml/` – Backup and data extraction configuration.
 - `src/main/assets/english_seed.json` – Seed data for populating the English database.
 - `src/main/assets/CDS_II_2024_English_SetA.json` – PYQ sample exam data used by the quiz screen.
-- `src/main/assets/concept_of_the_day.json` – Concepts for the dashboard discover carousel.
+- `src/main/assets/concepts_of_the_day.json` – Concept tips seeded into the database.
 
 ### Tests
 - `src/test/java/.../ExampleUnitTest.kt` – Sample unit test.
