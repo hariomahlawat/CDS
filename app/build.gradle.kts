@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.foundation)
     implementation(libs.androidx.material3)
+    implementation(libs.android.material)
     implementation(libs.androidx.navigation.compose)
     implementation(platform(libs.firebase.bom))   // <-- BOM now comes from catalog
     implementation(libs.firebase.auth.ktx)        // <-- version is inherited from the BOM
