@@ -5,6 +5,7 @@ import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportBuilder
 import kotlin.test.Test
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
+import kotlin.test.assertFalse
 
 class QuizReportBuilderTest {
 
@@ -34,5 +35,47 @@ class QuizReportBuilderTest {
         report.bottlenecks.forEach {
             assertTrue((it.answeredAt - it.startedAt) >= p90)
         }
+    }
+
+    @Test
+    fun Suggestions_lowAccuracy() {
+        val traces = listOf(
+            QuizTrace("s", 1, 1, 0L, 1000L, true),
+            QuizTrace("s", 2, 1, 0L, 1000L, true),
+            QuizTrace("s", 3, 1, 0L, 100L, false),
+            QuizTrace("s", 4, 1, 0L, 100L, false),
+            QuizTrace("s", 5, 1, 0L, 100L, false)
+        )
+        val report = QuizReportBuilder(traces).build()
+        assertTrue(report.suggestions.contains("Revise 1 – only 40 % correct"))
+        assertFalse(report.suggestions.contains("Re-attempt flagged slow questions"))
+    }
+
+    @Test
+    fun Suggestions_slowWrong() {
+        val traces = listOf(
+            QuizTrace("s", 1, 1, 0L, 1000L, false),
+            QuizTrace("s", 2, 1, 0L, 1000L, false),
+            QuizTrace("s", 3, 1, 0L, 1000L, false),
+            QuizTrace("s", 4, 1, 0L, 100L, true),
+            QuizTrace("s", 5, 1, 0L, 100L, true),
+            QuizTrace("s", 6, 1, 0L, 100L, true),
+            QuizTrace("s", 7, 1, 0L, 100L, true)
+        )
+        val report = QuizReportBuilder(traces).build()
+        assertTrue(report.suggestions.contains("Re-attempt flagged slow questions"))
+    }
+
+    @Test
+    fun Suggestions_allGood() {
+        val traces = listOf(
+            QuizTrace("s", 1, 1, 0L, 100L, true),
+            QuizTrace("s", 2, 1, 0L, 100L, true),
+            QuizTrace("s", 3, 1, 0L, 100L, true),
+            QuizTrace("s", 4, 1, 0L, 100L, true),
+            QuizTrace("s", 5, 1, 0L, 100L, true)
+        )
+        val report = QuizReportBuilder(traces).build()
+        assertTrue(report.suggestions.isEmpty())
     }
 }

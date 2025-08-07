@@ -40,15 +40,15 @@ class QuizReportBuilder(private val traces: List<QuizTrace>) {
         val suggestions = mutableListOf<String>()
         perTopic.forEach { t ->
             if (t.attempts >= AnalyticsConfig.MIN_ATTEMPTS_FOR_TOPIC && t.accuracy < 50) {
-                suggestions += "Revise ${t.topicId} – only ${t.accuracy.roundToInt()}% correct"
+                suggestions += "Revise ${t.topicId} – only ${t.accuracy.roundToInt()} % correct"
             }
             if (globalAvg > 0 && t.avgTime > AnalyticsConfig.SPEED_THR_RATIO * globalAvg) {
-                suggestions += "Speed up ${t.topicId} – avg ${(t.avgTime / 1000.0).roundToInt()}s"
+                suggestions += "Speed up ${t.topicId} – avg ${(t.avgTime / 1000.0).roundToInt()} s"
             }
         }
         val unattempted = total - attempted
         if (unattempted > 0) {
-            suggestions += "Attempt all – $unattempted left blank"
+            suggestions += "Attempt every question – $unattempted left blank"
         }
         if (bottlenecks.size >= 3) {
             suggestions += "Re-attempt flagged slow questions"
