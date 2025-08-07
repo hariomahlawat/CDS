@@ -1,5 +1,7 @@
 package com.concepts_and_quizzes.cds.ui.english.dashboard
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
@@ -20,9 +22,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AutoStories
-import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.QuestionAnswer
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material3.CircularProgressIndicator
@@ -50,7 +50,13 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material3.ProgressIndicatorDefaults
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel = hiltViewModel()) {
@@ -100,8 +106,12 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                     color = MaterialTheme.colorScheme.onPrimary
                 )
                 CircularProgressIndicator(
-                    progress = summary.best / 100f,
-                    modifier = Modifier.size(48.dp)
+                progress = { summary.best / 100f },
+                modifier = Modifier.size(48.dp),
+                color = ProgressIndicatorDefaults.circularColor,
+                strokeWidth = ProgressIndicatorDefaults.CircularStrokeWidth,
+                trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
+                strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,
                 )
             }
         }
@@ -114,7 +124,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
         ) {
             ActionChip(Icons.Filled.AutoStories, "Concepts") { nav.navigate("english/concepts") }
             ActionChip(Icons.Filled.School, "Mock Tests") { nav.navigate("quizHub") }
-            ActionChip(Icons.Filled.MenuBook, "Past Papers") { nav.navigate("english/pyqp") }
+            ActionChip(Icons.AutoMirrored.Filled.MenuBook, "Past Papers") { nav.navigate("english/pyqp") }
         }
 
         Row(
