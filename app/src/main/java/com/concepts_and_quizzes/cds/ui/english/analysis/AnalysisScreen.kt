@@ -14,6 +14,7 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.concepts_and_quizzes.cds.data.analytics.shouldCelebrate
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReport
 import com.concepts_and_quizzes.cds.data.analytics.repo.accuracy
@@ -58,11 +60,21 @@ fun AnalysisScreen(
             enter = fadeIn() + scaleIn(initialScale = .8f),
             exit = fadeOut(animationSpec = tween(800))
         ) {
+            val anim = rememberLottieAnimatable()
+            LaunchedEffect(play, composition) {
+                if (play && composition != null) {
+                    anim.animate(
+                        composition = composition,
+                        iterations = 1,
+                    )
+                    play = false
+                }
+            }
             LottieAnimation(
-                composition,
-                iterations = 1,
+                composition = composition,
+                progress = { anim.progress },
                 modifier = Modifier.fillMaxSize()
-            ) { _, _ -> play = false }
+            )
         }
     }
 }
