@@ -87,10 +87,10 @@ fun DiscoverConceptDetailScreen(nav: NavHostController, vm: DiscoverConceptViewM
                 val bullets = emptyList<String>()
                 bullets.forEach { Bullet(it) }
                 Spacer(Modifier.height(32.dp))
-                Button(
-                    onClick = { nav.navigate("concept/${c.id}") },
-                    modifier = Modifier.fillMaxWidth()
-                ) { Text("Full Lesson") }
+//                Button(
+//                    onClick = { nav.navigate("concept/${c.id}") },
+//                    modifier = Modifier.fillMaxWidth()
+//                ) { Text("Full Lesson") }
             }
         }
     }
