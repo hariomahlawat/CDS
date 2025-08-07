@@ -1,0 +1,7 @@
+{
+  "concepts": [
+    { "id": "c1", "title": "Active Voice", "overview": "Subject performs the action denoted by the verb." },
+    { "id": "c2", "title": "Passive Voice", "overview": "Subject receives the action expressed by the verb." },
+    { "id": "c3", "title": "Direct Speech", "overview": "Reporting the exact words spoken by someone." }
+  ]
+}

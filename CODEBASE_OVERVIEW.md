@@ -27,8 +27,8 @@ It is intended to be updated whenever new features are added or existing functio
 - `ui/onboarding/OnboardingScreen.kt` – Simple carousel shown on first launch.
 
 #### UI Screens
-- `ui/english/dashboard/EnglishDashboardScreen.kt` – Dashboard showing PYQ summary and navigation.
-- `ui/english/dashboard/EnglishDashboardViewModel.kt` – Supplies dashboard data.
+- `ui/english/dashboard/EnglishDashboardScreen.kt` – Hero landing with greeting, progress ring, action chips, live stats and a discover carousel.
+- `ui/english/dashboard/EnglishDashboardViewModel.kt` – Supplies dashboard data including questions practised and concept-of-the-day cards.
 - `ui/english/concepts/ConceptsHomeViewModel.kt` – Exposes English topics from the repository.
 - `ui/english/concepts/ConceptsHomeScreen.kt` – Lists topics and navigates to their details.
 - `ui/english/concepts/ConceptDetailViewModel.kt` – Loads a single topic based on navigation arguments.
@@ -70,6 +70,7 @@ It is intended to be updated whenever new features are added or existing functio
 - `src/main/res/xml/` – Backup and data extraction configuration.
 - `src/main/assets/english_seed.json` – Seed data for populating the English database.
 - `src/main/assets/CDS_II_2024_English_SetA.json` – PYQ sample exam data used by the quiz screen.
+- `src/main/assets/concept_of_the_day.json` – Concepts for the dashboard discover carousel.
 
 ### Tests
 - `src/test/java/.../ExampleUnitTest.kt` – Sample unit test.
