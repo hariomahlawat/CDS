@@ -119,8 +119,8 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
         FlowRow(
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 24.dp),
-            mainAxisSpacing = 8.dp,
-            crossAxisSpacing = 8.dp
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             ActionChip(Icons.Filled.AutoStories, "Concepts") { nav.navigate("english/concepts") }
             ActionChip(Icons.Filled.School, "Mock Tests") { nav.navigate("quizHub") }
