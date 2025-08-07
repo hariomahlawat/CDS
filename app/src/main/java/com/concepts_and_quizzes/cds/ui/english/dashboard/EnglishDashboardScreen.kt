@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.filled.AutoStories
@@ -49,7 +48,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material3.ProgressIndicatorDefaults
-import com.concepts_and_quizzes.cds.ui.english.dashboard.DiscoverCarousel
 import androidx.compose.ui.res.painterResource
 import com.concepts_and_quizzes.cds.R
 
@@ -74,7 +72,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
 
     Column {
         Image(
-            painter = painterResource(R.drawable.logo),
+            painter = painterResource(R.drawable.logo2),
             contentDescription = "CDS logo",
             modifier = Modifier
                 .size(96.dp)

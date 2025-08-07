@@ -19,7 +19,7 @@ fun CdsAppBar(title: String) {
         title = { Text(text = title) },
         navigationIcon = {
             Image(
-                painter = painterResource(R.drawable.logo),
+                painter = painterResource(R.drawable.logo2),
                 contentDescription = null,
                 modifier = Modifier
                     .size(32.dp)
