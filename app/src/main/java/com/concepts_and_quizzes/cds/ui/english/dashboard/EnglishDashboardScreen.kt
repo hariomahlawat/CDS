@@ -4,7 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -74,9 +73,8 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
     }
 
     Column {
-        val logoRes = if (isSystemInDarkTheme()) R.drawable.logo_dark else R.drawable.logo_light
         Image(
-            painter = painterResource(logoRes),
+            painter = painterResource(R.drawable.logo),
             contentDescription = "CDS logo",
             modifier = Modifier
                 .size(96.dp)
