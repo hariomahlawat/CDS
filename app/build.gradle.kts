@@ -78,6 +78,7 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation("androidx.core:core-splashscreen:1.0.1")
     testImplementation(libs.junit)
     testImplementation(libs.androidx.room.testing)
     testImplementation(libs.androidx.test.core)

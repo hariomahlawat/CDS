@@ -2,7 +2,9 @@ package com.concepts_and_quizzes.cds.ui.english.dashboard
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -49,6 +51,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material3.ProgressIndicatorDefaults
 import com.concepts_and_quizzes.cds.ui.english.dashboard.DiscoverCarousel
+import androidx.compose.ui.res.painterResource
+import com.concepts_and_quizzes.cds.R
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
@@ -70,6 +74,16 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
     }
 
     Column {
+        val logoRes = if (isSystemInDarkTheme()) R.drawable.logo_dark else R.drawable.logo_light
+        Image(
+            painter = painterResource(logoRes),
+            contentDescription = "CDS logo",
+            modifier = Modifier
+                .size(96.dp)
+                .align(Alignment.CenterHorizontally)
+        )
+        Spacer(Modifier.height(16.dp))
+
         Box(
             Modifier
                 .fillMaxWidth()
