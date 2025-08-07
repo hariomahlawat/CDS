@@ -1,0 +1,1442 @@
+[
+  {
+    "id": 1,
+    "title": "Difference Between 'Accept' and 'Except'",
+    "category": "Vocabulary Usage",
+    "definition": "'Accept' means to receive or agree to; 'Except' means to exclude or leave out.",
+    "example": "She accepted the job offer. Everyone arrived except John.",
+    "tip": "Remember: 'accept' is a verb (to receive), while 'except' usually means 'excluding'."
+  },
+  {
+    "id": 2,
+    "title": "Difference Between 'Access' and 'Excess'",
+    "category": "Vocabulary Usage",
+    "definition": "'Access' means the ability to enter or use; 'Excess' means more than needed or an extra amount.",
+    "example": "We have access to the library resources. The report was full of excess details.",
+    "tip": "Access relates to entry (think 'access door'), excess relates to too much (think 'excessive')."
+  },
+  {
+    "id": 3,
+    "title": "Difference Between 'Adapt' and 'Adopt'",
+    "category": "Vocabulary Usage",
+    "definition": "'Adapt' means to adjust or change for a purpose; 'Adopt' means to take up, accept, or begin to use.",
+    "example": "Animals adapt to their environment. They decided to adopt a new strategy.",
+    "tip": "'Adapt' has a 'p' for 'modify to fit a purpose'; 'Adopt' has an 'o' like 'own' (to take as one's own)."
+  },
+  {
+    "id": 4,
+    "title": "Difference Between 'Advice' and 'Advise'",
+    "category": "Vocabulary Usage",
+    "definition": "'Advice' (with 'c') is a noun meaning recommendation; 'Advise' (with 's') is a verb meaning to give a recommendation.",
+    "example": "She gave me good advice. I advise you to check your work.",
+    "tip": "Use 'advise' for the action (verb) and 'advice' for the thing (noun)."
+  },
+  {
+    "id": 5,
+    "title": "Difference Between 'Affect' and 'Effect'",
+    "category": "Vocabulary Usage",
+    "definition": "'Affect' is usually a verb meaning to influence; 'Effect' is usually a noun meaning result or outcome.",
+    "example": "The weather affects my mood. The new policy had a positive effect.",
+    "tip": "Affect is an Action (both start with 'A'), Effect is an End result."
+  },
+  {
+    "id": 6,
+    "title": "Difference Between 'Afflict' and 'Inflict'",
+    "category": "Vocabulary Usage",
+    "definition": "'Afflict' means to cause pain or grief to; 'Inflict' means to impose or force something unpleasant.",
+    "example": "Disease can afflict millions. Do not inflict harm on others.",
+    "tip": "'Afflict' is often used for suffering that happens to someone; 'Inflict' is used for the act of causing it."
+  },
+  {
+    "id": 7,
+    "title": "Difference Between 'Allude' and 'Elude'",
+    "category": "Vocabulary Usage",
+    "definition": "'Allude' means to refer to indirectly; 'Elude' means to escape or avoid.",
+    "example": "The article alluded to past research. The suspect managed to elude the police.",
+    "tip": "'Allude' has an 'a' for 'address indirectly'; 'elude' starts with 'e' like 'escape'."
+  },
+  {
+    "id": 8,
+    "title": "Difference Between 'Allusion' and 'Illusion'",
+    "category": "Vocabulary Usage",
+    "definition": "'Allusion' is an indirect reference; 'Illusion' is a false impression or deceptive appearance.",
+    "example": "The novel makes an allusion to Greek mythology. The magician's trick was just an illusion.",
+    "tip": "Allusion with an 'a' refers to a remark or reference; illusion with an 'i' is about seeing something not real."
+  },
+  {
+    "id": 9,
+    "title": "Difference Between 'Alternate' and 'Alternative'",
+    "category": "Vocabulary Usage",
+    "definition": "'Alternate' can mean occurring in turn or every other (also a verb meaning to take turns); 'Alternative' means another option or choice.",
+    "example": "We meet on alternate (every other) days. We have an alternative plan if this fails.",
+    "tip": "Use 'alternative' for a substitute option, 'alternate' for taking turns or every second one."
+  },
+  {
+    "id": 10,
+    "title": "Difference Between 'Amiable' and 'Amicable'",
+    "category": "Vocabulary Usage",
+    "definition": "'Amiable' describes a friendly, pleasant person; 'Amicable' describes friendly relations (often despite a difficult situation).",
+    "example": "He is an amiable host who greets everyone warmly. They reached an amicable agreement after the dispute.",
+    "tip": "Think 'amiable individual', but 'amicable relationship/settlement'."
+  },
+  {
+    "id": 11,
+    "title": "Difference Between 'Amoral' and 'Immoral'",
+    "category": "Vocabulary Usage",
+    "definition": "'Amoral' means not concerned with morality (neither moral nor immoral); 'Immoral' means not following accepted moral rules (wrong or unethical).",
+    "example": "The experiment was amoral, focusing only on data. Stealing is considered immoral behavior.",
+    "tip": "'Amoral' = without regard to morality; 'immoral' = actively against morals."
+  },
+  {
+    "id": 12,
+    "title": "Difference Between 'Appraise' and 'Apprise'",
+    "category": "Vocabulary Usage",
+    "definition": "'Appraise' means to evaluate or assess the value of something; 'Apprise' means to inform or notify.",
+    "example": "We will appraise the house before selling. Please apprise me of any changes to the schedule.",
+    "tip": "Appraise has 'praise' in it (think 'price' — evaluation); apprise sounds like 'a prize of information' (to inform)."
+  },
+  {
+    "id": 13,
+    "title": "Difference Between 'Apposite' and 'Opposite'",
+    "category": "Vocabulary Usage",
+    "definition": "'Apposite' means appropriate or fitting; 'Opposite' means completely different or across from.",
+    "example": "Her comments were apposite to the discussion. Tall is the opposite of short.",
+    "tip": "Apposite (with double 'p') means apt or appropriate; opposite (with one 'p') means in contrast."
+  },
+  {
+    "id": 14,
+    "title": "Difference Between 'Ascent' and 'Assent'",
+    "category": "Vocabulary Usage",
+    "definition": "'Ascent' (with 'c') means an upward climb or rise; 'Assent' (with 's') means agreement or approval.",
+    "example": "The ascent to the mountain peak was tough. She gave her assent to the proposal.",
+    "tip": "'Ascent' has 'sc' like 'scale upward'; 'assent' has 'ss' like 'yes' (agreement)."
+  },
+  {
+    "id": 15,
+    "title": "Difference Between 'Assure', 'Ensure' and 'Insure'",
+    "category": "Vocabulary Usage",
+    "definition": "'Assure' means to remove doubt or promise (to tell someone confidently); 'Ensure' means to make certain; 'Insure' means to protect against risk (usually via insurance).",
+    "example": "I assure you that everything will be fine. Please ensure the door is locked. We decided to insure our car against theft.",
+    "tip": "Assure a person, ensure a result, insure for financial protection (think insurance)."
+  },
+  {
+    "id": 16,
+    "title": "Difference Between 'Averse' and 'Adverse'",
+    "category": "Vocabulary Usage",
+    "definition": "'Averse' (usually with 'to') means having a strong dislike or opposition; 'Adverse' means harmful or unfavorable.",
+    "example": "She is averse to taking unnecessary risks. Adverse weather conditions caused delays.",
+    "tip": "'Averse' describes a person’s attitude (averse to = opposed), 'adverse' describes conditions or effects (unfavorable)."
+  },
+  {
+    "id": 17,
+    "title": "Difference Between 'Beside' and 'Besides'",
+    "category": "Vocabulary Usage",
+    "definition": "'Beside' means next to; 'Besides' means in addition to or apart from.",
+    "example": "The dog sat beside its owner. Besides English, she speaks Spanish.",
+    "tip": "Beside = by the side (location); besides = plus/additionally."
+  },
+  {
+    "id": 18,
+    "title": "Difference Between 'Bazaar' and 'Bizarre'",
+    "category": "Vocabulary Usage",
+    "definition": "'Bazaar' is a market or fair for selling goods; 'Bizarre' means very strange or unusual.",
+    "example": "We strolled through the bazaar buying spices. That is a bizarre outfit you're wearing!",
+    "tip": "Bazaar has double 'a' like in 'marketplace'; bizarre has the 'bizarre' spelling for weirdness."
+  },
+  {
+    "id": 19,
+    "title": "Difference Between 'Berth' and 'Birth'",
+    "category": "Vocabulary Usage",
+    "definition": "'Berth' refers to a sleeping place (on a train/ship) or a docking space; 'Birth' refers to the emergence of a baby from the womb.",
+    "example": "I reserved a berth on the overnight train. The birth of a child is a joyous occasion.",
+    "tip": "Berth with an 'e' is a bunk or docking space (think 'berth = bed'); birth with an 'i' is about babies being born."
+  },
+  {
+    "id": 20,
+    "title": "Difference Between 'Breath' and 'Breathe'",
+    "category": "Vocabulary Usage",
+    "definition": "'Breath' (noun) is the air taken in or expelled from lungs; 'Breathe' (verb) means to inhale and exhale.",
+    "example": "He took a deep breath before speaking. Just relax and breathe slowly.",
+    "tip": "'Breathe' has an extra 'e' and is an action; 'breath' is the thing (no extra 'e')."
+  },
+  {
+    "id": 21,
+    "title": "Difference Between 'Bridal' and 'Bridle'",
+    "category": "Vocabulary Usage",
+    "definition": "'Bridal' relates to a bride or wedding; 'Bridle' is a noun for a horse's headgear or a verb meaning to restrain.",
+    "example": "She shopped for her bridal gown. He put the bridle on the horse before riding.",
+    "tip": "Bridal with an 'a' = wedding (bride-related); bridle with an 'e' = equestrian gear (for a horse)."
+  },
+  {
+    "id": 22,
+    "title": "Difference Between 'Borrow' and 'Lend'",
+    "category": "Vocabulary Usage",
+    "definition": "'Borrow' means to take something temporarily from someone; 'Lend' means to give something temporarily to someone.",
+    "example": "Can I borrow a pen from you? She will gladly lend you the book for a week.",
+    "tip": "You borrow FROM someone (take); you lend TO someone (give)."
+  },
+  {
+    "id": 23,
+    "title": "Difference Between 'Canvas' and 'Canvass'",
+    "category": "Vocabulary Usage",
+    "definition": "'Canvas' is a heavy cloth or fabric; 'Canvass' is a verb meaning to survey or solicit (votes, opinions, sales).",
+    "example": "The painting was done on a canvas. Volunteers will canvass the neighborhood for votes.",
+    "tip": "Canvas (one 's') is material (cloth); canvass (two 's') involves asking or seeking (survey)."
+  },
+  {
+    "id": 24,
+    "title": "Difference Between 'Capital' and 'Capitol'",
+    "category": "Vocabulary Usage",
+    "definition": "'Capital' can mean a city serving as a seat of government, wealth or resources, or uppercase letter; 'Capitol' is a building where a legislative body meets.",
+    "example": "Paris is the capital of France. The protesters gathered outside the Capitol building.",
+    "tip": "Capitol with 'o' refers to a building (think of the 'O' as the dome); capital with 'a' has broader meanings (city, money, letters)."
+  },
+  {
+    "id": 25,
+    "title": "Difference Between 'Censor' and 'Censure'",
+    "category": "Vocabulary Usage",
+    "definition": "'Censor' means to remove or suppress inappropriate parts (e.g., from books or films); 'Censure' means to criticize or officially condemn.",
+    "example": "The film was censored for excessive violence. The committee will censure the official for misconduct.",
+    "tip": "Censor relates to cutting content (think 'censorship'); censure means expressing disapproval or blame (similar to 'criticize')."
+  },
+  {
+    "id": 26,
+    "title": "Difference Between 'Childish' and 'Childlike'",
+    "category": "Vocabulary Usage",
+    "definition": "'Childish' often has a negative sense, meaning immature like a child; 'Childlike' has a positive sense, meaning having qualities (like innocence) of a child.",
+    "example": "Arguing over nothing is childish behavior. He has a childlike wonder when he learns new things.",
+    "tip": "Childish = immature (pejorative); childlike = innocently trusting or simple (positive trait)."
+  },
+  {
+    "id": 27,
+    "title": "Difference Between 'Climactic' and 'Climatic'",
+    "category": "Vocabulary Usage",
+    "definition": "'Climactic' relates to a climax or high point of intensity; 'Climatic' relates to climate or weather.",
+    "example": "The movie’s climactic battle scene was breathtaking. The climatic conditions in the desert are harsh.",
+    "tip": "Climactic (with two 'c's) is about climax (dramatic high point); climatic (one 'c') is about climate and weather."
+  },
+  {
+    "id": 28,
+    "title": "Difference Between 'Coarse' and 'Course'",
+    "category": "Vocabulary Usage",
+    "definition": "'Coarse' means rough in texture or lacking refinement; 'Course' has multiple meanings: a direction, a class, or part of a meal.",
+    "example": "The fabric felt coarse and scratchy. She is taking a course in computer science.",
+    "tip": "Coarse (with 'a') = rough or crude; course (with 'u') = route or class (many meanings)."
+  },
+  {
+    "id": 29,
+    "title": "Difference Between 'Complement' and 'Compliment'",
+    "category": "Vocabulary Usage",
+    "definition": "'Complement' (with an 'e') means to complete or go well with; 'Compliment' (with an 'i') means to praise or a remark of praise.",
+    "example": "That scarf complements your outfit. She received a nice compliment on her presentation.",
+    "tip": "Complement with an 'e' completes something (think 'complete'); compliment with an 'i' is about saying something nice."
+  },
+  {
+    "id": 30,
+    "title": "Difference Between 'Complacent' and 'Complaisant'",
+    "category": "Vocabulary Usage",
+    "definition": "'Complacent' means self-satisfied and unaware of potential dangers or deficiencies; 'Complaisant' means eager to please or overly agreeable.",
+    "example": "We must not become complacent about security. He’s so complaisant that he'll agree to any plan.",
+    "tip": "Complacent = smugly content (a negative, unaware of problems); complaisant = compliant and eager to please others."
+  },
+  {
+    "id": 31,
+    "title": "Difference Between 'Confidant' and 'Confident'",
+    "category": "Vocabulary Usage",
+    "definition": "'Confidant' (noun) is a trusted person you share secrets with; 'Confident' (adjective) means self-assured or certain.",
+    "example": "She is my closest confidant and knows all my secrets. He is confident that he will succeed.",
+    "tip": "Confidant ends with 'ant' (a person); confident ends with 'ent' and describes a state of confidence."
+  },
+  {
+    "id": 32,
+    "title": "Difference Between 'Conscious' and 'Conscience'",
+    "category": "Vocabulary Usage",
+    "definition": "'Conscious' means awake or aware; 'Conscience' is the inner sense of right and wrong.",
+    "example": "I was fully conscious during the procedure. His conscience wouldn’t allow him to ignore the cheating.",
+    "tip": "Conscience has 'science' in it, think moral science (sense of ethics); conscious is about being conscious/aware."
+  },
+  {
+    "id": 33,
+    "title": "Difference Between 'Continual' and 'Continuous'",
+    "category": "Vocabulary Usage",
+    "definition": "'Continual' means happening repeatedly with pauses in between; 'Continuous' means unbroken or without interruption.",
+    "example": "We faced continual interruptions during the meeting (repeated but with breaks). The continuous humming of the machine was annoying (nonstop).",
+    "tip": "'Continual' = repeated regularly (stop and start); 'continuous' = unceasing, going on without break."
+  },
+  {
+    "id": 34,
+    "title": "Difference Between 'Council' and 'Counsel'",
+    "category": "Vocabulary Usage",
+    "definition": "'Council' is a group of people assembled for advice or governance; 'Counsel' can be a noun meaning advice or an attorney, or a verb meaning to advise.",
+    "example": "The city council will meet tonight. She sought counsel from a senior lawyer. The therapist will counsel the family.",
+    "tip": "Council with 'ci' is a committee or assembly; counsel with 'sel' relates to advice (think counselor or legal counsel)."
+  },
+  {
+    "id": 35,
+    "title": "Difference Between 'Credible' and 'Credulous'",
+    "category": "Vocabulary Usage",
+    "definition": "'Credible' means believable or trustworthy; 'Credulous' means too ready to believe, gullible.",
+    "example": "The witness gave a credible account of what happened. Don't be so credulous; not everything you read is true.",
+    "tip": "Credible = can be credited (believed); credulous = too trusting (gullible)."
+  },
+  {
+    "id": 36,
+    "title": "Difference Between 'Desert' and 'Dessert'",
+    "category": "Vocabulary Usage",
+    "definition": "'Desert' (noun) is a dry, barren area of land; as a verb it means to abandon. 'Dessert' (with two s's) is the sweet course eaten at the end of a meal.",
+    "example": "The Sahara is a vast desert. If you desert your post, you will face punishment. We had ice cream for dessert.",
+    "tip": "Dessert has two S's because you want seconds of sweets; a desert is dry and sparse (only one s)."
+  },
+  {
+    "id": 37,
+    "title": "Difference Between 'Device' and 'Devise'",
+    "category": "Vocabulary Usage",
+    "definition": "'Device' is a noun meaning a gadget or invention; 'Devise' is a verb meaning to plan or invent.",
+    "example": "This device can measure air quality. We need to devise a better plan for emergencies.",
+    "tip": "Device (with 'c') is a thing (noun); devise (with 's') is an action (verb)."
+  },
+  {
+    "id": 38,
+    "title": "Difference Between 'Discreet' and 'Discrete'",
+    "category": "Vocabulary Usage",
+    "definition": "'Discreet' means careful and tactful in conduct or speech (to avoid notice); 'Discrete' means separate or distinct.",
+    "example": "She was discreet about handling the confidential documents. The data is divided into discrete categories.",
+    "tip": "Discreet (double 'e') = careful and low-key (two eyes watching quietly); discrete (with 'ete') = separate/distinct."
+  },
+  {
+    "id": 39,
+    "title": "Difference Between 'Disinterested' and 'Uninterested'",
+    "category": "Vocabulary Usage",
+    "definition": "'Disinterested' means impartial or unbiased; 'Uninterested' means not interested or indifferent/bored.",
+    "example": "A judge must remain disinterested in the case. He seemed uninterested in the presentation and almost fell asleep.",
+    "tip": "Disinterested = no stake (neutral); uninterested = not engaged or caring."
+  },
+  {
+    "id": 40,
+    "title": "Difference Between 'Elicit' and 'Illicit'",
+    "category": "Vocabulary Usage",
+    "definition": "'Elicit' (verb) means to draw out or evoke; 'Illicit' (adjective) means illegal or not permitted.",
+    "example": "The teacher's question elicited silence from the class. They were involved in illicit activities.",
+    "tip": "Elicit (with an 'e') = evoke or draw out; illicit (with 'ill') = illegal (think 'ill-legal')."
+  },
+  {
+    "id": 41,
+    "title": "Difference Between 'Emigrate' and 'Immigrate'",
+    "category": "Vocabulary Usage",
+    "definition": "'Emigrate' means to leave one's country to live elsewhere; 'Immigrate' means to come into a new country to live.",
+    "example": "My grandparents emigrated from Italy in 1950. Many people immigrate to Canada in search of opportunity.",
+    "tip": "Emigrate = exit a country (from); immigrate = come in (to). Remember: Emigrate From, Immigrate To."
+  },
+  {
+    "id": 42,
+    "title": "Difference Between 'Eminent' and 'Imminent'",
+    "category": "Vocabulary Usage",
+    "definition": "'Eminent' means distinguished, famous, or high in rank; 'Imminent' means about to happen very soon.",
+    "example": "An eminent scientist will lecture today. Dark clouds mean a storm is imminent.",
+    "tip": "Eminent = prominent (well-known); imminent = immediate (happening soon)."
+  },
+  {
+    "id": 43,
+    "title": "Difference Between 'Especially' and 'Specially'",
+    "category": "Vocabulary Usage",
+    "definition": "'Especially' means particularly or notably; 'Specially' means for a special purpose or specifically.",
+    "example": "I love desserts, especially chocolate cake. This software was specially designed for beginners.",
+    "tip": "Use 'especially' to highlight something exceptional, 'specially' when something is done for a specific purpose or in a specific way."
+  },
+  {
+    "id": 44,
+    "title": "Difference Between 'Farther' and 'Further'",
+    "category": "Vocabulary Usage",
+    "definition": "'Farther' refers to greater physical distance; 'Further' refers to additional extent or degree (more abstract, or 'moreover').",
+    "example": "My house is farther from the school than yours. We will discuss this further in the meeting.",
+    "tip": "Farther = more far (physical distance); further = in addition or to a greater extent (not necessarily physical)."
+  },
+  {
+    "id": 45,
+    "title": "Difference Between 'Famous' and 'Infamous'",
+    "category": "Vocabulary Usage",
+    "definition": "'Famous' means well-known (generally positively); 'Infamous' means having a bad reputation or famous for a negative reason.",
+    "example": "She is a famous author beloved by many. That dictator is infamous for human rights abuses.",
+    "tip": "Infamous is 'famous in a bad way'. Being famous isn't always good—infamous highlights a negative fame."
+  },
+  {
+    "id": 46,
+    "title": "Difference Between 'Fewer' and 'Less'",
+    "category": "Vocabulary Usage",
+    "definition": "'Fewer' is used with countable plural nouns (individual items); 'Less' is used with uncountable quantities or singular mass nouns.",
+    "example": "Fewer students attended this year than last year. We have less time to finish the exam than we thought.",
+    "tip": "If you can count them (books, coins), use 'fewer'; if it's a mass or abstract quantity (time, water), use 'less'."
+  },
+  {
+    "id": 47,
+    "title": "Difference Between 'Flaunt' and 'Flout'",
+    "category": "Vocabulary Usage",
+    "definition": "'Flaunt' means to show off or display proudly; 'Flout' means to openly disregard or defy (a rule or convention).",
+    "example": "She loves to flaunt her designer clothes. Some people flout traffic laws without concern.",
+    "tip": "Flaunt = show off (think 'display'); flout = defy or scoff at rules ('flout the rules')."
+  },
+  {
+    "id": 48,
+    "title": "Difference Between 'Flounder' and 'Founder'",
+    "category": "Vocabulary Usage",
+    "definition": "'Flounder' means to struggle or move clumsily (as if stumbling); 'Founder' as a verb means to fail utterly or sink, as a noun it can mean originator (not to confuse here).",
+    "example": "The new swimmer floundered in the deep end. The plan began to founder when funding was withdrawn.",
+    "tip": "Flounder (think of a flopping fish) = struggle; founder (sounds like 'go under') = collapse or sink (fail)."
+  },
+  {
+    "id": 49,
+    "title": "Difference Between 'Hanged' and 'Hung'",
+    "category": "Vocabulary Usage",
+    "definition": "'Hanged' is used as the past tense when referring to execution by hanging; 'Hung' is the general past tense of hang for objects or other meanings.",
+    "example": "In the past, criminals were hanged for theft. I hung the painting on the wall above the sofa.",
+    "tip": "People (execution) are 'hanged'; objects are 'hung'."
+  },
+  {
+    "id": 50,
+    "title": "Difference Between 'Historic' and 'Historical'",
+    "category": "Vocabulary Usage",
+    "definition": "'Historic' means famous or important in history; 'Historical' means related to history or about past events.",
+    "example": "Neil Armstrong’s moon landing was a historic event. She loves reading historical novels set in medieval times.",
+    "tip": "Historic = significant in history; historical = pertaining to history or the past (not necessarily significant)."
+  },
+  {
+    "id": 51,
+    "title": "Difference Between 'Hoard' and 'Horde'",
+    "category": "Vocabulary Usage",
+    "definition": "'Hoard' (noun/verb) means a stockpile or to collect and hide away; 'Horde' (noun) means a large crowd or swarm.",
+    "example": "He tends to hoard money under his mattress. A horde of fans waited outside the celebrity's hotel.",
+    "tip": "Hoard with an 'a' = stash away; horde with an 'e' = crowd (think 'horde' of people)."
+  },
+  {
+    "id": 52,
+    "title": "Difference Between 'Imply' and 'Infer'",
+    "category": "Vocabulary Usage",
+    "definition": "'Imply' means to suggest or hint at something without saying it directly; 'Infer' means to deduce or conclude something from evidence or hints.",
+    "example": "His tone implied that he was upset. From her words, I inferred that the project was in trouble.",
+    "tip": "Speaker implies (gives a hint); listener infers (draws the conclusion)."
+  },
+  {
+    "id": 53,
+    "title": "Difference Between 'Ingenious' and 'Ingenuous'",
+    "category": "Vocabulary Usage",
+    "definition": "'Ingenious' means clever, inventive; 'Ingenuous' means innocent, naive, or straightforward (lacking in cunning).",
+    "example": "She devised an ingenious solution to the problem. He’s ingenuous, so he often believes any excuse.",
+    "tip": "Ingenious = genius-like (very clever); ingenuous = genuine-like (open and naive)."
+  },
+  {
+    "id": 54,
+    "title": "Difference Between 'Its' and 'It's'",
+    "category": "Vocabulary Usage",
+    "definition": "'Its' is the possessive form of it (belonging to it); 'It's' is the contraction of 'it is' or 'it has'.",
+    "example": "The company revised its policy. It's (it is) going to rain later this afternoon.",
+    "tip": "Test: if you can replace it with 'it is', use \"it's\" (with apostrophe). Otherwise, use \"its\" for ownership."
+  },
+  {
+    "id": 55,
+    "title": "Difference Between 'Later' and 'Latter'",
+    "category": "Vocabulary Usage",
+    "definition": "'Later' refers to a time in the future or after; 'Latter' refers to the second of two things mentioned.",
+    "example": "I'll call you later in the evening. Of coffee and tea, I prefer the latter in the evening.",
+    "tip": "Later = after (sometime afterward); latter = the second of two (latter sounds like 'later' in sequence of two)."
+  },
+  {
+    "id": 56,
+    "title": "Difference Between 'Lay' and 'Lie'",
+    "category": "Vocabulary Usage",
+    "definition": "'Lay' means to put or set something down (requires a direct object); 'Lie' means to recline or rest (no direct object).",
+    "example": "Please lay the groceries on the table. I'm going to lie down for a short nap.",
+    "tip": "Lay needs an object (you lay something), lie is something you do yourself. (Present: lay/lie; Past: laid/lay)."
+  },
+  {
+    "id": 57,
+    "title": "Difference Between 'Loose' and 'Lose'",
+    "category": "Vocabulary Usage",
+    "definition": "'Loose' (adjective) means not tight or free/not bound; 'Lose' (verb) means to misplace something or to not win.",
+    "example": "These shoes are too loose on my feet. Be careful not to lose your keys.",
+    "tip": "Loose ends with 'oo' (like in 'loose fit'); lose has one 'o' (pronounced \"looz\") and means misplace or fail to win."
+  },
+  {
+    "id": 58,
+    "title": "Difference Between 'Luxuriant' and 'Luxurious'",
+    "category": "Vocabulary Usage",
+    "definition": "'Luxuriant' means rich, abundant, or lush in growth; 'Luxurious' means characterized by luxury and expense, very comfortable.",
+    "example": "The garden boasted luxuriant vegetation after the rains. We stayed in a luxurious hotel with marble floors.",
+    "tip": "Luxuriant = abundant (often plants/hair growth); luxurious = richly comfortable or costly (full of luxury)."
+  },
+  {
+    "id": 59,
+    "title": "Difference Between 'Militate' and 'Mitigate'",
+    "category": "Vocabulary Usage",
+    "definition": "'Militate against' means to work against or hinder something; 'Mitigate' means to make less severe or reduce the intensity of something.",
+    "example": "Lack of support will militate against the project's success. We took steps to mitigate the risks of the operation.",
+    "tip": "Militate (against) = hinder (think of a military force working against); mitigate = alleviate or lessen (mitigate misery)."
+  },
+  {
+    "id": 60,
+    "title": "Difference Between 'Moral' and 'Morale'",
+    "category": "Vocabulary Usage",
+    "definition": "'Moral' (adj.) relates to principles of right and wrong; as a noun, a moral is a lesson from a story. 'Morale' (noun) refers to the confidence or spirit of a person or group.",
+    "example": "The story’s moral is that kindness wins in the end. After the victory, the team's morale was high.",
+    "tip": "Moral = ethical lesson or principle; morale = mood or spirit (remember the 'e' at end for 'enthusiasm')."
+  },
+  {
+    "id": 61,
+    "title": "Difference Between 'Ordinance' and 'Ordnance'",
+    "category": "Vocabulary Usage",
+    "definition": "'Ordinance' is a law or regulation enacted by an authority; 'Ordnance' refers to military weapons, ammunition, or artillery.",
+    "example": "The city council passed an ordinance against public smoking. The army unit moved heavy ordnance into position.",
+    "tip": "Ordinance (with 'in') is something enacted (law); ordnance (no 'i') is ammunition and weapons (think explosive ordnance)."
+  },
+  {
+    "id": 62,
+    "title": "Difference Between 'Personal' and 'Personnel'",
+    "category": "Vocabulary Usage",
+    "definition": "'Personal' means private or relating to an individual; 'Personnel' means a group of people employed in an organization (staff).",
+    "example": "Please keep personal documents secure. All company personnel must wear ID badges.",
+    "tip": "Personal = individual/private; personnel = employees or staff (note the two 'n's in personnel)."
+  },
+  {
+    "id": 63,
+    "title": "Difference Between 'Perspective' and 'Prospective'",
+    "category": "Vocabulary Usage",
+    "definition": "'Perspective' is a point of view or way of looking at something; 'Prospective' means expected or likely to happen/become (future potential).",
+    "example": "From my perspective, the plan has some flaws. They interviewed prospective students for the program.",
+    "tip": "Perspective = viewpoint (think 'visual perspective'); prospective = potential or future (think 'prospect')."
+  },
+  {
+    "id": 64,
+    "title": "Difference Between 'Precede' and 'Proceed'",
+    "category": "Vocabulary Usage",
+    "definition": "'Precede' means to come before; 'Proceed' means to go forward or continue.",
+    "example": "Lightning preceded the thunder by a few seconds. After a short break, we will proceed with the meeting.",
+    "tip": "Precede has 'pre' (before); proceed has 'pro' (forward)."
+  },
+  {
+    "id": 65,
+    "title": "Difference Between 'Prescribe' and 'Proscribe'",
+    "category": "Vocabulary Usage",
+    "definition": "'Prescribe' means to recommend or order (especially a treatment or medicine); 'Proscribe' means to forbid or ban officially.",
+    "example": "The doctor will prescribe an antibiotic. The new rule proscribes smoking in all public buildings.",
+    "tip": "Prescribe = write an order (like a prescription); proscribe = prohibit (think 'prohibit script')."
+  },
+  {
+    "id": 66,
+    "title": "Difference Between 'Principal' and 'Principle'",
+    "category": "Vocabulary Usage",
+    "definition": "'Principal' can be an adjective meaning primary or a noun meaning the head of a school/organization; 'Principle' is a noun meaning a fundamental rule or belief.",
+    "example": "Our principal goal is to improve education. The school principal greeted us at the door. She refuses to lie; it's a matter of principle for her.",
+    "tip": "Principal with 'pal' is a person or main thing (the principal is your pal, main person); principle with 'ple' is a rule or belief."
+  },
+  {
+    "id": 67,
+    "title": "Difference Between 'Raise' and 'Rise'",
+    "category": "Vocabulary Usage",
+    "definition": "'Raise' (verb) means to lift or elevate something (requires an object); 'Rise' (verb) means to get up or increase (no object, it happens by itself).",
+    "example": "Please raise the flag at sunrise. Hot air rises at the ceiling.",
+    "tip": "You raise something (transitive); things rise on their own (intransitive)."
+  },
+  {
+    "id": 68,
+    "title": "Difference Between 'Respectively' and 'Respectfully'",
+    "category": "Vocabulary Usage",
+    "definition": "'Respectively' means in the corresponding order given; 'Respectfully' means with respect or showing respect.",
+    "example": "Alice and Bob won first and second place, respectively. He respectfully disagreed with his mentor's opinion.",
+    "tip": "'Respectively' = in order (each in turn); 'respectfully' = politely or with deference."
+  },
+  {
+    "id": 69,
+    "title": "Difference Between 'Sight', 'Site', 'Cite'",
+    "category": "Vocabulary Usage",
+    "definition": "'Sight' refers to vision or something seen; 'Site' is a location or place; 'Cite' means to quote or refer to (or to summon to court).",
+    "example": "The sunset over the hills was a beautiful sight. The company chose a new site for its headquarters. Remember to cite your sources in the report.",
+    "tip": "Sight = vision (seeing); site = location (place, think 'website'); cite = reference or quote (think 'citation')."
+  },
+  {
+    "id": 70,
+    "title": "Difference Between 'Stationary' and 'Stationery'",
+    "category": "Vocabulary Usage",
+    "definition": "'Stationary' means not moving, fixed in place; 'Stationery' refers to writing materials like paper and envelopes.",
+    "example": "The car remained stationary in traffic for an hour. She bought new stationery to write thank-you notes.",
+    "tip": "Stationery with an 'e' is for envelopes and paper; stationary with an 'a' means staying still (at a standstill)."
+  },
+  {
+    "id": 71,
+    "title": "Difference Between 'Than' and 'Then'",
+    "category": "Vocabulary Usage",
+    "definition": "'Than' is used for comparisons; 'Then' refers to time (at that time or next in sequence).",
+    "example": "She is taller than her brother. We went to dinner, then saw a movie.",
+    "tip": "Than = comparison; then = chronology (time/order)."
+  },
+  {
+    "id": 72,
+    "title": "Difference Between 'Tortuous' and 'Torturous'",
+    "category": "Vocabulary Usage",
+    "definition": "'Tortuous' means full of twists and turns, complicated; 'Torturous' means extremely painful, like torture.",
+    "example": "The hikers followed a tortuous path through the mountains. The wait for the verdict was torturous for everyone involved.",
+    "tip": "Tortuous (no extra 'r') = twisting or winding (think circuitous roads); torturous (with 'r') = like torture, painfully distressing."
+  },
+  {
+    "id": 73,
+    "title": "Difference Between 'Urban' and 'Urbane'",
+    "category": "Vocabulary Usage",
+    "definition": "'Urban' relates to a city (city characteristics); 'Urbane' describes someone (usually a man) as polite, refined, and sophisticated.",
+    "example": "Traffic congestion is a common urban problem. He was urbane, greeting us with charm and easy manners.",
+    "tip": "Urban = city (urban area); urbane = suave and cultured (a refined person)."
+  },
+  {
+    "id": 74,
+    "title": "Difference Between 'Venal' and 'Venial'",
+    "category": "Vocabulary Usage",
+    "definition": "'Venal' means corrupt or bribable; 'Venial' means a minor, easily forgiven offense or sin.",
+    "example": "The venal politician accepted bribes. In their faith, lying about a trivial matter is considered a venial sin.",
+    "tip": "Venal (think 'venomous' corruption); venial (sounds like 'menial') = minor (forgivable) sin."
+  },
+  {
+    "id": 75,
+    "title": "Difference Between 'Bring' and 'Take'",
+    "category": "Vocabulary Usage",
+    "definition": "'Bring' means to carry toward or to the place of the speaker or a specified location; 'Take' means to carry away to another place or move with oneself to a different location.",
+    "example": "Please bring your report to my office tomorrow. Don't forget to take your jacket when you leave.",
+    "tip": "Use 'bring' for coming here (toward the speaker), and 'take' for going there (away from the speaker)."
+  },
+  {
+    "id": 76,
+    "title": "Difference Between 'Say' and 'Tell'",
+    "category": "Vocabulary Usage",
+    "definition": "'Say' is used to speak or utter words (often without an indirect object); 'Tell' generally needs a person as an object and means to inform or instruct.",
+    "example": "He said he was not feeling well. She told her friend the entire story.",
+    "tip": "You say something, but you tell someone something. 'Tell' is for giving information to someone directly."
+  },
+  {
+    "id": 77,
+    "title": "Difference Between 'Already' and 'All ready'",
+    "category": "Vocabulary Usage",
+    "definition": "'Already' is an adverb meaning before now or by this time; 'All ready' (two words) means fully prepared.",
+    "example": "She has already finished her exam. We are all ready to depart on vacation.",
+    "tip": "Already (one word) is about time (earlier than expected); all ready (two words) means everyone or everything is ready."
+  },
+  {
+    "id": 78,
+    "title": "Difference Between 'Everyday' and 'Every day'",
+    "category": "Vocabulary Usage",
+    "definition": "'Everyday' (one word) is an adjective meaning ordinary or commonplace; 'Every day' (two words) means each day (daily).",
+    "example": "These are my everyday shoes (regular shoes). I walk the dog every day at 7 AM.",
+    "tip": "If you can say 'each day', use two words (every day). Use one word 'everyday' to describe something usual or ordinary."
+  },
+  {
+    "id": 79,
+    "title": "Difference Between 'Maybe' and 'May be'",
+    "category": "Vocabulary Usage",
+    "definition": "'Maybe' (one word) is an adverb meaning perhaps; 'May be' (two words) is a verb phrase (might be).",
+    "example": "Maybe it will rain later. It may be the best option we have.",
+    "tip": "'Maybe' = perhaps (think of it as a single word like 'perhaps'); 'may be' = might be (two words that form a verb phrase)."
+  },
+  {
+    "id": 80,
+    "title": "Difference Between 'Practice' and 'Practise'",
+    "category": "Vocabulary Usage",
+    "definition": "In American English, 'practice' is used for both noun and verb. In British English, 'practice' (noun) is the act or habit, and 'practise' (verb) means to perform an activity repeatedly or to pursue a profession.",
+    "example": "(BrE) I have football practice in the evening. I practise football every evening. (AmE uses 'practice' for both.)",
+    "tip": "British usage: noun ends in 'ice' (practice), verb ends in 'ise' (practise). In US English, use 'practice' for both."
+  },
+  {
+    "id": 81,
+    "title": "Who vs Whom",
+    "category": "Grammar Nuances",
+    "definition": "Use 'who' as a subject (does the action) and 'whom' as an object (receives the action).",
+    "example": "Who is at the door? Whom did you see at the meeting?",
+    "tip": "If you can replace it with 'he/she', use who; if 'him/her', use whom. (For example, 'You saw him' -> 'whom you saw')."
+  },
+  {
+    "id": 82,
+    "title": "That vs Which",
+    "category": "Grammar Nuances",
+    "definition": "'That' introduces restrictive clauses (essential information, no commas); 'which' introduces non-restrictive clauses (additional info, with commas).",
+    "example": "The book that I borrowed is excellent. The book, which I bought yesterday, is excellent.",
+    "tip": "Use 'that' for defining info (no comma), 'which' for extra info (with comma) in formal writing."
+  },
+  {
+    "id": 83,
+    "title": "Who vs That (for people vs objects)",
+    "category": "Grammar Nuances",
+    "definition": "Use 'who' or 'whom' when referring to people; use 'that' or 'which' for things. ('That' can refer to people in essential clauses, but 'who' is clearer for people).",
+    "example": "She is the scientist who discovered the formula. The car that I drive is very reliable.",
+    "tip": "Generally, use 'who' for people; use 'that/which' for objects. (Ex: person who runs, car that runs.)"
+  },
+  {
+    "id": 84,
+    "title": "If vs Whether",
+    "category": "Grammar Nuances",
+    "definition": "'If' is used for conditional clauses and sometimes interchangeably with 'whether', but use 'whether' when indicating alternatives or in a yes/no indirect question.",
+    "example": "If it rains, we'll cancel the picnic. I asked whether she was joining us.",
+    "tip": "Use 'whether' (not just 'if') when stating alternatives or asking an indirect yes/no question (often with 'or not' implied)."
+  },
+  {
+    "id": 85,
+    "title": "Unless vs If not",
+    "category": "Grammar Nuances",
+    "definition": "'Unless' means 'if not' and introduces the only condition under which something would not happen.",
+    "example": "We won't start unless everyone is here. (We won't start if everyone is not here.)",
+    "tip": "'Unless' = 'if not'. Avoid using 'not' in the same clause with unless (it's already negative)."
+  },
+  {
+    "id": 86,
+    "title": "Since vs For (time)",
+    "category": "Grammar Nuances",
+    "definition": "Use 'since' with a starting point (the time when something began); use 'for' with a duration of time.",
+    "example": "I have lived here since 2010. I have lived here for 10 years.",
+    "tip": "Since + point in time (since Monday), for + period (for two hours)."
+  },
+  {
+    "id": 87,
+    "title": "Since vs Because",
+    "category": "Grammar Nuances",
+    "definition": "'Since' can mean 'because' in causal sentences, but is also a time word; 'because' explicitly states the reason. In formal writing, 'because' is clearer for cause.",
+    "example": "Since it was late, we went home. (means because) We went home because it was late.",
+    "tip": "When indicating reason, 'because' is explicit; 'since' can imply reason but also means 'from that time'. Use 'because' to avoid ambiguity."
+  },
+  {
+    "id": 88,
+    "title": "During vs While",
+    "category": "Grammar Nuances",
+    "definition": "'During' is a preposition followed by a noun, indicating when something happens; 'while' is a conjunction followed by a clause, indicating two things happen at the same time.",
+    "example": "No one spoke during the movie. While the movie was playing, no one spoke.",
+    "tip": "'During' + noun (during the meeting); 'while' + subject & verb (while the meeting was going on)."
+  },
+  {
+    "id": 89,
+    "title": "Despite vs In spite of",
+    "category": "Grammar Nuances",
+    "definition": "Both mean 'notwithstanding'. 'Despite' is used directly before a noun/gerund; 'in spite of' is a three-word equivalent. Never use 'of' after 'despite'.",
+    "example": "Despite the rain, the match continued. In spite of being tired, he finished the work.",
+    "tip": "Use 'despite' or 'in spite of' interchangeably, but never 'despite of'. 'In spite of' is slightly more formal/wordy."
+  },
+  {
+    "id": 90,
+    "title": "Because vs Because of",
+    "category": "Grammar Nuances",
+    "definition": "'Because' is a conjunction followed by a clause (subject + verb); 'because of' is a compound preposition followed by a noun or noun phrase.",
+    "example": "We stayed home because it was raining. We stayed home because of the rain.",
+    "tip": "'Because' + clause (because it was late), 'because of' + noun (because of the rain)."
+  },
+  {
+    "id": 91,
+    "title": "Like vs As",
+    "category": "Grammar Nuances",
+    "definition": "Use 'like' to compare nouns (meaning 'similar to'); use 'as' before clauses (or to mean 'in the role of').",
+    "example": "He runs like a cheetah. Do as I say (in the way I say). She works as a consultant (in the capacity of a consultant).",
+    "tip": "'Like' + noun (like her mother); 'as' + clause or role (as if it were true; as a teacher, I...)."
+  },
+  {
+    "id": 92,
+    "title": "So vs Such",
+    "category": "Grammar Nuances",
+    "definition": "'So' is used before an adjective/adverb (often with 'that' for result); 'such' is used before a noun (often with an adjective) to emphasize quality or degree.",
+    "example": "It was so cold that we stayed inside. She is such a talented musician that everyone was impressed.",
+    "tip": "'So' + adjective (so tall); 'such' + adjective + noun (such a tall building). Use 'so' for adjectives alone, 'such' for noun phrases."
+  },
+  {
+    "id": 93,
+    "title": "On time vs In time",
+    "category": "Grammar Nuances",
+    "definition": "'On time' means punctual, at the scheduled time; 'In time' means early enough or before a deadline.",
+    "example": "The train arrived on time (exactly at the scheduled time). We got to the airport in time to catch our flight (early enough, before it was too late).",
+    "tip": "'On time' = at the correct/expected time; 'in time' = before it’s too late (by the necessary time)."
+  },
+  {
+    "id": 94,
+    "title": "By vs Until",
+    "category": "Grammar Nuances",
+    "definition": "'By' indicates a deadline (no later than a certain time); 'Until' means up to that time (continuously up to that point).",
+    "example": "Please submit your report by 5 PM. We waited until 5 PM, then left.",
+    "tip": "'By' = before or at (no later than) a time. 'Until' = up to that time, then stop. (By Friday = on or before Friday; until Friday = continuously up to Friday)."
+  },
+  {
+    "id": 95,
+    "title": "Few vs A few vs The few",
+    "category": "Grammar Nuances",
+    "definition": "Used with countable plural nouns. 'Few' (without article) means hardly any (negative sense); 'a few' means some (a small number, positive sense); 'the few' means those small number of (specific reference).",
+    "example": "Few people attended the lecture (almost none attended). A few people attended the lecture (some attended, not many but at least some). The few people who attended were very engaged (specific small group).",
+    "tip": "'Few' = almost none (negative tone), 'a few' = some (small quantity, positive tone), 'the few' = those specific small number. Context matters for exam questions."
+  },
+  {
+    "id": 96,
+    "title": "Little vs A little vs The little",
+    "category": "Grammar Nuances",
+    "definition": "Used with uncountable nouns. 'Little' means hardly any (negative); 'a little' means some, a small amount (positive); 'the little' means the small amount that is there (emphasizing it's all there is).",
+    "example": "There is little hope of success (almost no hope). We still have a little hope (some hope remains). The little hope we had disappeared quickly (that small amount of hope).",
+    "tip": "Similar to 'few': 'little' = almost none, 'a little' = some (a small amount), 'the little' = that small amount (specific)."
+  },
+  {
+    "id": 97,
+    "title": "Each vs Every",
+    "category": "Grammar Nuances",
+    "definition": "'Each' refers to individual items one by one; 'Every' refers to all items collectively, emphasizing all members of a group. 'Each' can be used for two or more; 'every' is usually for three or more.",
+    "example": "Each student received a certificate (focus on individuals). Every student received a book (all students, no exception, considered as a group).",
+    "tip": "'Each' is used for emphasis on one-at-a-time (and can be used for two: each of two); 'every' covers all members of a group (not used for just two). Use singular verb after both."
+  },
+  {
+    "id": 98,
+    "title": "Either vs Neither",
+    "category": "Grammar Nuances",
+    "definition": "'Either' means one of two; 'Neither' means none of two. Both are singular and take singular verbs/pronouns in formal usage.",
+    "example": "You can choose either method (one of the two). Neither option is suitable (not one or the other is suitable).",
+    "tip": "Either is affirmative choice (this or that); neither is a negation of both. Note: either/neither are singular when used as subjects (either of these is, neither of them has...)."
+  },
+  {
+    "id": 99,
+    "title": "Either...or / Neither...nor (verb agreement)",
+    "category": "Grammar Nuances",
+    "definition": "When using either...or or neither...nor with two subjects, the verb agrees with the subject closest to it in number.",
+    "example": "Either the teachers or the student is mistaken. Either the student or the teachers are mistaken. Neither the CEO nor the managers were available.",
+    "tip": "When 'or' or 'nor' connect subjects, make the verb agree with the nearer subject. (If one part is plural and one singular, put the plural one last to use plural verb if possible.)"
+  },
+  {
+    "id": 100,
+    "title": "Not only...but also (parallel structure)",
+    "category": "Grammar Nuances",
+    "definition": "'Not only...but also' is a correlative conjunction pair that links two parts of a sentence. Ensure parallel structure after each and that the phrase emphasizes an unexpected addition.",
+    "example": "She not only sings but also composes music. The solution is not only effective but also affordable.",
+    "tip": "Make sure the elements after 'not only' and 'but also' are the same part of speech or structure (both adjectives, both verbs, etc.). This structure adds emphasis to the second part as an unexpected addition."
+  },
+  {
+    "id": 101,
+    "title": "No sooner...than / Hardly...when (inversion)",
+    "category": "Grammar Nuances",
+    "definition": "These are paired conjunctions used for immediate sequence. 'No sooner' is followed by 'than'; 'Hardly/Scarcely' by 'when' or 'before'. They require an inverted word order (auxiliary + subject) at the start when beginning a sentence.",
+    "example": "No sooner had I sat down than the phone rang. Hardly had he arrived when it started raining.",
+    "tip": "Begin with 'No sooner' or 'Hardly/Scarcely', invert the subject and auxiliary (Had I...); pair 'no sooner' with 'than' and 'hardly/scarcely' with 'when' (or 'before')."
+  },
+  {
+    "id": 102,
+    "title": "Lest (meaning & usage)",
+    "category": "Grammar Nuances",
+    "definition": "'Lest' means 'for fear that'. It introduces a negative purpose clause and is followed by a subjunctive-like construction (often 'should' or a base verb), without 'not'.",
+    "example": "He kept quiet lest he (should) anger the boss. Work hard lest you fail the exam. ('lest you fail' = so that you do not fail)",
+    "tip": "After 'lest', use 'should' (optional in US English) or base verb, but never use 'lest' with another negative word ('lest not'). It already implies a negative purpose."
+  },
+  {
+    "id": 103,
+    "title": "If I were vs If I was (subjunctive)",
+    "category": "Grammar Nuances",
+    "definition": "Use 'were' (the subjunctive mood) instead of 'was' in unreal or hypothetical conditions for all persons (especially set phrases like 'If I were you'). 'If I were' is preferred for conditions contrary to fact.",
+    "example": "If I were a bird, I would fly. (Hypothetical – I'm not a bird.) If she were here, we could start (but she's not here).",
+    "tip": "For unreal, wishful or contrary-to-fact conditions, use 'were' not 'was' after 'if' (and after 'wish'). Common phrase: 'If I were you' (to give advice)."
+  },
+  {
+    "id": 104,
+    "title": "Using 'wish' (unreal wishes)",
+    "category": "Grammar Nuances",
+    "definition": "After 'wish', use a past tense form to express present unreal desires, and use past perfect for regrets about the past. Use 'would' with wish when expressing annoyance or a desire for someone/something to change.",
+    "example": "I wish I knew the answer (but I don't know). She wishes she had studied more (past regret). I wish you would stop yelling (desire for change).",
+    "tip": "Use past tense after 'wish' for present unreal (wish things were different now); use past perfect after 'wish' for past regrets. Use 'would' after wish to talk about something you want to happen/change (often someone else's action)."
+  },
+  {
+    "id": 105,
+    "title": "Used to vs Be used to",
+    "category": "Grammar Nuances",
+    "definition": "'Used to [verb]' indicates a past habit or former state (no longer true now); 'Be used to [noun/gerund]' means to be accustomed to or familiar with something.",
+    "example": "I used to play basketball in high school (I did in the past, not now). She is used to getting up early (she is accustomed to it).",
+    "tip": "Structure difference: 'used to do' = did formerly; 'be used to + (noun/gerund)' = be accustomed to. Note the second 'to' is a preposition, so use noun/ing after it (I'm used to spicy food / used to working hard)."
+  },
+  {
+    "id": 106,
+    "title": "Stop doing vs Stop to do",
+    "category": "Grammar Nuances",
+    "definition": "'Stop doing [something]' means to cease an ongoing action; 'Stop to do [something]' means to pause the current action in order to do a different action.",
+    "example": "He stopped smoking last year (quit the habit). While driving, I stopped to check the map (paused driving in order to check).",
+    "tip": "Stopping + -ing = quitting that action; stopping + 'to' + verb = pausing one action to begin another."
+  },
+  {
+    "id": 107,
+    "title": "Remember doing vs Remember to do",
+    "category": "Grammar Nuances",
+    "definition": "'Remember doing [something]' means you recall already doing it in the past; 'Remember to do [something]' means to not forget to perform an action in the future.",
+    "example": "I remember locking the door this morning (I have a memory of doing it). Remember to lock the door when you leave (don't forget to do it).",
+    "tip": "Gerund (remember doing) = memory of a past action. Infinitive (remember to do) = task not to forget for the future."
+  },
+  {
+    "id": 108,
+    "title": "Try doing vs Try to do",
+    "category": "Grammar Nuances",
+    "definition": "'Try doing [something]' means experiment with a method as a possible solution; 'Try to do [something]' means attempt or make an effort to do something (which might be difficult).",
+    "example": "If your phone isn't working, try restarting it (attempt that method). I will try to finish the report by today (make an effort to achieve it).",
+    "tip": "Try + -ing suggests one of possible solutions or experiments; try + to + verb is about making an effort to accomplish a goal."
+  },
+  {
+    "id": 109,
+    "title": "Go on doing vs Go on to do",
+    "category": "Grammar Nuances",
+    "definition": "'Go on doing [something]' means to continue the same activity; 'go on to do [something]' means to proceed to the next activity or step after finishing something.",
+    "example": "He paused and then went on talking (continued the same talk). After finishing her bachelor's, she went on to pursue a master's degree (moved to a new activity).",
+    "tip": "'Go on doing' = continue same action; 'go on to do' = move on to a new action/stage."
+  },
+  {
+    "id": 110,
+    "title": "Gerund after prepositions",
+    "category": "Grammar Nuances",
+    "definition": "When a verb follows a preposition, it should be in the gerund (-ing) form (except in the case of 'to' as part of an infinitive).",
+    "example": "She succeeded in finding a solution. They complained about having to work late.",
+    "tip": "After any preposition (in, on, at, about, without, etc.), use verb+ing: 'interested in learning', 'before leaving'. ('to' can be tricky: if 'to' is a preposition like 'look forward to', use -ing: 'look forward to seeing you'.)"
+  },
+  {
+    "id": 111,
+    "title": "Possessive before gerund",
+    "category": "Grammar Nuances",
+    "definition": "When a noun or pronoun comes before a gerund, formal English prefers the possessive form to emphasize the gerund as a noun. This is common in formal writing.",
+    "example": "I appreciate your helping me with the project. We were surprised at John's leaving early.",
+    "tip": "Use possessive (my/your/John's) before a gerund to be grammatically precise: 'I dislike him arriving late' is less formal than 'I dislike his arriving late'. The possessive emphasizes the action as a thing (his arrival)."
+  },
+  {
+    "id": 112,
+    "title": "Split infinitives",
+    "category": "Grammar Nuances",
+    "definition": "A split infinitive occurs when a word (usually an adverb) is placed between 'to' and the verb (as in 'to quickly run'). Traditional grammar advice is to avoid splitting infinitives, though they are often used for clarity or natural sound.",
+    "example": "Traditional: I decided to go immediately to bed. Split: I decided to immediately go to bed.",
+    "tip": "When possible, avoid splitting 'to [verb]' with long modifiers in very formal writing, but clarity is key. Modern English often accepts split infinitives if they sound more natural or avoid ambiguity (e.g., 'to boldly go')."
+  },
+  {
+    "id": 113,
+    "title": "Comparative vs Superlative (two vs many)",
+    "category": "Grammar Nuances",
+    "definition": "Use the comparative form (-er or more) when comparing two entities; use the superlative (-est or most) when comparing three or more.",
+    "example": "Of the two brothers, Jim is taller. Of all the students in the class, Ana is the tallest.",
+    "tip": "For exactly two, don't use superlative. Say 'better of the two' (not 'best of the two'). Use superlatives (best, tallest) for comparisons among three or more."
+  },
+  {
+    "id": 114,
+    "title": "Elder vs Older",
+    "category": "Grammar Nuances",
+    "definition": "'Elder' is used for people (usually family members) to indicate older, and typically as an adjective before a noun (cannot say 'elder than'). 'Older' is the general comparative of 'old' for both people and things and is used with 'than'.",
+    "example": "My elder sister is five years older than me. (Use 'elder' before noun, 'older' with than.) He is older than his colleague by two years (not 'elder than').",
+    "tip": "Use 'elder' before a noun (mostly family: elder brother) and not with 'than'. Use 'older' for general comparisons and always with 'than' (older than). ('Eldest' and 'oldest' follow similar pattern: 'eldest son' vs 'oldest of the group')."
+  },
+  {
+    "id": 115,
+    "title": "One of the [plural] who (plural verb)",
+    "category": "Grammar Nuances",
+    "definition": "In constructions like 'one of the [plural noun] who/that...', the verb in the relative clause should be plural, because it refers to the plural noun (the group), not the 'one'.",
+    "example": "She is one of those people who are always optimistic. (who are, referring to 'people'). This is one of the movies that were nominated for an award.",
+    "tip": "In 'one of... who' constructions, mentally read as 'She is one of the people. Those people are ...'; thus use plural verb to match the plural subject of the relative clause."
+  },
+  {
+    "id": 116,
+    "title": "Preposition + pronoun (Between you and me)",
+    "category": "Grammar Nuances",
+    "definition": "After prepositions, use the objective case of pronouns (me, him, her, us, them) instead of the subjective case (I, he, she, we, they).",
+    "example": "This stays between you and me. (Not 'between you and I'.) He gave the gift to her and me. (Not 'to she and I'.)",
+    "tip": "Object pronoun follows a preposition. A quick check: remove the other person— you wouldn't say 'between I', you'd say 'between me'."
+  },
+  {
+    "id": 117,
+    "title": "Than I vs Than me (formal vs informal)",
+    "category": "Grammar Nuances",
+    "definition": "In formal English, 'than' is treated as a conjunction, so the pronoun after it should be in the case it would be if the verb were stated (e.g., 'He is taller than I (am)'). In informal usage, 'than me' is common. For exams, the formal 'than I' is often expected when a verb is implied.",
+    "example": "Formal: She is smarter than I (am). Informal: She is smarter than me. Formal: I play better than he (plays).",
+    "tip": "For competitive exams or very formal writing, use the subject form after 'than' when a verb is implied (than I, than he/she). In everyday speech 'than me' is fine, but an exam might consider 'than I' more 'correct' in a strict sense."
+  },
+  {
+    "id": 118,
+    "title": "A vs An (sound-based article usage)",
+    "category": "Grammar Nuances",
+    "definition": "Use 'an' before a vowel sound (an apple, an hour — 'hour' starts with a vowel sound), and 'a' before a consonant sound (a book, a university — 'university' starts with a 'yoo' consonant sound). It's the sound, not the spelling, that matters.",
+    "example": "a university (sounds like 'yoo-niversity', consonant sound); an umbrella ('um-brella', vowel sound); an honor (silent 'h', so starts with 'on' sound); a house (starts with 'h' sound).",
+    "tip": "Say the word's beginning aloud: if it starts with a vowel sound (a, e, i, o, u sound), use 'an'. If it starts with a consonant sound, use 'a'. Beware of tricky ones: 'an MBA' (starts with 'em' sound), 'a one-time offer' ('one' starts with 'w' sound)."
+  },
+  {
+    "id": 119,
+    "title": "Present Perfect vs Simple Past (usage)",
+    "category": "Grammar Nuances",
+    "definition": "Use the present perfect (have/has + past participle) for actions that have relevance to now (experience, change, or ongoing situation) especially without a specific past time mentioned. Use simple past for actions that happened at a specific time in the past (often with time expressions like yesterday, in 2010).",
+    "example": "I have visited Japan three times. (Experience, no time given.) I visited Japan last year. (Specific past time.) She has already eaten. (Sometime before now.) She ate at 6 PM. (Specific past time.)",
+    "tip": "If you mention a definite past time (yesterday, in 2010), use simple past. Use present perfect for unspecified time or when focusing on the result now. Present perfect often connects past with present (I've lost my keys = I don't have them now)."
+  },
+  {
+    "id": 120,
+    "title": "Past Perfect (earlier past action)",
+    "category": "Grammar Nuances",
+    "definition": "Use the past perfect (had + past participle) to indicate the earlier of two past events - something that was completed before another past action or time. It clarifies sequence when needed.",
+    "example": "The train had already left by the time we arrived. (First: train left; then we arrived.) She had finished her homework when I called. (Her finishing happened before the call.)",
+    "tip": "Past perfect = 'past of the past'. Use it when describing two past events to show which happened first. If time words (before/after) make order clear, past perfect is optional, but often used for clarity."
+  },
+  {
+    "id": 121,
+    "title": "No future in time clauses (if/when)",
+    "category": "Grammar Nuances",
+    "definition": "In clauses beginning with time or condition words (like 'if', 'when', 'until'), use present tense to refer to future time, not the future tense 'will'.",
+    "example": "I'll wait until you finish (not 'will finish') your work. If it rains tomorrow, we will cancel the picnic (not 'If it will rain').",
+    "tip": "After 'if', 'when', 'until', 'as soon as', etc. (talking about future), use present tense for the future meaning. English doesn't use 'will' after these in subordinate clauses."
+  },
+  {
+    "id": 122,
+    "title": "Double negatives",
+    "category": "Grammar Nuances",
+    "definition": "Standard English uses a single negative to express negation. Using two negatives (e.g., \"I don't know nothing\") is nonstandard or makes a positive. Stick to one negative word per idea.",
+    "example": "Incorrect: I don't know nothing about it. (This literally implies 'I know something'.) Correct: I don't know anything about it. / I know nothing about it. Incorrect: We didn't see nobody. Correct: We didn't see anybody. (or We saw nobody.)",
+    "tip": "Avoid two negatives for one idea. If you've used 'not/don't', use 'any' words (anything, anyone) instead of another 'no' word. Double negatives can cause confusion or reverse the meaning."
+  },
+  {
+    "id": 123,
+    "title": "Double comparatives/superlatives",
+    "category": "Grammar Nuances",
+    "definition": "Do not use 'more' with an -er comparative, or 'most' with an -est superlative. Use either the inflected form or 'more/most', but not both. Similarly, don't use two comparative forms together.",
+    "example": "Incorrect: She is more smarter than her brother. Correct: She is smarter than her brother. Incorrect: This is the most easiest way. Correct: This is the easiest way.",
+    "tip": "Use either '-er' or 'more', not both ('smaller' or 'more small', never 'more smaller'). Same for superlative: 'best' or 'most good' (actually 'best'), not 'most best'."
+  },
+  {
+    "id": 124,
+    "title": "Hard vs Hardly",
+    "category": "Grammar Nuances",
+    "definition": "'Hard' as an adverb means with a lot of effort or intensively; 'Hardly' means barely or almost not at all. They are not interchangeable.",
+    "example": "He works hard every day to meet his goals. I was so tired that I could hardly keep my eyes open.",
+    "tip": "'Hard' (adverb) = diligently or forcefully (work hard, try hard). 'Hardly' = scarcely (hardly any = almost none, hardly ever = almost never). 'I hardly work' is the opposite of 'I work hard'."
+  },
+  {
+    "id": 125,
+    "title": "Late vs Lately",
+    "category": "Grammar Nuances",
+    "definition": "'Late' can be an adjective or adverb meaning after the expected time; 'Lately' is an adverb meaning recently (in the recent past).",
+    "example": "He arrived late to the meeting. Lately, I've been going to the gym more often.",
+    "tip": "'Lately' = recently (usually used with present perfect or present to indicate recent trend). 'Late' = not on time or toward the end. They are different: 'He's been late lately' means 'recently, he has been arriving late'."
+  },
+  {
+    "id": 126,
+    "title": "Too vs Very",
+    "category": "Grammar Nuances",
+    "definition": "'Too' means excessively (more than enough, often with a negative result implied); 'Very' is an intensifier meaning extremely (a high degree, without implying it's excessive).",
+    "example": "It's too hot to play outside (so hot that we cannot play). It's very hot today (extremely hot, but not necessarily impossible to do things).",
+    "tip": "'Too' often implies a negative outcome ('too X to do Y'). 'Very' just strengthens an adjective. Use 'too' when you mean 'excessively', use 'very' to simply emphasize. ('too much', but 'very much' isn't used standalone with adjective—it's 'very hungry' vs 'too hungry to eat')."
+  },
+  {
+    "id": 127,
+    "title": "Many vs Many a (singular)",
+    "category": "Grammar Nuances",
+    "definition": "'Many' is used with a plural noun and verb (many books are...); 'Many a' is a formal or literary expression meaning 'many' but takes a singular noun and verb, emphasizing each individual among many.",
+    "example": "Many students were nervous before exams. (normal usage) Many a student has felt nervous before an exam. (literary, singular form used)",
+    "tip": "\"Many a...\" is more literary or proverbial and uses a singular noun/verb ('Many a time' = many times). It's not common in everyday writing, but if used, remember it's grammatically singular ('many a player has', not 'have')."
+  },
+  {
+    "id": 128,
+    "title": "Between vs Among",
+    "category": "Grammar Nuances",
+    "definition": "Use 'between' when referring to two distinct entities; 'among' when referring to three or more, or when considering members of a group collectively.",
+    "example": "The money was split evenly between the two partners. The money was divided among the team members.",
+    "tip": "Traditional rule: between = two, among = more than two. (Between can be used for more than two when emphasizing one-to-one relations, but exams usually expect the classic rule.)"
+  },
+  {
+    "id": 129,
+    "title": "Each other vs One another",
+    "category": "Grammar Nuances",
+    "definition": "Traditional rule: 'each other' refers to reciprocal action between two people, 'one another' for more than two. In modern usage, they are interchangeable, but exams may follow the traditional distinction.",
+    "example": "The two friends helped each other with homework. The team members all congratulated one another after the victory.",
+    "tip": "For formal precision: use 'each other' for two, 'one another' for more than two. (Though in everyday English, mixing them isn't noticed, a test might expect the classical rule.)"
+  },
+  {
+    "id": 130,
+    "title": "Placement of 'only' (modifier)",
+    "category": "Grammar Nuances",
+    "definition": "The word 'only' should be placed directly before the word or phrase it modifies. Misplacing 'only' can lead to ambiguity or a change in meaning.",
+    "example": "\"Only I saw the email\" (nobody else saw it). \"I only saw the email\" (I saw it, but did nothing else with it). \"I saw only the email\" (I saw nothing except the email).",
+    "tip": "Position 'only' immediately before the term it restricts. In correction questions, an 'only' usually needs to move next to the phrase it's limiting."
+  },
+  {
+    "id": 131,
+    "title": "First Conditional (real future)",
+    "category": "Grammar Nuances",
+    "definition": "First conditional talks about a likely or possible future condition and its result: use present simple in the if-clause and will/can/may + base verb in the main clause.",
+    "example": "If it rains, we will stay home. If you study, you can pass the exam.",
+    "tip": "Structure: If + present tense, [will/can/might] + verb. It's used for possible future conditions and their probable outcomes."
+  },
+  {
+    "id": 132,
+    "title": "Second Conditional (unreal present/future)",
+    "category": "Grammar Nuances",
+    "definition": "Second conditional is used for hypothetical or unlikely present or future situations and their imagined results: use past simple in the if-clause and would/could + base verb in the main clause.",
+    "example": "If I won the lottery, I would travel the world (but that's unlikely). If she were here, she could help us (but she isn't here).",
+    "tip": "Structure: If + past tense, would/could + verb. Use it for unreal or imaginary present/future scenarios. Remember to use 'were' for all subjects in formal usage (If I were...)."
+  },
+  {
+    "id": 133,
+    "title": "Third Conditional (unreal past)",
+    "category": "Grammar Nuances",
+    "definition": "Third conditional describes a hypothetical situation in the past (something that didn't happen) and its imagined result in the past: use past perfect in the if-clause and would have + past participle in the main clause.",
+    "example": "If he had known earlier, he would have helped (he didn't know, so he didn't help). If I had studied harder, I might have passed the test (I didn't study enough, so I didn't pass).",
+    "tip": "Structure: If + had + past participle, would have + past participle. It's used for regrets or what-ifs about the past. Both parts are firmly in the past (unreal)."
+  },
+  {
+    "id": 134,
+    "title": "Conditional inversion (Had I known, Should you need)",
+    "category": "Grammar Nuances",
+    "definition": "In formal or literary English, conditional clauses can be formed by omitting 'if' and inverting the subject and auxiliary. Examples: 'Had I known' instead of 'If I had known'; 'Should you need anything' instead of 'If you should need anything'; 'Were he here' for 'If he were here'.",
+    "example": "Had I known you were coming, I would have baked a cake. (If I had known...) Should you require further information, please contact us. (If you require...) Were it not for her help, we would have failed. (If it were not for her...)",
+    "tip": "Common inversion forms: 'Had I [done]...' for past perfect conditionals; 'Should you [do]...' for future conditions (like polite if); 'Were I/they [to do]...' for hypothetical present/future. This is a formal stylistic alternative to using 'if'."
+  },
+  {
+    "id": 135,
+    "title": "Dangling participles (misplaced modifiers)",
+    "category": "Grammar Nuances",
+    "definition": "A dangling participle occurs when a participial phrase (often at the beginning of a sentence) doesn't clearly attach to the correct subject, leading to a confusing or illogical meaning. The participle phrase should refer to the subject immediately following it.",
+    "example": "Dangling: Walking down the street, the flowers were beautiful. (Implies flowers were walking.) Correct: Walking down the street, I found the flowers beautiful.",
+    "tip": "Make sure the doer of the -ing phrase is the subject that follows. When you start with an -ing phrase, the next noun should be who/what is doing that action. If not, rewrite to avoid the 'dangling' modifier."
+  },
+  {
+    "id": 136,
+    "title": "Parallelism in paired conjunctions",
+    "category": "Grammar Nuances",
+    "definition": "Expressions like either...or, neither...nor, both...and, not only...but also, require the grammatical elements that follow each part to be parallel (same structure/part of speech).",
+    "example": "Correct: She is not only intelligent but also very witty. (adjective + adjective) Incorrect: She is not only intelligent but also has a great sense of humor. (adj vs clause - not parallel).",
+    "tip": "After each part of correlative pairs, the structure should mirror. (e.g., 'either X or Y' - if X is a noun, Y should be a noun; if X is a clause, Y a clause.) Parallelism makes sentences clear and balanced."
+  },
+  {
+    "id": 137,
+    "title": "One vs One's (pronoun consistency)",
+    "category": "Grammar Nuances",
+    "definition": "When using the impersonal pronoun 'one' (meaning any person in general), consistency is key. Use 'one's' (possessive) to indicate possession. Do not switch to 'you/your' or another pronoun mid-sentence.",
+    "example": "One should keep one's promises. (Not: One should keep your promises.) If one wants to improve, one must practice.",
+    "tip": "Maintain the same pronoun perspective. 'One...one's...' is formally correct. Mixing 'one' with 'you' or 'their' is considered incorrect in formal contexts (though 'their' is sometimes used informally to avoid the clunky 'one's')."
+  },
+  {
+    "id": 138,
+    "title": "Can vs May (permission vs ability)",
+    "category": "Grammar Nuances",
+    "definition": "'Can' is typically used to express ability; 'May' is used to ask for or grant permission. In modern casual usage 'can' is often used for permission, but in formal English and on tests, 'May I...?' is the polite form for asking permission.",
+    "example": "I can lift 50 kg (ability). Can I (informal) / May I (polite) leave early today? You may start the exam now (permission granted).",
+    "tip": "For exams or formal situations, treat 'can' as ability and 'may' as permission. ('May' can also denote possibility, but in requests 'May I' is traditionally correct.)"
+  },
+  {
+    "id": 139,
+    "title": "Shall vs Will (future tense)",
+    "category": "Grammar Nuances",
+    "definition": "Traditionally, 'shall' is used with first person (I, we) for simple future, and 'will' for second/third person; with reversed usage to express determination. In modern usage, 'will' is the standard for future with all subjects, and 'shall' appears in suggestions, offers (Shall we dance?) or legal/formal statements.",
+    "example": "Older rule: I shall go, we shall go; you/he will go. Determination: I will not give up (strong intent). Modern: I will go (normal future). Offer: Shall we begin the meeting? Contract language: The tenant shall pay on the first of each month.",
+    "tip": "In most contexts, just use 'will' for future with all subjects. 'Shall' is now mainly in offers or formal legal usage. On exams, they might test archaic grammar rules or know that 'Shall we...?' is correct for suggestions."
+  },
+  {
+    "id": 140,
+    "title": "Should vs Must",
+    "category": "Grammar Nuances",
+    "definition": "'Should' indicates recommendation, advice, or mild obligation; 'Must' indicates strong obligation or necessity. 'Must' is much stronger (often meaning 'required').",
+    "example": "You should get some rest if you're tired (advice). You must stop at a red light (obligation/rule).",
+    "tip": "'Must' is stronger than 'should'. Use 'must' when something is required or non-negotiable, and 'should' for what is advisable or expected but not absolutely required. ('Should' = ought to; 'must' = have to.)"
+  },
+  {
+    "id": 141,
+    "title": "Other vs Another",
+    "category": "Grammar Nuances",
+    "definition": "'Another' means one more or an additional one (used with singular countables); 'Other' is used to refer to something different or remaining in a group (can modify plural or uncountables, or be used as a pronoun 'others').",
+    "example": "I don't like this shirt; show me other designs. (different designs) I've had one cookie, but I want another cookie. She spoke to the other students after class (the rest of the specific group).",
+    "tip": "'Another' = an + other, literally one more (use with singular: another day, another chance). 'Other' is more general: other people (different people in general), or 'the other' for a specific second item or remaining items (the other team, others = other people)."
+  },
+  {
+    "id": 142,
+    "title": "Much vs Many",
+    "category": "Grammar Nuances",
+    "definition": "'Much' is used with uncountable nouns; 'Many' with countable plural nouns. Both indicate a large quantity, but are used in different contexts (often 'much' in negative/question, 'many' likewise, and 'a lot of' in affirmatives).",
+    "example": "We don't have much time left. How many books did you buy? She has so many ideas. There's not much water in the tank.",
+    "tip": "Countable = many (many apples), Uncountable = much (much water). In positive statements, use 'a lot of' if needed rather than 'much'. But know that in questions/negatives, 'much' and 'many' are standard ('Do you have many friends?' 'I don't have much information')."
+  },
+  {
+    "id": 143,
+    "title": "Sometime vs Some time vs Sometimes",
+    "category": "Grammar Nuances",
+    "definition": "'Sometime' (one word) means at an unspecified time (adverb); 'Some time' (two words) means a period of time; 'Sometimes' (with 's') means occasionally.",
+    "example": "Let's meet for coffee sometime next week. It will take some time to read all these reports. Sometimes I read before bed, sometimes I don't.",
+    "tip": "'Sometime' = at some unspecific time ('Let's do it sometime'). 'Some time' = a span/duration ('some time has passed'). 'Sometimes' = occasionally ('sometimes it rains, sometimes it shines')."
+  },
+  {
+    "id": 144,
+    "title": "Enough (word order)",
+    "category": "Grammar Nuances",
+    "definition": "When 'enough' modifies an adjective or adverb, it comes after that adjective/adverb. When it modifies a noun, it comes before the noun. 'Enough' as a pronoun stands alone.",
+    "example": "Is the water warm enough for swimming? She didn't have enough time to finish. Oddly, he just said \"Enough!\" and walked out.",
+    "tip": "Put 'enough' after adjectives/adverbs (good enough, quickly enough) but before nouns (enough money, enough people)."
+  },
+  {
+    "id": 145,
+    "title": "All vs All of",
+    "category": "Grammar Nuances",
+    "definition": "Use 'all' before nouns directly in many cases (all children, all water). Use 'all of' before pronouns or when the noun has a determiner (all of the children, all of us). Before a proper noun, use 'all of' for clarity ('all of John’s friends').",
+    "example": "All students must register by Friday. All of the students in my class passed. All of us are coming to the reunion. (Not 'All us')",
+    "tip": "Before a pronoun, always use 'all of' (all of them, all of you). With nouns, 'all' and 'all of' are often interchangeable, but 'all of' is needed with the article or determiner ('all of the', 'all of those')."
+  },
+  {
+    "id": 146,
+    "title": "Some vs Any",
+    "category": "Grammar Nuances",
+    "definition": "Use 'some' in affirmative statements and in polite offers/requests; use 'any' in negatives and questions (and in positive sentences meaning 'it doesn't matter which').",
+    "example": "I have some free time today. Do you have any questions? I don't have any money on me. You can take any seat you like.",
+    "tip": "'Some' implies at least a small amount or a certain number (often expected or desired); 'any' is more open-ended or negative. Use 'some' when you expect a yes (Would you like some tea?), 'any' in most questions/negatives (Don't use any in a clearly positive context like 'I have any friends' – wrong, say 'some')."
+  },
+  {
+    "id": 147,
+    "title": "Although vs However",
+    "category": "Grammar Nuances",
+    "definition": "'Although' is a conjunction used to join a subordinate clause to a main clause in one sentence, expressing contrast. 'However' is an adverb used (usually at the start of a sentence or after a semicolon) to indicate a contrast with the previous statement.",
+    "example": "Although it was raining, we went hiking. It was raining; however, we went hiking.",
+    "tip": "Use 'although/though' to connect contrasting ideas in a single sentence. Use 'however' to introduce a contrasting sentence or clause (with appropriate punctuation). 'However' often has a comma after it when starting a sentence."
+  },
+  {
+    "id": 148,
+    "title": "If vs In case",
+    "category": "Grammar Nuances",
+    "definition": "'If' introduces a condition (possibly will happen); 'In case' indicates doing something as a precaution for a possible event. They are not interchangeable: 'in case' ≠ 'if'.",
+    "example": "Take an umbrella if it rains (a conditional – you'll do it only if it rains). Take an umbrella in case it rains (as a precaution – you take it now because it might rain later).",
+    "tip": "Use 'if' for conditional scenarios. Use 'in case' when you mean 'because something might happen' (for preventive or preparatory actions). People often confuse using 'in case' where 'if' is correct or vice versa."
+  },
+  {
+    "id": 149,
+    "title": "Different from vs Different than",
+    "category": "Grammar Nuances",
+    "definition": "The preferred usage in formal English is 'different from'. 'Different than' is common informally (especially AmE before clauses), and 'different to' is heard in BrE informal, but many exams/stylists prefer 'different from' for comparisons.",
+    "example": "Your approach is different from mine. (formal/standard) Many Americans say: Your approach is different than mine. (informal but common) In UK casual: different to mine.",
+    "tip": "When writing formally or taking a test, stick with 'different from'. It's safest. Use 'than' if a full clause follows in an informal context (different than I expected), but 'from' works there too (different from what I expected)."
+  },
+  {
+    "id": 150,
+    "title": "Prefer / Superior, etc. + 'to' (not 'than')",
+    "category": "Grammar Nuances",
+    "definition": "Certain comparative words and verbs take 'to' instead of 'than'. For example: prefer X to Y, superior to, inferior to, senior/junior to, prior to, etc.",
+    "example": "She prefers tea to coffee (not 'than coffee'). This model is superior to that one (not 'superior than'). He is junior to me in the company (not 'junior than me').",
+    "tip": "Remember these exceptions: prefer, superior/inferior, senior/junior, prior all use 'to'. (Only typical comparative adjectives use 'than'.)"
+  },
+  {
+    "id": 151,
+    "title": "Try to (not 'try and')",
+    "category": "Grammar Nuances",
+    "definition": "The proper construction is 'try to [verb]' meaning 'attempt to'. 'Try and [verb]' is an idiomatic informal usage that means the same but is not strictly grammatical in formal writing.",
+    "example": "Formal: I'll try to finish the report by tonight. Informal: I'll try and finish the report by tonight. (common in speech, but essentially means 'try to finish')",
+    "tip": "In exams and formal writing, use 'try to...' for attempts. 'Try and...' is considered colloquial. (Though widely used, it's safer to avoid it in any formal context.)"
+  },
+  {
+    "id": 152,
+    "title": "Each other's (not 'each others'')",
+    "category": "Grammar Nuances",
+    "definition": "To show mutual possession between two or more people, use 'each other's'. The apostrophe comes before the s. 'Each others'' is incorrect.",
+    "example": "They often finish each other's sentences. (correct) The students checked each other's work for mistakes. (correct)",
+    "tip": "Treat 'each other' as singular for possessive purposes: add 's. (It's similar to 'one another's'). 'Each others'' with the apostrophe after s is never standard."
+  },
+  {
+    "id": 153,
+    "title": "The + adjective (group of people)",
+    "category": "Grammar Nuances",
+    "definition": "Placing 'the' before an adjective can turn it into a noun referring to all people with that quality. It becomes a plural concept meaning 'those who are [adj]'.",
+    "example": "The rich should help the poor. ('the rich' = rich people as a group) The wounded were taken to the hospital. ('the wounded' = wounded people).",
+    "tip": "These are plural in meaning and take plural verbs: 'the elderly are...', 'the unemployed seek...'. No additional noun is needed (not 'the poors', just 'the poor'). It's a shorthand for 'all X people'."
+  },
+  {
+    "id": 154,
+    "title": "Article with professions",
+    "category": "Grammar Nuances",
+    "definition": "Use an article ('a' or 'an') when stating someone's profession or occupation (since it's a singular countable noun). Omit the article only when using a title or rank directly before a name or when describing a unique role being assumed.",
+    "example": "She is a doctor. (Correct) He works as an engineer. (Correct) Incorrect: *He is engineer.* (Needs 'an') When he was elected president, he moved to the capital. ('president' is a title here, no article in that construction)",
+    "tip": "For 'He is [profession]', always include 'a/an'. (He is an artist, a teacher, etc.) Only drop it in constructions like 'appointed President' or before a title + name (President Smith)."
+  },
+  {
+    "id": 155,
+    "title": "Zero article: school, prison, bed, etc.",
+    "category": "Grammar Nuances",
+    "definition": "Do not use 'the' before certain nouns when referring to their primary purpose: e.g., 'at school' (as a student), 'in prison' (as an inmate), 'to bed' (for sleeping), 'in hospital' (as a patient, BrE). Use 'the' when referring to the specific place or building.",
+    "example": "After dinner, the children go to bed. (for sleep, no article) He was in prison for 5 years. (as a prisoner) Her son is in hospital recovering. (BrE, as patient) vs. I went to the hospital to visit him. (specific building, article used)",
+    "tip": "No article when talking about the usual function: 'go to school (to learn)', 'at university', 'in church (praying)', 'in bed (sleeping)'. Add 'the' when you refer to the physical place or a specific instance: 'the school was built in 1960', 'she cleaned the church'."
+  },
+  {
+    "id": 156,
+    "title": "Uncountable nouns (no plural)",
+    "category": "Grammar Nuances",
+    "definition": "Certain nouns (especially abstract ideas or mass nouns) do not have a plural form and should not be used with 'a/an' or made plural. Use quantifiers or measure phrases to count them if needed. Examples: information, advice, furniture, equipment, knowledge, money, news, traffic, etc.",
+    "example": "Incorrect: *She gave me an important information.* Correct: She gave me some important information. Incorrect: *The furnitures are heavy.* Correct: The furniture is heavy. (Or: The pieces of furniture are heavy.)",
+    "tip": "Memorize common uncountables. Do not add 's': use 'much, little, some' with them or phrases like 'a piece of advice', 'two pieces of equipment'. Remember they take singular verbs ('The information is...', 'This furniture looks...')."
+  },
+  {
+    "id": 157,
+    "title": "Inversion after negative adverbials",
+    "category": "Grammar Nuances",
+    "definition": "In formal or dramatic English, when a negative or restrictive adverb starts a sentence (never, rarely, scarcely, little, not only, etc.), invert the auxiliary verb and subject (like a question structure) in the clause that follows.",
+    "example": "Never have I heard such nonsense! (instead of 'I have never heard...') Seldom does he make mistakes. Not only did she win, but she also set a record.",
+    "tip": "Common triggers: never, rarely, little, hardly, not only, under no circumstances, etc. The pattern is adverb + auxiliary + subject + main verb. It's used for emphasis. Be careful in error spotting: a missing inversion or an unnecessary one can be the error."
+  },
+  {
+    "id": 158,
+    "title": "Very vs Much (with comparatives)",
+    "category": "Grammar Nuances",
+    "definition": "Use 'much', 'far', or 'a lot' (not 'very') to emphasize a comparative adjective or adverb. 'Very' is not used directly in front of a comparative form.",
+    "example": "Incorrect: *This laptop is very faster than my old one.* Correct: This laptop is much faster than my old one. She is far more experienced than her colleague.",
+    "tip": "To boost a comparative, say 'much/far/a lot + comparative' (much better, far more interesting). 'Very' goes with base adjectives (very fast) or 'the very + superlative' (the very best), but not \"very faster\"."
+  },
+  {
+    "id": 159,
+    "title": "Lose vs Loose (spelling/meaning)",
+    "category": "Grammar Nuances",
+    "definition": "\"Lose\" (one 'o') is a verb meaning to misplace or not win; \"Loose\" (two 'o's) is usually an adjective meaning not tight or free.",
+    "example": "Be careful or you will lose your phone. These pants are loose around my waist.",
+    "tip": "Common spelling mix-up: 'lose' rhymes with 'ooze' (Z sound) – think 'loser' with one O. 'Loose' rhymes with 'goose' (S sound) – think 'loose screws'. Spelling matters: one 'o' vs two 'o's."
+  },
+  {
+    "id": 160,
+    "title": "Practice vs Practise (BrE)",
+    "category": "Grammar Nuances",
+    "definition": "In British English, 'practice' is a noun (the act of practicing, or a habitual process), while 'practise' is the verb. In American English, 'practice' is used for both noun and verb.",
+    "example": "BrE: I go to football practice on Wednesdays. I practise football every Wednesday. (Notice noun vs verb spelling) AmE: I practice football on Wednesdays. (same spelling)",
+    "tip": "UK: advice/advise, practice/practise follow the same pattern (noun ends in -ice, verb in -ise). On an exam with BrE spelling, use 'practise' for the verb. In the US, always 'practice'."
+  },
+  {
+    "id": 161,
+    "title": "'Abide by'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "A phrasal verb meaning to obey or follow (a rule, decision, or recommendation).",
+    "example": "You must abide by the terms of the contract.",
+    "tip": "Common collocation: 'abide by the law/rules'. In a cloze test, if the sentence calls for 'obey (the rules)', 'abide by' might be the two-word phrase needed."
+  },
+  {
+    "id": 162,
+    "title": "'Look forward to'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "An idiom meaning to anticipate with pleasure; to be excited about something that will happen.",
+    "example": "I look forward to meeting you next week. (Note 'to' is part of the phrase, and a gerund or noun follows.)",
+    "tip": "Always 'look forward to' something (noun or gerund). In formal letters: 'I look forward to hearing from you.' It's one chunk: don't drop 'to', and remember if a verb follows, it ends in -ing."
+  },
+  {
+    "id": 163,
+    "title": "'Make ends meet'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "To earn just enough money to cover basic expenses; to manage financially.",
+    "example": "After her hours were cut, she struggled to make ends meet.",
+    "tip": "Treat it as a unit (subject + make ends meet). Often used with 'struggle to' or 'hard to'. If a cloze has 'ends meet', expect 'make' to be the missing word. It's about financial survival."
+  },
+  {
+    "id": 164,
+    "title": "'On the verge of'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "About to happen or very close to doing something.",
+    "example": "The country was on the verge of economic collapse. She was on the verge of tears.",
+    "tip": "This phrase is followed by a noun or gerund (on the verge of collapse / of quitting). It implies something imminent. In context, it indicates a critical point just before something occurs."
+  },
+  {
+    "id": 165,
+    "title": "'Take part in'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "To participate in an activity or event.",
+    "example": "Hundreds of athletes took part in the marathon.",
+    "tip": "Fixed phrase meaning 'participate'. In a cloze, if you see '... part in', the missing word is likely 'take'. It always uses 'in': you take part in something (never 'on' or without a preposition)."
+  },
+  {
+    "id": 166,
+    "title": "'Give in'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "To yield or surrender, especially after initial resistance.",
+    "example": "After hours of negotiation, he finally gave in and agreed to their terms.",
+    "tip": "Often followed by 'to [something]': 'give in to pressure/temptation'. It means to stop resisting. In a context, if someone eventually agrees or surrenders, 'give in' is the phrase."
+  },
+  {
+    "id": 167,
+    "title": "'Run out of'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "To exhaust the supply of something; to have no more of something left.",
+    "example": "We ran out of fuel before reaching the campsite.",
+    "tip": "In a cloze, if the sentence ends with '... out of ___', expect a form of 'run' as the verb. Common collocations: run out of time, run out of money, run out of options. It indicates depletion."
+  },
+  {
+    "id": 168,
+    "title": "'Bear with'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "To be patient or tolerant with someone or something.",
+    "example": "\"Bear with me a moment while I find the file,\" she said during the call.",
+    "tip": "Often used as 'bear with me/us'. In questions or instructions, 'bear with us' means 'please be patient'. Not to be confused with 'bare'. In a listening or reading context, it's a polite request for patience."
+  },
+  {
+    "id": 169,
+    "title": "'Part and parcel'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "An essential or fundamental part of something; something that is inherently included or an unavoidable part.",
+    "example": "Criticism is part and parcel of being a public figure. (Meaning criticism comes with the role and you can't avoid it.)",
+    "tip": "It's a set idiom: always 'part and parcel of'. If you see 'parcel of' in a sentence, likely 'part and' is missing. It implies an intrinsic aspect of an experience or thing."
+  },
+  {
+    "id": 170,
+    "title": "'By and large'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "On the whole; generally speaking.",
+    "example": "By and large, the project has been successful, despite a few hiccups.",
+    "tip": "This phrase is used as a sentence adverb or connector. If a sentence needs a summarizing or generalizing connector, 'by and large' might fit. It often starts a sentence or is offset by commas."
+  },
+  {
+    "id": 171,
+    "title": "'Pros and cons'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "The advantages and disadvantages of something.",
+    "example": "We discussed the pros and cons of working from home before making a decision.",
+    "tip": "Usually used with 'weigh' or 'consider'. It's always plural and always in that pair. In cloze tests, if the context is about benefits/drawbacks, this phrase might appear as a unit meaning 'advantages and disadvantages'."
+  },
+  {
+    "id": 172,
+    "title": "'At the eleventh hour'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "At the very last moment; just before a deadline or too late to change anything.",
+    "example": "The two sides reached an agreement at the eleventh hour, narrowly avoiding a strike.",
+    "tip": "Means 'last possible minute'. In context, if something happens dramatically just in time, this idiom fits. It's often preceded by 'at the' and followed by a deadline scenario."
+  },
+  {
+    "id": 173,
+    "title": "'Pay attention (to)'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "To focus on or concentrate on someone or something; to be attentive.",
+    "example": "Please pay attention to the instructions before starting the exam.",
+    "tip": "Common phrase for focus. In listening or reading, if someone is told to focus or listen carefully, 'pay attention' is the go-to phrase. Often collocates with 'to (something)'."
+  },
+  {
+    "id": 174,
+    "title": "'Commit a crime'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "To do something illegal or break the law.",
+    "example": "Anyone who commits a crime must face the consequences as per the law.",
+    "tip": "Collocation: use 'commit' with words like crime, murder, offense, suicide. In cloze tests, if the sentence is about doing something wrong legally, the proper verb is 'commit' (not 'do a crime')."
+  },
+  {
+    "id": 175,
+    "title": "'In a nutshell'",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "In brief; in a concise way (often used to summarize a complex topic in a few words).",
+    "example": "In a nutshell, the project failed due to lack of funding. (This is the brief summary of a longer explanation.)",
+    "tip": "Signals a summary or the main point. Often preceded by a comma or as a transitional phrase. If a comprehension question asks for a summary, someone might respond 'In a nutshell,...'. It literally means 'in a tiny shell' metaphorically — just the core."
+  },
+  {
+    "id": 176,
+    "title": "Skimming and Scanning",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "Reading techniques to quickly extract information: Skimming is rapid reading to grasp the general idea or main points, whereas Scanning is rapid reading to find specific facts or keywords.",
+    "example": "For example, you might skim a passage in 30 seconds to get the gist, then scan it to find the name of a person or a date needed to answer a question.",
+    "tip": "Use skimming to identify the overall topic, tone, and structure (read titles, first sentences, etc.). Use scanning by running your eyes down the text to locate a particular word or number. In exams, skim first for context, then scan for answers."
+  },
+  {
+    "id": 177,
+    "title": "Using Context Clues",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "The strategy of determining the meaning of an unfamiliar word or phrase by examining the words and sentences around it in the passage.",
+    "example": "If you encounter an unknown word: \"The arboreal creature, a type of monkey, leapt through the canopy\" – the context and the appositive phrase ('a type of monkey') hint that 'arboreal' relates to trees.",
+    "tip": "Look for definition clues (X is..., or 'called', 'meaning'), example clues (such as, for instance), antonym/contrast clues (but, however, unlike X, Y), and general sense of the sentence or paragraph. The exam often surrounds hard words with hints because they test your inference, not obscure vocabulary."
+  },
+  {
+    "id": 178,
+    "title": "Process of Elimination",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "A test-taking strategy where you eliminate obviously wrong or irrelevant answer choices to narrow down the options, increasing the likelihood of selecting the correct answer.",
+    "example": "On a multiple-choice reading question, cross out answers that contradict the passage or are too broad/narrow. If two choices remain, revisit the passage focusing on differences between those options.",
+    "tip": "If an answer choice is not mentioned or goes against information in the passage, eliminate it. If it contains absolute language (always, never) that the passage doesn't support, it's likely wrong. By removing distractors, you often reveal the correct choice or make an educated guess between fewer options."
+  },
+  {
+    "id": 179,
+    "title": "Transition Words (Linkers)",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "Words and phrases (like 'however', 'moreover', 'therefore', 'for example', etc.) that connect ideas and indicate relationships (contrast, addition, cause-effect, example, sequence) in the text.",
+    "example": "The first statement might present a fact; however, the next sentence could present a contrasting idea (notice 'however'). 'Furthermore' adds another point in line with the previous one. 'Therefore' signals a conclusion or result.",
+    "tip": "Recognizing linkers helps you understand the flow of arguments. In cloze tests, pay attention to the logical relationship between sentences: if it's contrast, words like 'however', 'on the other hand' fit; if adding information, 'moreover', 'in addition'; if showing result, 'therefore', 'thus'; example, 'for instance'. Choosing the right linker depends on understanding that relationship."
+  },
+  {
+    "id": 180,
+    "title": "Refer Back to the Passage",
+    "category": "Comprehension & Cloze Strategies",
+    "definition": "Always base your answers on the content of the passage. Use the text to find evidence for your answers; do not rely on memory or outside knowledge. This strategy ensures that answers are directly supported by the passage.",
+    "example": "If asked \"Why did the protagonist leave?\", go to the passage and find the relevant lines that explain the character's motivation. Don't answer with your personal assumption – answer with what the text actually states or implies, such as: 'The passage says he left because he felt unappreciated.'",
+    "tip": "On comprehension questions, correct answers are either explicitly stated or can be inferred from the passage. If you can't underline or point to where an answer comes from (or paraphrase a specific part), it's likely wrong. Especially on detail questions, find the exact spot that addresses the question. This prevents falling for logical-sounding but text-unsupported choices."
+  }
+]
