@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.StarBorder
@@ -22,14 +23,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.data.discover.model.ConceptEntity
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun DiscoverCard(
@@ -77,11 +81,20 @@ fun DiscoverCarousel(
     vm: EnglishDashboardViewModel,
     nav: NavController
 ) {
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(listState) {
+        snapshotFlow { listState.firstVisibleItemIndex }
+            .collect { /* snapshot state to avoid jank */ }
+    }
+
     LazyRow(
+        state = listState,
         modifier = Modifier.focusable(),
         reverseLayout = false,
         contentPadding = PaddingValues(horizontal = 24.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        beyondBoundsItemCount = 1
     ) {
         items(tips, key = { it.id }) { concept ->
             val bookmarked by vm.isBookmarked(concept.id).collectAsState(initial = false)
