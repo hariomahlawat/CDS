@@ -1,5 +1,8 @@
 package com.concepts_and_quizzes.cds.core.navigation
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -9,6 +12,8 @@ import com.concepts_and_quizzes.cds.ui.english.concepts.ConceptDetailScreen
 import com.concepts_and_quizzes.cds.ui.english.concepts.ConceptsHomeScreen
 import com.concepts_and_quizzes.cds.ui.english.dashboard.EnglishDashboardScreen
 import com.concepts_and_quizzes.cds.ui.english.discover.DiscoverConceptDetailScreen
+import com.concepts_and_quizzes.cds.ui.english.analysis.AnalysisScreen
+import com.concepts_and_quizzes.cds.ui.english.analysis.AnalysisViewModel
 import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqpPaperListScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqAnalyticsScreen
@@ -55,5 +60,13 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     ) { back ->
         val pid = back.arguments?.getString("paperId") ?: return@composable
         PyqpQuizScreen(pid, nav)
+    }
+    composable(
+        route = "analysis/{sessionId}",
+        arguments = listOf(navArgument("sessionId") { type = NavType.StringType })
+    ) {
+        val vm: AnalysisViewModel = hiltViewModel()
+        val report by vm.report.collectAsState()
+        report?.let { AnalysisScreen(it, vm.prefs) }
     }
 }

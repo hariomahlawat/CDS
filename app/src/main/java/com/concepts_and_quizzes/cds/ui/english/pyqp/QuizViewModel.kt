@@ -4,6 +4,7 @@ import android.os.SystemClock
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
@@ -366,6 +367,13 @@ class QuizViewModel @Inject constructor(
                     PyqpProgress(paperId = quizId, correct = correct, attempted = questions.size)
                 )
             }
+        }
+    }
+
+    fun onSubmitSuccess(navController: NavController) {
+        navController.navigate("analysis/$sessionId") {
+            popUpTo("practice") { inclusive = false }
+            launchSingleTop = true
         }
     }
 
