@@ -28,10 +28,17 @@ class DiscoverRepository @Inject constructor(
         if (existing.size == tipsPerDay) return existing
 
         var pool = dao.unservedConceptIds()
-        if (pool.size < tipsPerDay) {
+
+        if (existing.isEmpty() && pool.isEmpty()) {
             dao.clearDailyTipHistory()
             pool = dao.unservedConceptIds()
         }
+
+        if (pool.size < tipsPerDay) {
+            dao.clearDailyTipHistory()
+            pool = dao.unservedConceptIds().ifEmpty { dao.allConceptIds() }
+        }
+
         val draw = pool.shuffled().take(tipsPerDay).map { DailyTipEntity(today, it) }
         dao.insertDailyTips(draw)
         return draw

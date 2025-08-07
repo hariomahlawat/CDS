@@ -2,6 +2,7 @@ package com.concepts_and_quizzes.cds.ui.english.dashboard
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.data.discover.model.ConceptEntity
@@ -45,7 +48,17 @@ fun DiscoverCard(
         Column(Modifier.padding(20.dp)) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(concept.title, style = MaterialTheme.typography.titleMedium)
-                IconToggleButton(checked = bookmarked, onCheckedChange = { onBookmark() }) {
+                IconToggleButton(
+                    checked = bookmarked,
+                    onCheckedChange = { onBookmark() },
+                    modifier = Modifier.semantics {
+                        contentDescription = if (bookmarked) {
+                            "Remove bookmark"
+                        } else {
+                            "Add bookmark"
+                        }
+                    }
+                ) {
                     Icon(
                         imageVector = if (bookmarked) Icons.Filled.Star else Icons.Outlined.StarBorder,
                         contentDescription = null
@@ -65,6 +78,8 @@ fun DiscoverCarousel(
     nav: NavController
 ) {
     LazyRow(
+        modifier = Modifier.focusable(),
+        reverseLayout = false,
         contentPadding = PaddingValues(horizontal = 24.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
