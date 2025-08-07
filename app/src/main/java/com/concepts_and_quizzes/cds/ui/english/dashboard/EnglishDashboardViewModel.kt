@@ -1,11 +1,10 @@
 package com.concepts_and_quizzes.cds.ui.english.dashboard
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.concepts_and_quizzes.cds.CdsApplication
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,8 +17,7 @@ import org.json.JSONObject
 
 @HiltViewModel
 class EnglishDashboardViewModel @Inject constructor(
-    progressDao: PyqpProgressDao,
-    @ApplicationContext private val context: Context
+    private val progressDao: PyqpProgressDao
 ) : ViewModel() {
     data class PyqSummary(val papers: Int, val best: Int, val last: Int)
 
@@ -47,7 +45,10 @@ class EnglishDashboardViewModel @Inject constructor(
     }
 
     private fun loadConcepts(): List<Concept> = runCatching {
-        val json = context.assets.open("concept_of_the_day.json").bufferedReader().use { it.readText() }
+        val json = CdsApplication.instance.assets
+            .open("concept_of_the_day.json")
+            .bufferedReader()
+            .use { it.readText() }
         val array = JSONObject(json).getJSONArray("concepts")
         List(array.length()) { idx ->
             val obj = array.getJSONObject(idx)
