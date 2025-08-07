@@ -8,7 +8,6 @@ import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.discover.db.ConceptDao
-import com.concepts_and_quizzes.cds.data.discover.DiscoverRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,9 +68,4 @@ object EnglishDatabaseModule {
     ): AnalyticsRepository =
         AnalyticsRepository(attemptDao, topicStatDao)
 
-    @Provides
-    @Singleton
-    fun provideDiscoverRepository(
-        conceptDao: ConceptDao
-    ): DiscoverRepository = DiscoverRepository(conceptDao)
 }
