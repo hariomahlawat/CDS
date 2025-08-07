@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
+import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
+import com.concepts_and_quizzes.cds.data.analytics.db.QuizTrace
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
@@ -25,6 +27,7 @@ class QuizViewModel @Inject constructor(
     private val repo: PyqpRepository,
     private val progressDao: PyqpProgressDao,
     private val analytics: AnalyticsRepository,
+    private val reportRepo: QuizReportRepository,
     private val resumeStore: QuizResumeStore,
     private val state: SavedStateHandle
 ) : ViewModel() {
@@ -32,6 +35,7 @@ class QuizViewModel @Inject constructor(
     private val topic: String? = state["topic"]
     private val paperId: String? = state["paperId"]
     private val quizId: String = paperId ?: "WRONGS:${topic ?: ""}"
+    private val sessionId: String = "${quizId}:${System.currentTimeMillis()}"
 
     private val _ui = MutableStateFlow<QuizUi>(QuizUi.Loading)
     val ui: StateFlow<QuizUi> = _ui
@@ -318,6 +322,18 @@ class QuizViewModel @Inject constructor(
         val attempts = questions.mapIndexed { i, q ->
             val ansIdx = answers[i]
             val correct = ansIdx != null && q.options[ansIdx].isCorrect
+            viewModelScope.launch {
+                reportRepo.insertTrace(
+                    QuizTrace(
+                        sessionId = sessionId,
+                        questionId = i,
+                        topicId = q.topic.hashCode(),
+                        startedAt = 0L,
+                        answeredAt = (durations[i] ?: 0).toLong(),
+                        isCorrect = correct
+                    )
+                )
+            }
             AttemptLogEntity(
                 qid = q.id,
                 quizId = quizId,

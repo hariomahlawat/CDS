@@ -1,0 +1,24 @@
+package com.concepts_and_quizzes.cds.data.analytics.repo
+
+import com.concepts_and_quizzes.cds.data.analytics.db.QuizTrace
+
+/** Data class aggregating quiz KPIs. */
+data class QuizReport(
+    val total: Int,
+    val attempted: Int,
+    val correct: Int,
+    val wrong: Int,
+    val strongestTopic: Int?,
+    val weakestTopic: Int?,
+    val timePerSection: List<TopicSummary>,
+    val bottlenecks: List<QuizTrace>,
+    val suggestions: List<String>
+)
+
+/** Per-topic summary used for charts. */
+data class TopicSummary(
+    val topicId: Int,
+    val accuracy: Double,
+    val avgTime: Double,
+    val attempts: Int
+)

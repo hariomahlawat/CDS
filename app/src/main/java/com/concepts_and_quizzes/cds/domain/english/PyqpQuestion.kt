@@ -6,5 +6,6 @@ data class PyqpQuestion(
     val options: List<AnswerOption>,
     val direction: String? = null,
     val passage: String? = null,
-    val passageTitle: String? = null
+    val passageTitle: String? = null,
+    val topic: String = ""
 )
