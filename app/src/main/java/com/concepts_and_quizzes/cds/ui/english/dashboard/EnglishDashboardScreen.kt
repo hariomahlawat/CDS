@@ -48,6 +48,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material3.ProgressIndicatorDefaults
 import com.concepts_and_quizzes.cds.R
+import com.concepts_and_quizzes.cds.core.theme.Dimens
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
@@ -112,8 +113,8 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
         FlowRow(
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 24.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            horizontalArrangement = Arrangement.spacedBy(Dimens.ChipSpacingX),
+            verticalArrangement = Arrangement.spacedBy(Dimens.ChipSpacingX)
         ) {
             ActionChip(Icons.Filled.AutoStories, "Concepts") { nav.navigate("english/concepts") }
             ActionChip(Icons.Filled.School, "Mock Tests") { nav.navigate("quizHub") }
