@@ -1,7 +1,6 @@
 package com.concepts_and_quizzes.cds.core.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,9 +19,7 @@ fun CdsAppBar(title: String) {
         title = { Text(text = title) },
         navigationIcon = {
             Image(
-                painter = painterResource(
-                    if (isSystemInDarkTheme()) R.drawable.logo_dark else R.drawable.logo_light
-                ),
+                painter = painterResource(R.drawable.logo),
                 contentDescription = null,
                 modifier = Modifier
                     .size(32.dp)
