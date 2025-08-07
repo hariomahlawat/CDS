@@ -8,27 +8,37 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.concepts_and_quizzes.cds.R
 
-private val PlusJakartaSans = FontFamily(Font(R.font.plus_jakarta_sans))
+private val plusJakarta = FontFamily(Font(R.font.plus_jakarta_sans))
 
-// Set of Material typography styles to start with
 val Typography = Typography(
-    displayLarge = TextStyle(
-        fontFamily = PlusJakartaSans,
-        fontWeight = FontWeight.Bold
-    ),
     headlineSmall = TextStyle(
-        fontFamily = PlusJakartaSans,
-        fontWeight = FontWeight.Medium
+        fontFamily = plusJakarta,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp,
+        lineHeight = 32.sp
     ),
-    labelMedium = TextStyle(
-        fontFamily = PlusJakartaSans,
-        fontWeight = FontWeight.Medium
+    titleMedium = TextStyle(
+        fontFamily = plusJakarta,
+        fontWeight = FontWeight.Medium,
+        fontSize = 18.sp,
+        lineHeight = 28.sp
     ),
-    bodyLarge = TextStyle(
-        fontFamily = PlusJakartaSans,
+    bodyMedium = TextStyle(
+        fontFamily = plusJakarta,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
+        lineHeight = 24.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = plusJakarta,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 20.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = plusJakarta,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+        lineHeight = 20.sp
     )
 )
