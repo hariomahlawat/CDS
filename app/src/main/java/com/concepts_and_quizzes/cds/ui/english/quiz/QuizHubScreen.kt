@@ -65,7 +65,7 @@ fun QuizHubScreen(nav: NavHostController, vm: QuizHubViewModel = hiltViewModel()
             CdsCard {
                 Column(
                     Modifier
-                        .clickable { nav.navigate("analytics/pyq") }
+                        .clickable { nav.navigate("analytics") }
                         .padding(16.dp)
                 ) {
                     Text("Analytics")
