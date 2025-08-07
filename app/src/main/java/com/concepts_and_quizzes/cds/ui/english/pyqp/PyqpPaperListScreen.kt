@@ -16,13 +16,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.concepts_and_quizzes.cds.core.components.CdsAppBar
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun PyqpPaperListScreen(nav: NavController, vm: PyqpListViewModel = hiltViewModel()) {
     val papers by vm.papers.collectAsState()
-    Scaffold(topBar = { CdsAppBar(title = "PYQ Papers") }) { padd ->
+    Scaffold { padd ->
         LazyColumn(contentPadding = padd) {
             items(papers) { paper ->
                 ListItem(

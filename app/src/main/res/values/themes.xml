@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.CDS" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.CDS" parent="Theme.Material3.DayNight.NoActionBar" />
 
     <style name="Theme.CDS.Launch" parent="@style/Theme.SplashScreen">
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo</item>
         <item name="windowSplashScreenBackground">@color/primaryContainer</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 </resources>
