@@ -35,8 +35,10 @@ data class UnlockStats(
 
 /** Computes [ModuleStatus] for all [AnalyticsModule]s. */
 class AnalyticsUnlocker @javax.inject.Inject constructor(
-    private val config: AnalyticsUnlockConfig = AnalyticsUnlockConfig()
+    private val config: AnalyticsUnlockConfig
 ) {
+    constructor() : this(AnalyticsUnlockConfig())
+
     fun statuses(stats: UnlockStats, nowMillis: Long = System.currentTimeMillis()): List<ModuleStatus> {
         val res = mutableListOf<ModuleStatus>()
 
