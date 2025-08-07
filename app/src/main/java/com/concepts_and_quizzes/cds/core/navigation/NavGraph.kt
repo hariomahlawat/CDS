@@ -8,6 +8,7 @@ import androidx.navigation.navArgument
 import com.concepts_and_quizzes.cds.ui.english.concepts.ConceptDetailScreen
 import com.concepts_and_quizzes.cds.ui.english.concepts.ConceptsHomeScreen
 import com.concepts_and_quizzes.cds.ui.english.dashboard.EnglishDashboardScreen
+import com.concepts_and_quizzes.cds.ui.english.discover.DiscoverConceptDetailScreen
 import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqpPaperListScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqAnalyticsScreen
@@ -19,6 +20,12 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     composable("english/concepts/{id}") { backStack ->
         val id = backStack.arguments?.getString("id") ?: return@composable
         ConceptDetailScreen(id, nav)
+    }
+    composable(
+        route = "discover/{id}",
+        arguments = listOf(navArgument("id") { type = NavType.IntType })
+    ) {
+        DiscoverConceptDetailScreen(nav)
     }
     composable("quizHub") { QuizHubScreen(nav) }
     composable(

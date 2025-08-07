@@ -6,10 +6,12 @@ import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import org.json.JSONArray
 import com.concepts_and_quizzes.cds.data.english.model.EnglishQuestionEntity
 import com.concepts_and_quizzes.cds.data.english.model.EnglishTopicEntity
 import com.concepts_and_quizzes.cds.data.english.model.PyqpQuestionEntity
 import androidx.room.withTransaction
+import com.concepts_and_quizzes.cds.data.discover.model.ConceptEntity
 
 class SeedUtil @Inject constructor(
     @ApplicationContext private val ctx: Context,
@@ -52,6 +54,30 @@ class SeedUtil @Inject constructor(
                 }
                 db.topicDao().insertAll(topics)
                 db.questionDao().insertAll(questions)
+            }
+            if (db.conceptDao().countConcepts() == 0) {
+                val json = ctx.assets.open("concepts_of_the_day.json").bufferedReader().use { it.readText() }
+                val array = JSONArray(json)
+                val concepts = mutableListOf<ConceptEntity>()
+                for (i in 0 until array.length()) {
+                    val c = array.getJSONObject(i)
+                    val detail = buildString {
+                        append(c.getString("definition"))
+                        append("\n\nExample: ")
+                        append(c.getString("example"))
+                        append("\n\nTip: ")
+                        append(c.getString("tip"))
+                    }
+                    concepts.add(
+                        ConceptEntity(
+                            id = c.getInt("id"),
+                            title = c.getString("title"),
+                            blurb = c.getString("definition"),
+                            detail = detail
+                        )
+                    )
+                }
+                db.conceptDao().insertAll(concepts)
             }
             if (db.pyqpDao().count() == 0) {
                 val file = "CDS_II_2024_English_SetA.json"
