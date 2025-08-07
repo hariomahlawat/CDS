@@ -5,13 +5,15 @@ import com.concepts_and_quizzes.cds.data.discover.model.BookmarkEntity
 import com.concepts_and_quizzes.cds.data.discover.model.ConceptEntity
 import com.concepts_and_quizzes.cds.data.discover.model.DailyTipEntity
 import java.time.LocalDate
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.first
 
-class DiscoverRepository(
+@Singleton
+class DiscoverRepository @Inject constructor(
     private val dao: ConceptDao
 ) {
     private val tipsPerDay = 3
