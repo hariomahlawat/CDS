@@ -1,8 +1,8 @@
 package com.concepts_and_quizzes.cds.core.components
 
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
@@ -13,14 +13,14 @@ import com.concepts_and_quizzes.cds.core.config.RemoteConfig
 import com.concepts_and_quizzes.cds.core.navigation.BottomBarDestination
 
 @Composable
-fun CdsBottomNavBar(
+fun CdsNavigationRail(
     navController: NavHostController,
     remoteConfig: RemoteConfig
 ) {
     val items = BottomBarDestination.entries.filter {
         it != BottomBarDestination.Reports || remoteConfig.getBoolean("reports_tab_enabled")
     }
-    NavigationBar {
+    NavigationRail {
         val navBackStackEntry = navController.currentBackStackEntryAsState().value
         val currentRoute = navBackStackEntry?.destination?.route
         items.forEach { item ->
@@ -32,7 +32,7 @@ fun CdsBottomNavBar(
                     currentRoute?.startsWith("analytics") == true
                 BottomBarDestination.Reports -> currentRoute == "reports"
             }
-            NavigationBarItem(
+            NavigationRailItem(
                 selected = selected,
                 onClick = {
                     navController.navigate(item.route) {
