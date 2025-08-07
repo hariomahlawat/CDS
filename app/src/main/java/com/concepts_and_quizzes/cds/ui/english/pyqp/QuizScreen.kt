@@ -40,6 +40,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
 import kotlinx.coroutines.launch
+import com.concepts_and_quizzes.cds.core.theme.flaggedContainer
 
 @Composable
 fun QuizScreen(
@@ -79,11 +80,25 @@ fun QuizScreen(
 
     if (showResult) {
         result?.let { r ->
-            ResultView(r, nav) {
-                vm.saveProgress()
-                vm.dismissResult()
-                nav.popBackStack()
-            }
+            ResultView(
+                r,
+                onDone = {
+                    vm.saveProgress()
+                    vm.dismissResult()
+                    nav.navigate("quizHub") {
+                        launchSingleTop = true
+                        popUpTo("english/pyqp/{paperId}") { inclusive = true }
+                    }
+                },
+                onViewAnalytics = {
+                    vm.saveProgress()
+                    vm.dismissResult()
+                    nav.navigate("analytics") {
+                        launchSingleTop = true
+                        popUpTo("english/pyqp/{paperId}") { inclusive = true }
+                    }
+                }
+            )
         }
     }
 }
@@ -386,7 +401,7 @@ private fun PaletteDialog(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     LegendChip(MaterialTheme.colorScheme.primaryContainer, "Answered")
-                    LegendChip(MaterialTheme.colorScheme.secondaryContainer, "Flagged")
+                    LegendChip(MaterialTheme.colorScheme.flaggedContainer, "Flagged")
                     LegendChip(MaterialTheme.colorScheme.surfaceVariant, "Not Answered")
                 }
                 Spacer(Modifier.height(8.dp))
@@ -394,6 +409,7 @@ private fun PaletteDialog(
                     items(entries.size) { idx ->
                         val e = entries[idx]
                         val color = when {
+                            e.flagged && !e.answered -> MaterialTheme.colorScheme.flaggedContainer
                             e.flagged -> MaterialTheme.colorScheme.secondaryContainer
                             e.answered -> MaterialTheme.colorScheme.primaryContainer
                             else -> MaterialTheme.colorScheme.surfaceVariant
@@ -431,21 +447,18 @@ private fun LegendChip(color: Color, label: String) {
 @Composable
 private fun ResultView(
     r: QuizViewModel.QuizResult,
-    nav: NavController,
-    onClose: () -> Unit
+    onDone: () -> Unit,
+    onViewAnalytics: () -> Unit
 ) {
     AlertDialog(
-        onDismissRequest = onClose,
-        confirmButton = { TextButton(onClick = onClose) { Text("Done") } },
+        onDismissRequest = onDone,
+        confirmButton = { TextButton(onClick = onDone) { Text("Done") } },
         title = { Text("Result") },
         text = {
             Column {
                 Text("Score: ${r.correct}/${r.total}")
                 Spacer(Modifier.height(12.dp))
-                Button(onClick = {
-                    onClose()
-                    nav.navigate("analytics/pyq")
-                }) {
+                Button(onClick = onViewAnalytics) {
                     Text("View analytics")
                 }
             }

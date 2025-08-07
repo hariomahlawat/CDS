@@ -32,7 +32,7 @@ fun CdsBottomNavBar(navController: NavHostController) {
                 "english/concepts" -> currentRoute?.startsWith("english/concepts") == true
                 "quizHub" -> currentRoute == "quizHub" ||
                     currentRoute?.startsWith("english/pyqp") == true ||
-                    currentRoute == "analytics/pyq"
+                    currentRoute?.startsWith("analytics") == true
                 else -> false
             }
             NavigationBarItem(

@@ -12,6 +12,8 @@ import com.concepts_and_quizzes.cds.ui.english.discover.DiscoverConceptDetailScr
 import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqpPaperListScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqAnalyticsScreen
+import com.concepts_and_quizzes.cds.ui.analytics.AnalyticsCatalogueScreen
+import com.concepts_and_quizzes.cds.ui.analytics.PlaceholderAnalyticsScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.QuizScreen as PyqpQuizScreen
 
 fun NavGraphBuilder.rootGraph(nav: NavHostController) {
@@ -42,7 +44,11 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
             PyqpPaperListScreen(nav)
         }
     }
-    composable("analytics/pyq") { PyqAnalyticsScreen(nav) }
+    composable("analytics") { AnalyticsCatalogueScreen(nav) }
+    composable("analytics/trend") { PyqAnalyticsScreen(nav) }
+    composable("analytics/heatmap") { PlaceholderAnalyticsScreen("Topic Heat-map", nav) }
+    composable("analytics/peer") { PlaceholderAnalyticsScreen("Peer Percentile", nav) }
+    composable("analytics/time") { PlaceholderAnalyticsScreen("Time Management", nav) }
     composable(
         route = "english/pyqp/{paperId}",
         arguments = listOf(navArgument("paperId") { type = NavType.StringType })
