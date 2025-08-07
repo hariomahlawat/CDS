@@ -18,7 +18,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.CDS">
+            android:theme="@style/Theme.CDS.Launch">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
