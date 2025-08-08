@@ -22,6 +22,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import com.concepts_and_quizzes.cds.ui.reports.trend.TrendPage
@@ -46,7 +47,7 @@ fun ReportsScreen(
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Window.values().forEach { w ->
+            Window.entries.forEach { w ->
                 FilterChip(
                     selected = window == w,
                     onClick = { shared.setWindow(w) },
