@@ -11,8 +11,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.background
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import android.app.Activity
 import android.os.SystemClock
@@ -40,7 +38,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
 import kotlinx.coroutines.launch
-import com.concepts_and_quizzes.cds.core.theme.flaggedContainer
+import com.concepts_and_quizzes.cds.ui.quiz.QuestionStatePalette
 
 @Composable
 fun QuizScreen(
@@ -241,8 +239,8 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
     }
 
     if (showPalette) {
-        PaletteDialog(
-            vm.questionPalette(),
+        QuestionStatePalette(
+            entries = vm.questionPalette(),
             onSelect = {
                 vm.goToQuestion(it)
                 showPalette = false
@@ -383,66 +381,6 @@ private fun OptionCard(selected: Boolean, text: String, onClick: () -> Unit) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-private fun PaletteDialog(
-    entries: List<QuizViewModel.PaletteEntry>,
-    onSelect: (Int) -> Unit,
-    onDismiss: () -> Unit
-) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        confirmButton = {},
-        title = { Text("Jump to question") },
-        text = {
-            Column {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    LegendChip(MaterialTheme.colorScheme.primaryContainer, "Answered")
-                    LegendChip(MaterialTheme.colorScheme.flaggedContainer, "Flagged")
-                    LegendChip(MaterialTheme.colorScheme.surfaceVariant, "Not Answered")
-                }
-                Spacer(Modifier.height(8.dp))
-                LazyVerticalGrid(columns = GridCells.Fixed(5), modifier = Modifier.heightIn(max = 200.dp)) {
-                    items(entries.size) { idx ->
-                        val e = entries[idx]
-                        val color = when {
-                            e.flagged && !e.answered -> MaterialTheme.colorScheme.flaggedContainer
-                            e.flagged -> MaterialTheme.colorScheme.secondaryContainer
-                            e.answered -> MaterialTheme.colorScheme.primaryContainer
-                            else -> MaterialTheme.colorScheme.surfaceVariant
-                        }
-                        Box(
-                            modifier = Modifier
-                                .padding(4.dp)
-                                .size(48.dp)
-                                .background(color, RoundedCornerShape(8.dp))
-                                .clickable { onSelect(e.questionIndex) },
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text("${e.questionIndex + 1}")
-                        }
-                    }
-                }
-            }
-        }
-    )
-}
-
-@Composable
-private fun LegendChip(color: Color, label: String) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(
-            modifier = Modifier
-                .size(12.dp)
-                .background(color, RoundedCornerShape(2.dp))
-        )
-        Spacer(Modifier.width(4.dp))
-        Text(label)
-    }
-}
 
 @Composable
 private fun ResultView(
