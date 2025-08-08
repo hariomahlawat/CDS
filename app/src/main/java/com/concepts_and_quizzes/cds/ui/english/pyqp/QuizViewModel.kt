@@ -191,6 +191,7 @@ class QuizViewModel @Inject constructor(
     }
 
     fun pause() {
+        if (submitted) return
         flushDuration()
         timerJob?.cancel()
         timerJob = null
@@ -199,7 +200,7 @@ class QuizViewModel @Inject constructor(
     }
 
     fun resume() {
-        if (_timer.value > 0) {
+        if (_timer.value > 0 && !submitted) {
             questionStartMs = SystemClock.elapsedRealtime()
             startTimer()
         }
