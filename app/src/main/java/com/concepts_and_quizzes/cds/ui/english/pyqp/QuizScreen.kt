@@ -2,6 +2,8 @@ package com.concepts_and_quizzes.cds.ui.english.pyqp
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -31,14 +33,20 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.concepts_and_quizzes.cds.ui.quiz.QuestionStatePalette
+import com.concepts_and_quizzes.cds.ui.quiz.PaletteBottomSheet
 
 @Composable
 fun QuizScreen(
@@ -53,6 +61,7 @@ fun QuizScreen(
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var lastBack by remember { mutableStateOf(0L) }
+    var navigatingToAnalysis by remember { mutableStateOf(false) }
 
     BackHandler(enabled = !showResult) {
         vm.pause()
@@ -91,12 +100,21 @@ fun QuizScreen(
                 onViewAnalytics = {
                     vm.saveProgress()
                     vm.dismissResult()
-                    nav.navigate("analytics") {
-                        launchSingleTop = true
-                        popUpTo("english/pyqp/{paperId}") { inclusive = true }
-                    }
+                    navigatingToAnalysis = true
                 }
             )
+        }
+    }
+
+    if (navigatingToAnalysis) {
+        LaunchedEffect(Unit) {
+            delay(250)
+            vm.onSubmitSuccess(nav)
+        }
+        AnimatedVisibility(visible = true, enter = fadeIn(), exit = fadeOut()) {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
         }
     }
 }
@@ -239,7 +257,7 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
     }
 
     if (showPalette) {
-        QuestionStatePalette(
+        PaletteBottomSheet(
             entries = vm.questionPalette(),
             onSelect = {
                 vm.goToQuestion(it)
@@ -261,6 +279,8 @@ private fun QuestionPage(
 ) {
     var show by remember { mutableStateOf(false) }
     LaunchedEffect(currentPage) { show = false }
+    val view = LocalView.current
+    LaunchedEffect(number) { view.announceForAccessibility("Question $number") }
 
     val hasInfo = question.direction != null || question.passage != null
     Column(
@@ -323,7 +343,7 @@ private fun QuestionPage(
         Text("Q$number. ${question.text}")
         Spacer(Modifier.height(8.dp))
         question.options.forEachIndexed { idx, opt ->
-            OptionCard(selected == idx, opt.text) { onSelect(idx) }
+            OptionCard(idx, selected == idx, opt.text) { onSelect(idx) }
         }
     }
 }
@@ -349,15 +369,24 @@ private fun IntroPage(intro: QuizViewModel.QuizPage.Intro) {
 }
 
 @Composable
-private fun OptionCard(selected: Boolean, text: String, onClick: () -> Unit) {
+private fun OptionCard(index: Int, selected: Boolean, text: String, onClick: () -> Unit) {
     val haptic = LocalHapticFeedback.current
+    val view = LocalView.current
+    val letter = ('A' + index)
+    val firstWords = text.split(" ").take(3).joinToString(" ")
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 4.dp)
+            .semantics {
+                contentDescription = "Option $letter. $firstWords"
+                this.selected = selected
+                role = Role.RadioButton
+            },
         onClick = {
             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
             onClick()
+            view.announceForAccessibility("Option $letter selected")
         },
         border = if (selected) BorderStroke(2.dp, MaterialTheme.colorScheme.primary) else null,
         shape = RoundedCornerShape(24.dp),
