@@ -47,6 +47,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material3.ProgressIndicatorDefaults
+import com.concepts_and_quizzes.cds.core.components.CdsCard
 import com.concepts_and_quizzes.cds.R
 import com.concepts_and_quizzes.cds.core.theme.Dimens
 
@@ -122,6 +123,20 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
         }
 
         Row(
+            Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            MiniTrendCard(
+                modifier = Modifier.weight(1f)
+            ) { nav.navigate("reports?startPage=1") }
+            WeakestTopicCard(
+                modifier = Modifier.weight(1f)
+            ) { nav.navigate("reports?startPage=0") }
+        }
+
+        Row(
             Modifier.padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -165,6 +180,34 @@ private fun ActionChip(icon: ImageVector, label: String, onClick: () -> Unit) {
             Icon(icon, contentDescription = null)
             Spacer(Modifier.width(8.dp))
             Text(label)
+        }
+    }
+}
+
+@Composable
+private fun MiniTrendCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    CdsCard(modifier = modifier, onClick = onClick) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("Trend")
+        }
+    }
+}
+
+@Composable
+private fun WeakestTopicCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    CdsCard(modifier = modifier, onClick = onClick) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text("Weakest Topic")
         }
     }
 }

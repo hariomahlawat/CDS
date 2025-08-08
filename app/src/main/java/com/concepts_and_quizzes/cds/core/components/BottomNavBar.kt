@@ -11,6 +11,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.concepts_and_quizzes.cds.core.config.RemoteConfig
 import com.concepts_and_quizzes.cds.core.navigation.BottomBarDestination
+import com.concepts_and_quizzes.cds.ui.nav.isAnalytics
+import com.concepts_and_quizzes.cds.ui.nav.isConcepts
+import com.concepts_and_quizzes.cds.ui.nav.isPyqp
+import com.concepts_and_quizzes.cds.ui.nav.isReports
 
 @Composable
 fun CdsBottomNavBar(
@@ -26,11 +30,11 @@ fun CdsBottomNavBar(
         items.forEach { item ->
             val selected = when (item) {
                 BottomBarDestination.Dashboard -> currentRoute == "english/dashboard"
-                BottomBarDestination.Concepts -> currentRoute?.startsWith("english/concepts") == true
+                BottomBarDestination.Concepts -> isConcepts(currentRoute)
                 BottomBarDestination.Quiz -> currentRoute == "quizHub" ||
-                    currentRoute?.startsWith("english/pyqp") == true ||
-                    currentRoute?.startsWith("analytics") == true
-                BottomBarDestination.Reports -> currentRoute == "reports"
+                    isPyqp(currentRoute) ||
+                    isAnalytics(currentRoute)
+                BottomBarDestination.Reports -> isReports(currentRoute)
             }
             NavigationBarItem(
                 selected = selected,
