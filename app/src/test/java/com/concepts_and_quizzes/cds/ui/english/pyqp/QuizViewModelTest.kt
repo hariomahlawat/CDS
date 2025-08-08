@@ -255,4 +255,55 @@ class QuizViewModelTest {
         advanceUntilIdle()
         assertNull(resumeStore.store.value)
     }
+
+    @Test
+    fun saveProgressRecordsAnsweredCount() = runTest {
+        val dao = object : PyqpDao {
+            override suspend fun insertAll(questions: List<PyqpQuestionEntity>) {}
+            override fun getDistinctPaperIds(): Flow<List<String>> = flowOf(listOf("paper"))
+            override fun getQuestionsByPaper(paperId: String): Flow<List<PyqpQuestionEntity>> = flowOf(questions)
+            override suspend fun getQuestionsByIds(qids: List<String>): List<PyqpQuestionEntity> = emptyList()
+            override suspend fun count(): Int = 0
+        }
+        var recorded: PyqpProgress? = null
+        val progressDao = object : PyqpProgressDao {
+            override suspend fun upsert(progress: PyqpProgress) { recorded = progress }
+            override fun getAll(): Flow<List<PyqpProgress>> = MutableStateFlow(emptyList())
+        }
+        val attemptDao = object : AttemptLogDao {
+            override suspend fun insertAll(attempts: List<AttemptLogEntity>) {}
+            override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
+            override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
+            override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
+            override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> = flowOf(emptyList())
+        }
+        val topicStatDao = object : com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao {
+            override fun topicSnapshot(cutoffTime: Long): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.TopicStat>> = flowOf(emptyList())
+            override fun trendSnapshot(cutoffTime: Long): Flow<List<TrendPoint>> = flowOf(emptyList())
+        }
+        val analytics = AnalyticsRepository(attemptDao, topicStatDao)
+        val repo = PyqpRepository(dao, attemptDao)
+        val traceDao = object : QuizTraceDao {
+            override suspend fun insertTrace(trace: QuizTrace) {}
+            override suspend fun tracesForSession(sid: String): List<QuizTrace> = emptyList()
+            override suspend fun latestSessionId(): String? = null
+        }
+        val reportRepo = QuizReportRepository(traceDao)
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val vm = QuizViewModel(repo, progressDao, analytics, reportRepo, QuizResumeStore(context), SavedStateHandle(mapOf("paperId" to "paper")))
+        advanceUntilIdle()
+
+        val q1 = vm.pageContent(0) as QuizViewModel.QuizPage.Question
+        val idx0 = q1.question.options.indexOfFirst { it.isCorrect }
+        vm.select(idx0)
+
+        vm.submitQuiz()
+        advanceUntilIdle()
+        vm.saveProgress()
+        advanceUntilIdle()
+
+        val progress = recorded!!
+        assertEquals(1, progress.correct)
+        assertEquals(1, progress.attempted)
+    }
 }

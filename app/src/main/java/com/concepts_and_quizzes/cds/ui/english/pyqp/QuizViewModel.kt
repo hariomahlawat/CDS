@@ -365,7 +365,11 @@ class QuizViewModel @Inject constructor(
         viewModelScope.launch {
             if (mode == "FULL") {
                 progressDao.upsert(
-                    PyqpProgress(paperId = quizId, correct = correct, attempted = questions.size)
+                    PyqpProgress(
+                        paperId = quizId,
+                        correct = correct,
+                        attempted = answers.size
+                    )
                 )
             }
         }
