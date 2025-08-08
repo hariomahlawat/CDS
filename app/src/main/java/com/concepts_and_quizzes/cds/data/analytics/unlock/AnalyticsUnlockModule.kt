@@ -1,5 +1,6 @@
 package com.concepts_and_quizzes.cds.data.analytics.unlock
 
+import com.concepts_and_quizzes.cds.core.config.RemoteConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,5 +12,5 @@ import javax.inject.Singleton
 object AnalyticsUnlockModule {
     @Provides
     @Singleton
-    fun provideAnalyticsUnlockConfig(): AnalyticsUnlockConfig = AnalyticsUnlockConfig()
+    fun provideAnalyticsUnlockConfig(rc: RemoteConfig): AnalyticsUnlockConfig = AnalyticsUnlockConfig(rc)
 }
