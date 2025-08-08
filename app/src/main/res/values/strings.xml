@@ -9,4 +9,13 @@
     <string name="concepts">Concepts</string>
     <string name="quiz">Quiz</string>
     <string name="reports">Reports</string>
+
+    <!-- Dashboard and quiz hub -->
+    <string name="continue_quiz">Continue quiz</string>
+    <string name="continue_last_quiz">Continue last quiz?</string>
+    <string name="continue_action">Continue</string>
+    <string name="quick_topic">Topic</string>
+    <string name="quick_wrong_only">Wrong-only</string>
+    <string name="quick_timed_20">Timed 20</string>
+    <string name="quick_mixed">Mixed</string>
 </resources>
