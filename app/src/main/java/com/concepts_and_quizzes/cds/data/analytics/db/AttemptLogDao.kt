@@ -20,41 +20,6 @@ interface AttemptLogDao {
 
     @Query("SELECT * FROM attempt_log WHERE sessionId = :sid ORDER BY questionIndex")
     suspend fun forSession(sid: String): List<AttemptLogEntity>
-
-    @Query("SELECT COUNT(*) FROM attempt_log WHERE correct = 0")
-    suspend fun countWrongAnswers(): Int
-
-    @Query(
-        """
-        SELECT a.qid
-        FROM attempt_log a
-        JOIN pyqp_questions q ON a.qid = q.qid
-        WHERE q.topic = :topicId
-          AND a.timestamp = (
-              SELECT MAX(a2.timestamp)
-              FROM attempt_log a2
-              WHERE a2.qid = a.qid
-          )
-          AND a.correct = 0
-        """
-    )
-    suspend fun latestWrongQids(topicId: String): List<String>
-
-    @Query(
-        """
-        SELECT a.qid
-        FROM attempt_log a
-        JOIN pyqp_questions q ON a.qid = q.qid
-        WHERE a.timestamp = (
-            SELECT MAX(a2.timestamp)
-            FROM attempt_log a2
-            WHERE a2.qid = a.qid
-        )
-          AND a.correct = 0
-        """
-    )
-    suspend fun latestWrongQids(): List<String>
-
     // --- Trend over time ---
     @Query(
         """

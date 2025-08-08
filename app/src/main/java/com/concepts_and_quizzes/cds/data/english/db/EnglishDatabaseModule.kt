@@ -6,11 +6,13 @@ import com.concepts_and_quizzes.cds.data.english.repo.EnglishRepository
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
+import com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.QuizTraceDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.SessionQuestionMapDao
 import com.concepts_and_quizzes.cds.data.db.MIGRATION_8_9
+import com.concepts_and_quizzes.cds.data.db.MIGRATION_9_10
 import com.concepts_and_quizzes.cds.data.discover.db.ConceptDao
 import dagger.Module
 import dagger.Provides
@@ -26,7 +28,7 @@ object EnglishDatabaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext ctx: Context): EnglishDatabase =
         Room.databaseBuilder(ctx, EnglishDatabase::class.java, "english.db")
-            .addMigrations(MIGRATION_8_9)
+            .addMigrations(MIGRATION_8_9, MIGRATION_9_10)
             .fallbackToDestructiveMigration()
             .build()
 
@@ -54,6 +56,9 @@ object EnglishDatabaseModule {
     @Provides
     fun provideSessionQuestionMapDao(db: EnglishDatabase): SessionQuestionMapDao = db.sessionQuestionMapDao()
 
+    
+    fun provideQuestionStatDao(db: EnglishDatabase): QuestionStatDao = db.questionStatDao()
+
     @Provides
     fun provideConceptDao(db: EnglishDatabase): ConceptDao = db.conceptDao()
 
@@ -68,16 +73,17 @@ object EnglishDatabaseModule {
     @Singleton
     fun providePyqpRepository(
         pyqpDao: PyqpDao,
-        attemptDao: AttemptLogDao
-    ): PyqpRepository = PyqpRepository(pyqpDao, attemptDao)
+        questionStatDao: QuestionStatDao
+    ): PyqpRepository = PyqpRepository(pyqpDao, questionStatDao)
 
     @Provides
     @Singleton
     fun provideAnalyticsRepository(
         attemptDao: AttemptLogDao,
-        topicStatDao: TopicStatDao
+        topicStatDao: TopicStatDao,
+        questionStatDao: QuestionStatDao
     ): AnalyticsRepository =
-        AnalyticsRepository(attemptDao, topicStatDao)
+        AnalyticsRepository(attemptDao, topicStatDao, questionStatDao)
 
     @Provides
     @Singleton
