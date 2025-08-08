@@ -15,34 +15,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.ui.components.EmptyState
+import com.concepts_and_quizzes.cds.ui.components.ErrorState
+import com.concepts_and_quizzes.cds.ui.components.LoadingSkeleton
+import com.concepts_and_quizzes.cds.ui.components.UiState
 
 @Composable
 fun PyqpPaperListScreen(nav: NavController, vm: PyqpListViewModel = hiltViewModel()) {
-    val papers by vm.papers.collectAsState()
+    val state by vm.state.collectAsState()
     Scaffold { padd ->
-        if (papers.isEmpty()) {
-            EmptyState(title = "No papers")
-        } else {
-            LazyColumn(contentPadding = padd) {
-                items(papers) { paper ->
-                    ListItem(
-                        headlineContent = { Text("CDS ${paper.year}  ${paper.id.takeLast(5)}") },
-                        trailingContent = {
-                            Icon(
-                                Icons.Filled.ChevronRight,
-                                contentDescription = "Open paper"
-                            )
-                        },
-                        modifier = Modifier.clickable {
-                            nav.navigate("english/pyqp/${paper.id}")
-                        }
-                    )
-                    HorizontalDivider(Modifier, DividerDefaults.Thickness, DividerDefaults.color)
+        when (val s = state) {
+            is UiState.Data -> {
+                LazyColumn(contentPadding = padd) {
+                    items(s.value) { paper ->
+                        ListItem(
+                            headlineContent = { Text("CDS ${paper.year}  ${paper.id.takeLast(5)}") },
+                            trailingContent = {
+                                Icon(
+                                    Icons.Filled.ChevronRight,
+                                    contentDescription = "Open paper",
+                                )
+                            },
+                            modifier = Modifier.clickable {
+                                nav.navigate("english/pyqp/${paper.id}")
+                            },
+                        )
+                        HorizontalDivider(Modifier, DividerDefaults.Thickness, DividerDefaults.color)
+                    }
                 }
             }
+            UiState.Loading -> LoadingSkeleton()
+            is UiState.Error -> ErrorState(s.message) { vm.refresh() }
+            is UiState.Empty -> EmptyState(s.title, s.actionLabel) { vm.refresh() }
         }
     }
 }

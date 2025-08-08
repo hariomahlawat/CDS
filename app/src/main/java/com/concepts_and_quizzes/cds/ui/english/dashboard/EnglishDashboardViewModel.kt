@@ -5,11 +5,17 @@ import androidx.lifecycle.viewModelScope
 import com.concepts_and_quizzes.cds.data.discover.DiscoverRepository
 import com.concepts_and_quizzes.cds.data.discover.model.ConceptEntity
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
+import com.concepts_and_quizzes.cds.ui.components.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -32,8 +38,26 @@ class EnglishDashboardViewModel @Inject constructor(
         .map { list -> list.sumOf { it.attempted } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
-    val tips: StateFlow<List<ConceptEntity>> = discoverRepo.todaysTips
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+    private val _tips = MutableStateFlow<UiState<List<ConceptEntity>>>(UiState.Loading)
+    val tips: StateFlow<UiState<List<ConceptEntity>>> = _tips
+
+    init {
+        refreshTips()
+    }
+
+    fun refreshTips() {
+        discoverRepo.todaysTips
+            .onStart { _tips.value = UiState.Loading }
+            .catch { _tips.value = UiState.Error("Failed to load tips") }
+            .onEach { list ->
+                _tips.value = if (list.isEmpty()) {
+                    UiState.Empty("No tips", "Reload")
+                } else {
+                    UiState.Data(list)
+                }
+            }
+            .launchIn(viewModelScope)
+    }
 
     fun onBookmarkToggle(id: Int) = viewModelScope.launch { discoverRepo.toggleBookmark(id) }
 
