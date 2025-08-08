@@ -8,7 +8,9 @@ import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onNodeWithContentDescription
 import org.junit.Rule
 import org.junit.Test
+import com.concepts_and_quizzes.cds.data.analytics.unlock.AnalyticsModule
 import com.concepts_and_quizzes.cds.data.analytics.unlock.LockedReason
+import com.concepts_and_quizzes.cds.data.analytics.unlock.ModuleStatus
 
 class GhostOverlayVisibilityTest {
     @get:Rule
@@ -16,11 +18,17 @@ class GhostOverlayVisibilityTest {
 
     @Test
     fun overlayHidesWhenUnlocked() {
-        val unlocked = mutableStateOf(false)
+        val status = mutableStateOf(
+            ModuleStatus(
+                module = AnalyticsModule.TREND,
+                unlocked = false,
+                progress = 0f,
+                reason = LockedReason.MoreQuizzes(1)
+            )
+        )
         composeTestRule.setContent {
             GhostOverlay(
-                unlocked = unlocked.value,
-                reason = LockedReason.MoreQuizzes(1),
+                status = status.value,
                 skeleton = {},
             ) {
                 // empty content
@@ -29,7 +37,7 @@ class GhostOverlayVisibilityTest {
 
         composeTestRule.onNodeWithContentDescription("Locked").assertIsDisplayed()
 
-        composeTestRule.runOnUiThread { unlocked.value = true }
+        composeTestRule.runOnUiThread { status.value = status.value.copy(unlocked = true, reason = null) }
         composeTestRule.waitUntil(timeoutMillis = 1000) {
             composeTestRule.onAllNodesWithContentDescription("Locked").fetchSemanticsNodes().isEmpty()
         }

@@ -31,8 +31,7 @@ fun TimePage(
     vm: TimeViewModel = hiltViewModel()
 ) {
     GhostOverlay(
-        unlocked = status.unlocked,
-        reason = status.reason,
+        status = status,
         skeleton = { TimeSkeleton() },
     ) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

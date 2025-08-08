@@ -30,8 +30,7 @@ fun TrendPage(
     vm: TrendViewModel = hiltViewModel()
 ) {
     GhostOverlay(
-        unlocked = status.unlocked,
-        reason = status.reason,
+        status = status,
         skeleton = { TrendSkeleton() },
     ) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
