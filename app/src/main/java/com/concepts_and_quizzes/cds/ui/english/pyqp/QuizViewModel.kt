@@ -121,7 +121,7 @@ class QuizViewModel @Inject constructor(
     }
 
     private fun defaultTime(): Int =
-        if (mode == "WRONGS") questions.size * 60 else 120 * 60
+        if (mode == "WRONGS") 25 * 60 else 120 * 60
 
     private fun buildPages(qs: List<PyqpQuestion>) {
         pages = buildList {

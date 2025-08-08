@@ -1,6 +1,6 @@
 package com.concepts_and_quizzes.cds.data.english.repo
 
-import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
+import com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatDao
 import com.concepts_and_quizzes.cds.data.english.db.PyqpDao
 import com.concepts_and_quizzes.cds.domain.english.AnswerOption
 import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 
 class PyqpRepository @Inject constructor(
     private val dao: PyqpDao,
-    private val attemptDao: AttemptLogDao
+    private val statsDao: QuestionStatDao
 ) {
     fun getPaperList(): Flow<List<PyqpPaper>> =
         dao.getDistinctPaperIds().map { ids ->
@@ -39,9 +39,9 @@ class PyqpRepository @Inject constructor(
 
     suspend fun wrongOnlyQuestions(topicId: String? = null): List<PyqpQuestion> {
         val qids = if (topicId != null) {
-            attemptDao.latestWrongQids(topicId)
+            statsDao.wrongQidsForTopic(topicId, 25)
         } else {
-            attemptDao.latestWrongQids()
+            statsDao.wrongQids(25)
         }
         if (qids.isEmpty()) return emptyList()
         return dao.getQuestionsByIds(qids).map { e ->

@@ -3,6 +3,7 @@ package com.concepts_and_quizzes.cds.data.analytics.repo
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
+import com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatDao
 import com.concepts_and_quizzes.cds.data.analytics.db.TopicStat as PyqTopicStat
 import com.concepts_and_quizzes.cds.data.analytics.db.TrendPoint
 import com.concepts_and_quizzes.cds.domain.analytics.QuestionDiscrimination
@@ -24,10 +25,13 @@ import kotlinx.coroutines.flow.map
  */
 class AnalyticsRepository @Inject constructor(
     private val attemptDao: AttemptLogDao,
-    private val topicStatDao: TopicStatDao
+    private val topicStatDao: TopicStatDao,
+    private val questionStatDao: QuestionStatDao
 ) {
-    suspend fun insertAttempts(attempts: List<AttemptLogEntity>) =
+    suspend fun insertAttempts(attempts: List<AttemptLogEntity>) {
         attemptDao.insertAll(attempts)
+        questionStatDao.updateFromAttempts(attempts)
+    }
 
     enum class Window(val days: Int?) {
         LAST_7(7), LAST_30(30), LIFETIME(null);

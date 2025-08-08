@@ -1,7 +1,7 @@
 package com.concepts_and_quizzes.cds.data.analytics.availability
 
 import javax.inject.Inject
-import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
+import com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatDao
 
 
 data class ModeAvailability(
@@ -11,10 +11,10 @@ data class ModeAvailability(
 )
 
 class ModeAvailabilityRepository @Inject constructor(
-    private val attemptLogDao: AttemptLogDao
+    private val questionStatDao: QuestionStatDao
 ) {
     suspend fun fetch(): ModeAvailability {
-        val wrongCount = attemptLogDao.countWrongAnswers()
+        val wrongCount = questionStatDao.countWrong()
         return ModeAvailability(
             wrongOnlyAvailable = wrongCount > 0,
             timed20Available = false,
