@@ -19,6 +19,10 @@ import com.concepts_and_quizzes.cds.core.navigation.rootGraph
 import com.concepts_and_quizzes.cds.core.theme.CDSTheme
 import com.concepts_and_quizzes.cds.ui.onboarding.OnboardingScreen
 import com.concepts_and_quizzes.cds.core.config.RemoteConfig
+import com.concepts_and_quizzes.cds.ui.nav.isAnalytics
+import com.concepts_and_quizzes.cds.ui.nav.isConcepts
+import com.concepts_and_quizzes.cds.ui.nav.isPyqp
+import com.concepts_and_quizzes.cds.ui.nav.isReports
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -44,15 +48,12 @@ private fun CDSApp(remoteConfig: RemoteConfig) {
             val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
-            val bottomBarRoutes = setOf(
-                "english/dashboard",
-                "english/concepts",
-                "quizHub",
-                "english/pyqp?mode={mode}&topic={topic}",
-                "analytics/pyq",
-                "reports"
-            )
-            val showBottomBar = currentRoute in bottomBarRoutes
+            val showBottomBar = currentRoute == "english/dashboard" ||
+                isConcepts(currentRoute) ||
+                currentRoute == "quizHub" ||
+                isPyqp(currentRoute) ||
+                isAnalytics(currentRoute) ||
+                isReports(currentRoute)
 
             Scaffold(bottomBar = { if (showBottomBar) CdsBottomNavBar(navController, remoteConfig) }) { padding ->
                 NavHost(
