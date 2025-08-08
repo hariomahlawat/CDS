@@ -15,3 +15,13 @@ val ColorScheme.flaggedContainer: Color
     } else {
         primary.copy(alpha = 0.20f)
     }
+
+/** Text color displayed on [flaggedContainer]. */
+val ColorScheme.flaggedOnContainer: Color
+    @Composable
+    @ReadOnlyComposable
+    get() = if (isSystemInDarkTheme()) {
+        Color(0xFFCAE5FF)
+    } else {
+        Color(0xFF00315D)
+    }
