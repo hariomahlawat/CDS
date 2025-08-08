@@ -7,6 +7,9 @@ import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
 import com.concepts_and_quizzes.cds.data.analytics.db.QuizTrace
 import com.concepts_and_quizzes.cds.data.analytics.db.SessionQuestionMapEntity
 import com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatEntity
+import com.concepts_and_quizzes.cds.data.analytics.db.SessionEntity
+import com.concepts_and_quizzes.cds.data.analytics.db.TimeAnalysisDao
+import com.concepts_and_quizzes.cds.data.analytics.db.SessionDao
 import com.concepts_and_quizzes.cds.data.DateConverters
 import com.concepts_and_quizzes.cds.data.discover.db.ConceptDao
 import com.concepts_and_quizzes.cds.data.discover.model.BookmarkEntity
@@ -27,11 +30,12 @@ import com.concepts_and_quizzes.cds.data.english.model.PyqpQuestionEntity
         QuizTrace::class,
         SessionQuestionMapEntity::class,
         QuestionStatEntity::class,
+        SessionEntity::class,
         ConceptEntity::class,
         DailyTipEntity::class,
         BookmarkEntity::class
     ],
-    version = 10
+    version = 11
 )
 @TypeConverters(DateConverters::class)
 abstract class EnglishDatabase : RoomDatabase() {
@@ -45,4 +49,6 @@ abstract class EnglishDatabase : RoomDatabase() {
     abstract fun sessionQuestionMapDao(): com.concepts_and_quizzes.cds.data.analytics.db.SessionQuestionMapDao
     abstract fun questionStatDao(): com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatDao
     abstract fun conceptDao(): ConceptDao
+    abstract fun sessionDao(): SessionDao
+    abstract fun timeAnalysisDao(): TimeAnalysisDao
 }
