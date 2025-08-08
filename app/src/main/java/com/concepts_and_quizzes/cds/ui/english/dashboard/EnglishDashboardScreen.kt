@@ -168,6 +168,13 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 ModeCard(
+                    title = stringResource(R.string.pyqp_title),
+                    subtitle = stringResource(R.string.pyqp_sub),
+                    enabled = true
+                ) {
+                    nav.navigate("english/pyqp")
+                }
+                ModeCard(
                     title = stringResource(R.string.wrong_only_title),
                     subtitle = stringResource(R.string.wrong_only_sub),
                     enabled = avail.wrongOnlyAvailable,

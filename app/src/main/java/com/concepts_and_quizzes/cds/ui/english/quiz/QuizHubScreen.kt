@@ -65,6 +65,11 @@ fun QuizHubScreen(nav: NavHostController, vm: QuizHubViewModel = hiltViewModel()
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text("Quiz Hub")
+            ModeCard(
+                title = stringResource(R.string.pyqp_title),
+                subtitle = stringResource(R.string.pyqp_sub),
+                enabled = true
+            ) { nav.navigate("english/pyqp") }
             availability?.let { avail ->
                 ModeCard(
                     title = stringResource(R.string.wrong_only_title),
