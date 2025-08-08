@@ -8,6 +8,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
+import com.concepts_and_quizzes.cds.data.analytics.unlock.AnalyticsModule
+import com.concepts_and_quizzes.cds.data.analytics.unlock.ModuleStatus
+import com.concepts_and_quizzes.cds.ui.reports.GhostOverlay
+import com.concepts_and_quizzes.cds.ui.skeleton.PeerSkeleton
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -15,9 +19,22 @@ import javax.inject.Inject
 class PeerViewModel @Inject constructor() : ViewModel()
 
 @Composable
-fun PeerPage(vm: PeerViewModel = hiltViewModel()) {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Peer")
+fun PeerPage(
+    status: ModuleStatus = ModuleStatus(
+        module = AnalyticsModule.PEER,
+        unlocked = false,
+        progress = 0f,
+        reason = null
+    ),
+    vm: PeerViewModel = hiltViewModel()
+) {
+    GhostOverlay(
+        unlocked = status.unlocked,
+        reason = status.reason,
+        skeleton = { PeerSkeleton() },
+    ) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text("Peer")
+        }
     }
 }
-
