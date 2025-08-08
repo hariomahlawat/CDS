@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
@@ -18,8 +19,10 @@ class ConceptsHomeViewModel @Inject constructor(
     discoverRepo: DiscoverRepository
 ) : ViewModel() {
     val topics: StateFlow<List<EnglishTopic>> = repo.getTopics()
+        .map { it.toList() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
     val bookmarks: StateFlow<List<ConceptEntity>> = discoverRepo.bookmarkedConcepts()
+        .map { it.toList() }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 }

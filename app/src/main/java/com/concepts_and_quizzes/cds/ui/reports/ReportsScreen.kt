@@ -105,6 +105,7 @@ fun ReportsScreen(
             }
             VerticalPager(
                 state = pagerState,
+                key = { it },
                 modifier = Modifier
                     .weight(1f)
                     .testTag("reportsPager")

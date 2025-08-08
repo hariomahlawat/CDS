@@ -30,10 +30,11 @@ class PyqpListViewModel @Inject constructor(
             .onStart { _state.value = UiState.Loading }
             .catch { _state.value = UiState.Error("Failed to load papers") }
             .onEach { list ->
-                _state.value = if (list.isEmpty()) {
+                val copy = list.toList()
+                _state.value = if (copy.isEmpty()) {
                     UiState.Empty("No papers", "Reload")
                 } else {
-                    UiState.Data(list)
+                    UiState.Data(copy)
                 }
             }
             .launchIn(viewModelScope)

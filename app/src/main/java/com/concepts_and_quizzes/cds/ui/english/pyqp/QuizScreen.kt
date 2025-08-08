@@ -209,7 +209,7 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
         strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
         )
         Spacer(Modifier.height(16.dp))
-        HorizontalPager(state = pagerState, modifier = Modifier.weight(1f)) { page ->
+        HorizontalPager(state = pagerState, key = { it }, modifier = Modifier.weight(1f)) { page ->
             when (val p = vm.pageContent(page)) {
                 is QuizViewModel.QuizPage.Intro -> IntroPage(p)
                 is QuizViewModel.QuizPage.Question -> QuestionPage(

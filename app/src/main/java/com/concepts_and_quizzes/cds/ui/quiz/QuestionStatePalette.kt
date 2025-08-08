@@ -38,8 +38,7 @@ fun QuestionStatePalette(
                     columns = GridCells.Fixed(5),
                     modifier = Modifier.heightIn(max = 200.dp)
                 ) {
-                    items(entries.size) { idx ->
-                        val e = entries[idx]
+                    items(entries, key = { it.questionIndex }) { e ->
                         val container = when {
                             e.flagged -> MaterialTheme.colorScheme.flaggedContainer
                             e.answered -> MaterialTheme.colorScheme.primaryContainer

@@ -79,6 +79,7 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     ) {
         val vm: AnalysisViewModel = hiltViewModel()
         val report by vm.report.collectAsState()
-        report?.let { AnalysisScreen(it, vm.prefs) }
+        val weakest by vm.weakest.collectAsState()
+        report?.let { AnalysisScreen(it, vm.prefs, weakest) }
     }
 }
