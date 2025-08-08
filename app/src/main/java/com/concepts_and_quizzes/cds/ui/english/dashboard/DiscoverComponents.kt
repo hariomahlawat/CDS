@@ -28,8 +28,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.concepts_and_quizzes.cds.data.discover.model.ConceptEntity
@@ -50,8 +53,17 @@ fun DiscoverCard(
             .clickable { onOpen() }
     ) {
         Column(Modifier.padding(20.dp)) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(concept.title, style = MaterialTheme.typography.titleMedium)
+            Row(
+                Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.Top
+            ) {
+                Text(
+                    concept.title,
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f)
+                )
                 IconToggleButton(
                     checked = bookmarked,
                     onCheckedChange = { onBookmark() },
@@ -75,7 +87,16 @@ fun DiscoverCard(
                 }
             }
             Spacer(Modifier.height(8.dp))
-            Text(concept.blurb, style = MaterialTheme.typography.bodyMedium)
+            val textHeight = with(LocalDensity.current) {
+                MaterialTheme.typography.bodyMedium.lineHeight.toDp() * 3
+            }
+            Text(
+                concept.blurb,
+                style = MaterialTheme.typography.bodyMedium,
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.height(textHeight)
+            )
         }
     }
 }
