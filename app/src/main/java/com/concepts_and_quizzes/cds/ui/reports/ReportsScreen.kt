@@ -29,6 +29,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -59,6 +60,9 @@ fun ReportsScreen(
     val context = LocalContext.current
     val view = LocalView.current
     var pagerRect by remember { mutableStateOf<Rect?>(null) }
+    val currentPage by remember { derivedStateOf { pagerState.currentPage } }
+    val tabs = remember { listOf("Last", "Trend", "Heatmap", "Time", "Peer") }
+    val windows = remember { Window.entries }
 
     Scaffold(
         topBar = {
@@ -101,7 +105,7 @@ fun ReportsScreen(
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Window.entries.forEach { w ->
+                windows.forEach { w ->
                     FilterChip(
                         selected = window == w,
                         onClick = { shared.setWindow(w) },
@@ -109,11 +113,10 @@ fun ReportsScreen(
                     )
                 }
             }
-            val tabs = listOf("Last", "Trend", "Heatmap", "Time", "Peer")
-            TabRow(selectedTabIndex = pagerState.currentPage) {
+            TabRow(selectedTabIndex = currentPage) {
                 tabs.forEachIndexed { index, title ->
                     Tab(
-                        selected = pagerState.currentPage == index,
+                        selected = currentPage == index,
                         onClick = { scope.launch { pagerState.animateScrollToPage(index) } },
                         text = { Text(title) }
                     )

@@ -33,6 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -56,21 +57,7 @@ import com.concepts_and_quizzes.cds.core.components.CdsCard
 import com.concepts_and_quizzes.cds.R
 import com.concepts_and_quizzes.cds.core.theme.Dimens
 import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubViewModel
-import com.concepts_and_quizzes.cds.data.quiz.QuizResumeStore
 import kotlinx.coroutines.launch
-
-data class SavedProgress(
-    val paperId: String,
-    val questionIndex: Int,
-    val percent: Int
-)
-
-private fun parseProgress(store: QuizResumeStore.Store): SavedProgress {
-    val parts = store.snapshot.split("|")
-    val answered = parts.getOrNull(1)?.takeIf { it.isNotBlank() }?.split(";")?.size ?: 0
-    val percent = answered * 100 / 60
-    return SavedProgress(store.paperId, answered, percent)
-}
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
@@ -78,6 +65,7 @@ private fun parseProgress(store: QuizResumeStore.Store): SavedProgress {
 fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel = hiltViewModel()) {
     val resumeVm: QuizHubViewModel = hiltViewModel()
     val resume by resumeVm.store.collectAsState()
+    val savedProgress by resumeVm.progress.collectAsState()
     val summary by vm.summary.collectAsState()
     val questionsToday by vm.questionsToday.collectAsState()
     val concepts by vm.tips.collectAsState()
@@ -126,13 +114,14 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                     greeting,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
+                val best by remember(summary) { derivedStateOf { summary.best / 100f } }
                 CircularProgressIndicator(
-                progress = { summary.best / 100f },
-                modifier = Modifier.size(48.dp),
-                color = ProgressIndicatorDefaults.circularColor,
-                strokeWidth = ProgressIndicatorDefaults.CircularStrokeWidth,
-                trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
-                strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,
+                    progress = { best },
+                    modifier = Modifier.size(48.dp),
+                    color = ProgressIndicatorDefaults.circularColor,
+                    strokeWidth = ProgressIndicatorDefaults.CircularStrokeWidth,
+                    trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
+                    strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,
                 )
             }
         }
@@ -149,7 +138,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
         }
 
         resume?.let { s ->
-            val prog = remember(s) { parseProgress(s) }
+            val prog = savedProgress
             CdsCard(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -168,7 +157,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             ) {
                 Column(Modifier.padding(16.dp)) {
                     Text("Continue last quiz")
-                    Text("${s.paperId} - ${prog.percent}%")
+                    prog?.let { Text("${s.paperId} - ${it.percent}%") }
                 }
             }
             Spacer(Modifier.height(16.dp))

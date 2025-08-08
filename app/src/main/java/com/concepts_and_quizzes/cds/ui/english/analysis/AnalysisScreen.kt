@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -55,11 +56,13 @@ fun AnalysisScreen(
         play = true
     }
 
-    val weakest = remember(report) {
-        val perfs = report.timePerSection.map {
-            TopicPerf(it.topicId.toString(), it.attempts, (it.accuracy * it.attempts / 100).toInt())
+    val weakest by remember(report) {
+        derivedStateOf {
+            val perfs = report.timePerSection.map {
+                TopicPerf(it.topicId.toString(), it.attempts, (it.accuracy * it.attempts / 100).toInt())
+            }
+            weakestTopic(perfs)
         }
-        weakestTopic(perfs)
     }
 
     Box {
