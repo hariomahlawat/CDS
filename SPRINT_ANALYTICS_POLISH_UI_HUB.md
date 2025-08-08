@@ -1,6 +1,9 @@
-Sprint “Analytics Polish + UI Hub”
+# Sprint “Analytics Polish + UI Hub”
 Duration: 5 working days (Mon → Fri)
 Release target: v1.4.0 (versionCode 38)
+
+This sprint document aligns engineering, design, and QA on polishing analytics modules and introducing a unified navigation hub. It captures goals, tasks, and acceptance criteria for a focused one-week effort.
+
 
 0 Macro-Goals
 ID   Goal
