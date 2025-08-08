@@ -86,7 +86,7 @@ fun QuizScreen(
         }
     }
 
-    if (showResult) {
+    if (showResult && !navigatingToAnalysis) {
         result?.let { r ->
             ResultView(
                 r,
@@ -244,7 +244,13 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
         AlertDialog(
             onDismissRequest = { showSubmit = false },
             confirmButton = {
-                TextButton(onClick = { showSubmit = false; vm.submitQuiz() }) { Text("Submit") }
+                TextButton(onClick = {
+                    showSubmit = false
+                    vm.submitQuiz()
+                    vm.saveProgress()
+                    vm.dismissResult()
+                    navigatingToAnalysis = true
+                }) { Text("Submit") }
             },
             dismissButton = {
                 TextButton(onClick = { showSubmit = false }) { Text("Cancel") }
