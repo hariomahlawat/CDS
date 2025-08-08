@@ -13,4 +13,7 @@ interface QuizTraceDao {
 
     @Query("SELECT * FROM quiz_trace WHERE sessionId = :sid")
     suspend fun tracesForSession(sid: String): List<QuizTrace>
+
+    @Query("SELECT sessionId FROM quiz_trace ORDER BY answeredAt DESC LIMIT 1")
+    suspend fun latestSessionId(): String?
 }

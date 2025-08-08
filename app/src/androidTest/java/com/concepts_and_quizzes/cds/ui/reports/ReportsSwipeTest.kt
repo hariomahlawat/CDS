@@ -19,7 +19,7 @@ class ReportsSwipeTest {
     fun swipeUpAndDownChangesPage() {
         composeTestRule.setContent { ReportsPagerScreen() }
 
-        composeTestRule.onNodeWithText("Last Quiz").assertIsDisplayed()
+        composeTestRule.onNodeWithText("No reports").assertIsDisplayed()
 
         composeTestRule.onNodeWithTag("reportsPager")
             .performTouchInput { swipeUp() }
@@ -27,7 +27,7 @@ class ReportsSwipeTest {
 
         composeTestRule.onNodeWithTag("reportsPager")
             .performTouchInput { swipeDown() }
-        composeTestRule.onNodeWithText("Last Quiz").assertIsDisplayed()
+        composeTestRule.onNodeWithText("No reports").assertIsDisplayed()
     }
 }
 

@@ -371,7 +371,7 @@ class QuizViewModel @Inject constructor(
     }
 
     fun onSubmitSuccess(navController: NavController) {
-        navController.navigate("analysis/$sessionId") {
+        navController.navigate("reports?analysisSessionId=$sessionId") {
             popUpTo("practice") { inclusive = false }
             launchSingleTop = true
         }
