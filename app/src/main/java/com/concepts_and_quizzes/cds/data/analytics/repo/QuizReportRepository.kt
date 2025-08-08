@@ -10,9 +10,14 @@ class QuizReportRepository @Inject constructor(
 ) {
     suspend fun insertTrace(trace: QuizTrace) = dao.insertTrace(trace)
 
+    // Placeholder for persisting aggregated report if needed.
+    suspend fun save(report: QuizReport) {
+        // Currently the app rebuilds reports from traces, so this is a no-op.
+    }
+
     suspend fun analyse(sessionId: String): QuizReport {
         val traces = dao.tracesForSession(sessionId)
-        return QuizReportBuilder(traces).build()
+        return QuizReportBuilder(traces).build().copy(sessionId = sessionId)
     }
 
     suspend fun latestSessionId(): String? = dao.latestSessionId()

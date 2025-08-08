@@ -9,6 +9,8 @@ import com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.QuizTraceDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
+import com.concepts_and_quizzes.cds.data.analytics.db.SessionQuestionMapDao
+import com.concepts_and_quizzes.cds.data.db.MIGRATION_8_9
 import com.concepts_and_quizzes.cds.data.discover.db.ConceptDao
 import dagger.Module
 import dagger.Provides
@@ -24,6 +26,7 @@ object EnglishDatabaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext ctx: Context): EnglishDatabase =
         Room.databaseBuilder(ctx, EnglishDatabase::class.java, "english.db")
+            .addMigrations(MIGRATION_8_9)
             .fallbackToDestructiveMigration()
             .build()
 
@@ -47,6 +50,9 @@ object EnglishDatabaseModule {
 
     @Provides
     fun provideQuizTraceDao(db: EnglishDatabase): QuizTraceDao = db.quizTraceDao()
+
+    @Provides
+    fun provideSessionQuestionMapDao(db: EnglishDatabase): SessionQuestionMapDao = db.sessionQuestionMapDao()
 
     @Provides
     fun provideConceptDao(db: EnglishDatabase): ConceptDao = db.conceptDao()

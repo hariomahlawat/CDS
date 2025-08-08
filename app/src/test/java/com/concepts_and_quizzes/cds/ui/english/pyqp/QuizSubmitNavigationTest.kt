@@ -63,6 +63,8 @@ class QuizSubmitNavigationTest {
         }
         val attemptDao = object : AttemptLogDao {
             override suspend fun insertAll(attempts: List<AttemptLogEntity>) {}
+            override suspend fun upsertAll(rows: List<AttemptLogEntity>) {}
+            override suspend fun forSession(sid: String): List<AttemptLogEntity> = emptyList()
             override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
             override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
             override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())

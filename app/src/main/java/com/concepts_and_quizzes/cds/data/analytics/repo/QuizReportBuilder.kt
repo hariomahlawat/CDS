@@ -2,6 +2,9 @@ package com.concepts_and_quizzes.cds.data.analytics.repo
 
 import com.concepts_and_quizzes.cds.data.analytics.AnalyticsConfig
 import com.concepts_and_quizzes.cds.data.analytics.db.QuizTrace
+import com.concepts_and_quizzes.cds.data.analytics.scoring.CountBreakdown
+import com.concepts_and_quizzes.cds.data.analytics.scoring.MarkingScheme
+import com.concepts_and_quizzes.cds.data.analytics.scoring.Scorer
 import kotlin.math.roundToInt
 import kotlin.math.max
 
@@ -15,6 +18,13 @@ class QuizReportBuilder(private val traces: List<QuizTrace>) {
         val wrong = attempted - correct
 
         if (attempted == 0) {
+            val unattempted = total
+            val score = Scorer.roundScore(
+                Scorer.scoreCounts(
+                    CountBreakdown(total, attempted, 0, 0, unattempted),
+                    MarkingScheme.CDS
+                )
+            )
             return QuizReport(
                 total = total,
                 attempted = attempted,
@@ -24,7 +34,9 @@ class QuizReportBuilder(private val traces: List<QuizTrace>) {
                 weakestTopic = null,
                 timePerSection = emptyList(),
                 bottlenecks = emptyList(),
-                suggestions = emptyList()
+                suggestions = emptyList(),
+                unattempted = unattempted,
+                score = score
             )
         }
 
@@ -68,6 +80,12 @@ class QuizReportBuilder(private val traces: List<QuizTrace>) {
         if (bottlenecks.size >= 3) {
             suggestions += "Re-attempt flagged slow questions"
         }
+        val score = Scorer.roundScore(
+            Scorer.scoreCounts(
+                CountBreakdown(total, attempted, correct, wrong, unattempted),
+                MarkingScheme.CDS
+            )
+        )
 
         return QuizReport(
             total = total,
@@ -78,7 +96,9 @@ class QuizReportBuilder(private val traces: List<QuizTrace>) {
             weakestTopic = weakest,
             timePerSection = perTopic,
             bottlenecks = bottlenecks,
-            suggestions = suggestions
+            suggestions = suggestions,
+            unattempted = unattempted,
+            score = score
         )
     }
 }
