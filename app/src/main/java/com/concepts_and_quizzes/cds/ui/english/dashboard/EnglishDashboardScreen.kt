@@ -1,5 +1,6 @@
 package com.concepts_and_quizzes.cds.ui.english.dashboard
 
+import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -22,12 +23,16 @@ import androidx.compose.material.icons.filled.School
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -50,15 +55,35 @@ import androidx.compose.material3.ProgressIndicatorDefaults
 import com.concepts_and_quizzes.cds.core.components.CdsCard
 import com.concepts_and_quizzes.cds.R
 import com.concepts_and_quizzes.cds.core.theme.Dimens
+import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubViewModel
+import com.concepts_and_quizzes.cds.data.quiz.QuizResumeStore
+import kotlinx.coroutines.launch
+
+data class SavedProgress(
+    val paperId: String,
+    val questionIndex: Int,
+    val percent: Int
+)
+
+private fun parseProgress(store: QuizResumeStore.Store): SavedProgress {
+    val parts = store.snapshot.split("|")
+    val answered = parts.getOrNull(1)?.takeIf { it.isNotBlank() }?.split(";")?.size ?: 0
+    val percent = answered * 100 / 60
+    return SavedProgress(store.paperId, answered, percent)
+}
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
 @Composable
 fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel = hiltViewModel()) {
+    val resumeVm: QuizHubViewModel = hiltViewModel()
+    val resume by resumeVm.store.collectAsState()
     val summary by vm.summary.collectAsState()
     val questionsToday by vm.questionsToday.collectAsState()
     val concepts by vm.tips.collectAsState()
     val count by animateIntAsState(targetValue = questionsToday, label = "count")
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
     val greeting = remember {
         val hour = LocalTime.now().hour
@@ -70,7 +95,8 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
         "$part revision, Magnus!"
     }
 
-    Column {
+    Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) }) { padding ->
+    Column(Modifier.padding(padding)) {
         Box(
             Modifier
                 .fillMaxWidth()
@@ -111,7 +137,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             }
         }
 
-        FlowRow(
+          FlowRow(
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 24.dp),
             horizontalArrangement = Arrangement.spacedBy(Dimens.ChipSpacingX),
@@ -120,6 +146,32 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             ActionChip(Icons.Filled.AutoStories, "Concepts") { nav.navigate("english/concepts") }
             ActionChip(Icons.Filled.School, "Mock Tests") { nav.navigate("quizHub") }
             ActionChip(Icons.AutoMirrored.Filled.MenuBook, "Past Papers") { nav.navigate("english/pyqp") }
+        }
+
+        resume?.let { s ->
+            val prog = remember(s) { parseProgress(s) }
+            CdsCard(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth()
+                    .clickable {
+                        val dest = if (s.paperId.startsWith("WRONGS:")) {
+                            val topic = Uri.encode(s.paperId.removePrefix("WRONGS:"))
+                            "english/pyqp?mode=WRONGS&topic=$topic"
+                        } else {
+                            "english/pyqp/${s.paperId}"
+                        }
+                        scope.launch { snackbarHostState.showSnackbar("Resumed") }
+                        nav.navigate(dest)
+                        resumeVm.restore(s.snapshot)
+                    }
+            ) {
+                Column(Modifier.padding(16.dp)) {
+                    Text("Continue last quiz")
+                    Text("${s.paperId} - ${prog.percent}%")
+                }
+            }
+            Spacer(Modifier.height(16.dp))
         }
 
         Row(
@@ -154,6 +206,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
         )
 
         DiscoverCarousel(concepts, vm, nav)
+    }
     }
 }
 
