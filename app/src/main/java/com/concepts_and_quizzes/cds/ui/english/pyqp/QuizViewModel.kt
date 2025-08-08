@@ -9,6 +9,9 @@ import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.QuizTrace
+import com.concepts_and_quizzes.cds.data.analytics.scoring.CountBreakdown
+import com.concepts_and_quizzes.cds.data.analytics.scoring.MarkingScheme
+import com.concepts_and_quizzes.cds.data.analytics.scoring.Scorer
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
@@ -364,17 +367,47 @@ class QuizViewModel @Inject constructor(
                 correct = correct,
                 flagged = flags.contains(i),
                 durationMs = durations[i] ?: 0,
-                timestamp = now
+                timestamp = now,
+                sessionId = sessionId,
+                questionIndex = i,
+                selectedIndex = ansIdx
             )
         }
         viewModelScope.launch { analytics.insertAttempts(attempts) }
+        val totalQ = questions.size
+        val attemptedQ = answers.size
         val correctCount = attempts.count { it.correct }
-        _result.value = QuizResult(correctCount, questions.size)
-        Telemetry.logQuizSubmit(quizId, correctCount, questions.size)
+        val score = computeCdsScore(totalQ, correctCount, attemptedQ)
+
+        _result.value = QuizResult(correctCount, totalQ)
+        Telemetry.logQuizSubmit(quizId, correctCount, totalQ)
+        // persist aggregated report with score
+        val report = com.concepts_and_quizzes.cds.data.analytics.repo.QuizReport(
+            total = totalQ,
+            attempted = attemptedQ,
+            correct = correctCount,
+            wrong = (attemptedQ - correctCount).coerceAtLeast(0),
+            strongestTopic = null,
+            weakestTopic = null,
+            timePerSection = emptyList(),
+            bottlenecks = emptyList(),
+            suggestions = emptyList(),
+            unattempted = (totalQ - attemptedQ).coerceAtLeast(0),
+            score = score,
+            sessionId = sessionId
+        )
+        viewModelScope.launch { reportRepo.save(report) }
         _showResult.value = true
         state["showResult"] = true
         viewModelScope.launch { resumeStore.clear() }
         state.remove<Int>("timerSec")
+    }
+
+    private fun computeCdsScore(total: Int, correct: Int, attempted: Int): Float {
+        val wrong = (attempted - correct).coerceAtLeast(0)
+        val unattempted = (total - attempted).coerceAtLeast(0)
+        val counts = CountBreakdown(total, attempted, correct, wrong, unattempted)
+        return Scorer.roundScore(Scorer.scoreCounts(counts, MarkingScheme.CDS))
     }
 
     fun dismissResult() {

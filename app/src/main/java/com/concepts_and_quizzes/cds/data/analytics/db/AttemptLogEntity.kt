@@ -21,5 +21,9 @@ data class AttemptLogEntity(
     val correct: Boolean,
     val flagged: Boolean,
     val durationMs: Int,
-    val timestamp: Long
+    val timestamp: Long,
+    // --- fields for detailed review ---
+    val sessionId: String? = null,
+    val questionIndex: Int = 0,
+    val selectedIndex: Int? = null,
 )

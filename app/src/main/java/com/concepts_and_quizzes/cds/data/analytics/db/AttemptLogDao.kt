@@ -14,6 +14,13 @@ interface AttemptLogDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(attempts: List<AttemptLogEntity>)
 
+    // Helpers for quiz review: upsert and fetch by session
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertAll(rows: List<AttemptLogEntity>)
+
+    @Query("SELECT * FROM attempt_log WHERE sessionId = :sid ORDER BY questionIndex")
+    suspend fun forSession(sid: String): List<AttemptLogEntity>
+
     @Query(
         """
         SELECT a.qid

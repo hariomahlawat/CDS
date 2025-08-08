@@ -12,7 +12,10 @@ data class QuizReport(
     val weakestTopic: Int?,
     val timePerSection: List<TopicSummary>,
     val bottlenecks: List<QuizTrace>,
-    val suggestions: List<String>
+    val suggestions: List<String>,
+    val unattempted: Int = total - attempted,
+    val score: Float? = null,
+    val sessionId: String? = null,
 )
 
 /** Per-topic summary used for charts. */
