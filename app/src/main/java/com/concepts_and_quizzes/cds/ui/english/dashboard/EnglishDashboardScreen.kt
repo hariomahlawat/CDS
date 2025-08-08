@@ -6,18 +6,19 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QuestionAnswer
@@ -46,9 +47,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import java.time.LocalTime
 import com.concepts_and_quizzes.cds.R
-import com.concepts_and_quizzes.cds.core.components.CdsCard
-import com.concepts_and_quizzes.cds.core.theme.Dimens
-import com.concepts_and_quizzes.cds.ui.common.ModeCard
 import com.concepts_and_quizzes.cds.ui.components.EmptyState
 import com.concepts_and_quizzes.cds.ui.components.ErrorState
 import com.concepts_and_quizzes.cds.ui.components.LoadingSkeleton
@@ -82,185 +80,161 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
     }
 
     Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) }) { padding ->
-    Column(Modifier.padding(padding)) {
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .height(90.dp)
-                .graphicsLayer {
-                    clip = true
-                    shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
-                    shadowElevation = 8f
-                }
-                .background(
-                    Brush.radialGradient(
-                        colors = listOf(
-                            MaterialTheme.colorScheme.primary,
-                            MaterialTheme.colorScheme.primaryContainer
-                        )
-                    )
-                )
-        ) {
-            Row(
-                Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    greeting,
-                    color = MaterialTheme.colorScheme.onPrimary
-                )
-                val best by remember(summary) { derivedStateOf { summary.best / 100f } }
-                CircularProgressIndicator(
-                    progress = { best },
-                    modifier = Modifier.size(48.dp),
-                    color = ProgressIndicatorDefaults.circularColor,
-                    strokeWidth = ProgressIndicatorDefaults.CircularStrokeWidth,
-                    trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
-                    strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,
-                )
-            }
-        }
-        
-        resume?.let { s ->
-            val prog = savedProgress
-            CdsCard(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 24.dp)
-                    .fillMaxWidth()
-                    .clickable {
-                        val dest = if (s.paperId.startsWith("WRONGS:")) {
-                            val topic = s.paperId.removePrefix("WRONGS:")
-                            if (topic.isNotEmpty()) {
-                                val enc = Uri.encode(topic)
-                                "english/pyqp?mode=WRONGS&topic=$enc"
-                            } else {
-                                "english/pyqp?mode=WRONGS"
-                            }
-                        } else {
-                            "english/pyqp/${s.paperId}"
-                        }
-                        scope.launch { snackbarHostState.showSnackbar("Resumed") }
-                        nav.navigate(dest)
-                    }
-            ) {
-                Column(Modifier.padding(16.dp)) {
-                    Text(stringResource(R.string.continue_quiz))
-                    prog?.let { p ->
-                        LinearProgressIndicator(
-                            progress = p.percent / 100f,
-                            modifier = Modifier
-                                .padding(top = 8.dp)
-                                .fillMaxWidth()
-                        )
-                        Text("${p.percent}%", modifier = Modifier.padding(top = 8.dp))
-                    }
-                }
-            }
-        }
-
-        availability?.let { avail ->
-            Column(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                ModeCard(
-                    title = stringResource(R.string.pyqp_title),
-                    subtitle = stringResource(R.string.pyqp_sub),
-                    enabled = true
-                ) {
-                    nav.navigate("english/pyqp")
-                }
-                ModeCard(
-                    title = stringResource(R.string.wrong_only_title),
-                    subtitle = stringResource(R.string.wrong_only_sub),
-                    enabled = avail.wrongOnlyAvailable,
-                    disabledCaption = stringResource(R.string.wrong_only_disabled)
-                ) {
-                    nav.navigate("english/pyqp?mode=WRONGS")
-                }
-                ModeCard(
-                    title = stringResource(R.string.timed20_title),
-                    subtitle = stringResource(R.string.timed20_sub),
-                    enabled = false
-                ) { nav.navigate("comingSoon/timed20") }
-                ModeCard(
-                    title = stringResource(R.string.mixed_title),
-                    subtitle = stringResource(R.string.coming_soon_title),
-                    enabled = false
-                ) { nav.navigate("comingSoon/mixed") }
-            }
-            Spacer(Modifier.height(16.dp))
-        }
-
-        Row(
-            Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(160.dp),
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize(),
+            contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            MiniTrendCard(
-                modifier = Modifier.weight(1f)
-            ) { nav.navigate("reports?startPage=1") }
-            WeakestTopicCard(
-                modifier = Modifier.weight(1f)
-            ) { nav.navigate("reports?startPage=0") }
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(90.dp)
+                        .graphicsLayer {
+                            clip = true
+                            shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
+                            shadowElevation = 8f
+                        }
+                        .background(
+                            Brush.radialGradient(
+                                colors = listOf(
+                                    MaterialTheme.colorScheme.primary,
+                                    MaterialTheme.colorScheme.primaryContainer
+                                )
+                            )
+                        )
+                ) {
+                    Row(
+                        Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            greeting,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                        val best by remember(summary) { derivedStateOf { summary.best / 100f } }
+                        CircularProgressIndicator(
+                            progress = { best },
+                            modifier = Modifier.size(48.dp),
+                            color = ProgressIndicatorDefaults.circularColor,
+                            strokeWidth = ProgressIndicatorDefaults.CircularStrokeWidth,
+                            trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
+                            strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,
+                        )
+                    }
+                }
+            }
+
+            resume?.let { s ->
+                val prog = savedProgress
+                item {
+                    DashboardTile(
+                        title = stringResource(R.string.continue_quiz),
+                        subtitle = prog?.let { "${it.percent}%" },
+                        onClick = {
+                            val dest = if (s.paperId.startsWith("WRONGS:")) {
+                                val topic = s.paperId.removePrefix("WRONGS:")
+                                if (topic.isNotEmpty()) {
+                                    val enc = Uri.encode(topic)
+                                    "english/pyqp?mode=WRONGS&topic=$enc"
+                                } else {
+                                    "english/pyqp?mode=WRONGS"
+                                }
+                            } else {
+                                "english/pyqp/${s.paperId}"
+                            }
+                            scope.launch { snackbarHostState.showSnackbar("Resumed") }
+                            nav.navigate(dest)
+                        }
+                    ) {
+                        prog?.let { p ->
+                            LinearProgressIndicator(
+                                progress = p.percent / 100f,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                    }
+                }
+            }
+
+            availability?.let { avail ->
+                item {
+                    DashboardTile(
+                        title = stringResource(R.string.pyqp_title),
+                        subtitle = stringResource(R.string.pyqp_sub),
+                        onClick = { nav.navigate("english/pyqp") }
+                    )
+                }
+                item {
+                    DashboardTile(
+                        title = stringResource(R.string.wrong_only_title),
+                        subtitle = stringResource(R.string.wrong_only_sub),
+                        enabled = avail.wrongOnlyAvailable,
+                        onClick = { nav.navigate("english/pyqp?mode=WRONGS") }
+                    )
+                }
+                item {
+                    DashboardTile(
+                        title = stringResource(R.string.timed20_title),
+                        subtitle = stringResource(R.string.timed20_sub),
+                        enabled = false,
+                        onClick = { nav.navigate("comingSoon/timed20") }
+                    )
+                }
+                item {
+                    DashboardTile(
+                        title = stringResource(R.string.mixed_title),
+                        subtitle = stringResource(R.string.coming_soon_title),
+                        enabled = false,
+                        onClick = { nav.navigate("comingSoon/mixed") }
+                    )
+                }
+            }
+
+            item {
+                DashboardTile(
+                    title = "Trend",
+                    onClick = { nav.navigate("reports?startPage=1") }
+                )
+            }
+
+            item {
+                DashboardTile(
+                    title = "Weakest Topic",
+                    onClick = { nav.navigate("reports?startPage=0") }
+                )
+            }
+
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(Icons.Filled.QuestionAnswer, contentDescription = null)
+                    Spacer(Modifier.width(8.dp))
+                    Text("$count Questions practised today")
+                }
+            }
+
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Text(
+                    "Discover",
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                when (val s = tipsState) {
+                    UiState.Loading -> LoadingSkeleton()
+                    is UiState.Error -> ErrorState(s.message) { vm.refreshTips() }
+                    is UiState.Empty -> EmptyState(s.title, s.actionLabel) { vm.refreshTips() }
+                    is UiState.Data -> DiscoverCarousel(s.value, vm, nav)
+                }
+            }
         }
-
-        Row(
-            Modifier.padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(Icons.Filled.QuestionAnswer, contentDescription = null)
-            Spacer(Modifier.width(8.dp))
-            Text("$count Questions practised today")
-        }
-
-        Spacer(Modifier.height(16.dp))
-
-        Text(
-            "Discover",
-            modifier = Modifier.padding(start = 16.dp, bottom = 8.dp),
-            style = MaterialTheme.typography.titleMedium
-        )
-
-        when (val s = tipsState) {
-            UiState.Loading -> LoadingSkeleton()
-            is UiState.Error -> ErrorState(s.message) { vm.refreshTips() }
-            is UiState.Empty -> EmptyState(s.title, s.actionLabel) { vm.refreshTips() }
-            is UiState.Data -> DiscoverCarousel(s.value, vm, nav)
-        }
-    }
     }
 }
-@Composable
-private fun MiniTrendCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    CdsCard(modifier = modifier, onClick = onClick) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("Trend")
-        }
-    }
-}
-
-@Composable
-private fun WeakestTopicCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    CdsCard(modifier = modifier, onClick = onClick) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("Weakest Topic")
-        }
-    }
-}
-
