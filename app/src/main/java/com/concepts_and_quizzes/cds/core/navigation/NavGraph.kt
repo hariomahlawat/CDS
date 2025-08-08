@@ -1,5 +1,6 @@
 package com.concepts_and_quizzes.cds.core.navigation
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -8,6 +9,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.res.stringResource
 import com.concepts_and_quizzes.cds.ui.english.concepts.ConceptDetailScreen
 import com.concepts_and_quizzes.cds.ui.english.concepts.ConceptsHomeScreen
 import com.concepts_and_quizzes.cds.ui.english.dashboard.EnglishDashboardScreen
@@ -22,6 +27,9 @@ import com.concepts_and_quizzes.cds.ui.analytics.PlaceholderAnalyticsScreen
 import com.concepts_and_quizzes.cds.ui.reports.ReportsNavArgs
 import com.concepts_and_quizzes.cds.ui.reports.ReportsPagerScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.QuizScreen as PyqpQuizScreen
+import com.concepts_and_quizzes.cds.ui.common.ComingSoonScreen
+import com.concepts_and_quizzes.cds.ui.common.ModeAvailabilityViewModel
+import com.concepts_and_quizzes.cds.R
 
 fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     composable("english/dashboard") { EnglishDashboardScreen(nav) }
@@ -45,11 +53,51 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
         )
     ) { back ->
         val mode = back.arguments?.getString("mode") ?: "FULL"
-        if (mode == "WRONGS") {
-            PyqpQuizScreen("", nav)
-        } else {
-            PyqpPaperListScreen(nav)
+        when (mode) {
+            "WRONGS" -> {
+                val vm: ModeAvailabilityViewModel = hiltViewModel()
+                val avail by vm.availability.collectAsState()
+                if (avail?.wrongOnlyAvailable == true) {
+                    PyqpQuizScreen("", nav)
+                } else if (avail != null) {
+                    AlertDialog(
+                        onDismissRequest = { nav.popBackStack() },
+                        confirmButton = {
+                            TextButton(onClick = { nav.popBackStack() }) {
+                                Text("OK")
+                            }
+                        },
+                        text = { Text(stringResource(R.string.wrong_only_disabled)) }
+                    )
+                }
+            }
+            "TIMED20" -> {
+                LaunchedEffect(Unit) {
+                    nav.popBackStack()
+                    nav.navigate("comingSoon/timed20")
+                }
+            }
+            "MIXED" -> {
+                LaunchedEffect(Unit) {
+                    nav.popBackStack()
+                    nav.navigate("comingSoon/mixed")
+                }
+            }
+            else -> {
+                PyqpPaperListScreen(nav)
+            }
         }
+    }
+    composable("comingSoon/{mode}") { backStackEntry ->
+        val mode = backStackEntry.arguments?.getString("mode") ?: "feature"
+        ComingSoonScreen(
+            title = stringResource(R.string.coming_soon_title),
+            body = when (mode) {
+                "timed20" -> stringResource(R.string.coming_soon_body_timed20)
+                "mixed" -> stringResource(R.string.coming_soon_body_mixed)
+                else -> stringResource(R.string.coming_soon_body_generic)
+            }
+        )
     }
     composable("analytics") { AnalyticsCatalogueScreen(nav) }
     composable("analytics/trend") { PyqAnalyticsScreen(nav) }

@@ -21,6 +21,9 @@ interface AttemptLogDao {
     @Query("SELECT * FROM attempt_log WHERE sessionId = :sid ORDER BY questionIndex")
     suspend fun forSession(sid: String): List<AttemptLogEntity>
 
+    @Query("SELECT COUNT(*) FROM attempt_log WHERE correct = 0")
+    suspend fun countWrongAnswers(): Int
+
     @Query(
         """
         SELECT a.qid

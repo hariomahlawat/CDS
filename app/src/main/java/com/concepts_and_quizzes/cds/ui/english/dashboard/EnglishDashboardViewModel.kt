@@ -2,6 +2,8 @@ package com.concepts_and_quizzes.cds.ui.english.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.concepts_and_quizzes.cds.data.analytics.availability.ModeAvailability
+import com.concepts_and_quizzes.cds.data.analytics.availability.ModeAvailabilityRepository
 import com.concepts_and_quizzes.cds.data.discover.DiscoverRepository
 import com.concepts_and_quizzes.cds.data.discover.model.ConceptEntity
 import com.concepts_and_quizzes.cds.data.english.db.PyqpProgressDao
@@ -22,7 +24,8 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class EnglishDashboardViewModel @Inject constructor(
     private val progressDao: PyqpProgressDao,
-    private val discoverRepo: DiscoverRepository
+    private val discoverRepo: DiscoverRepository,
+    private val availabilityRepo: ModeAvailabilityRepository
 ) : ViewModel() {
     data class PyqSummary(val papers: Int, val best: Int, val last: Int)
 
@@ -38,11 +41,15 @@ class EnglishDashboardViewModel @Inject constructor(
         .map { list -> list.sumOf { it.attempted } }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
+    private val _availability = MutableStateFlow<ModeAvailability?>(null)
+    val availability: StateFlow<ModeAvailability?> = _availability
+
     private val _tips = MutableStateFlow<UiState<List<ConceptEntity>>>(UiState.Loading)
     val tips: StateFlow<UiState<List<ConceptEntity>>> = _tips
 
     init {
         refreshTips()
+        viewModelScope.launch { _availability.value = availabilityRepo.fetch() }
     }
 
     fun refreshTips() {

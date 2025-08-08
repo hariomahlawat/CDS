@@ -81,7 +81,7 @@ fun AnalysisScreen(
                         Text("Retake weakest topic")
                     }
                     OutlinedButton(onClick = {
-                        nav?.navigate("english/pyqp?mode=MIXED")
+                        nav?.navigate("comingSoon/mixed")
                     }) {
                         Text("10 from weak areas")
                     }
