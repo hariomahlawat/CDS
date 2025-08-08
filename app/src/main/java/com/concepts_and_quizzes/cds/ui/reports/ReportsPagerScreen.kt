@@ -6,12 +6,20 @@ import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.concepts_and_quizzes.cds.ui.english.analysis.AnalysisScreen
 
 @Composable
-fun ReportsPagerScreen(startPage: Int = 0) {
+fun ReportsPagerScreen(
+    navArgs: ReportsNavArgs = ReportsNavArgs(),
+    startPage: Int = 0,
+) {
     val pagerState = rememberPagerState(initialPage = startPage)
     VerticalPager(
         count = 5,
@@ -19,7 +27,7 @@ fun ReportsPagerScreen(startPage: Int = 0) {
         modifier = Modifier.testTag("reportsPager")
     ) { page ->
         when (page) {
-            0 -> LastQuizPage()
+            0 -> LastQuizPage(navArgs.analysisSessionId)
             1 -> TrendPagePlaceholder()
             2 -> HeatMapPlaceholder()
             3 -> TimeMgmtPlaceholder()
@@ -29,9 +37,12 @@ fun ReportsPagerScreen(startPage: Int = 0) {
 }
 
 @Composable
-fun LastQuizPage() {
+fun LastQuizPage(sessionId: String?) {
+    val vm: LastQuizViewModel = hiltViewModel()
+    LaunchedEffect(sessionId) { vm.load(sessionId) }
+    val report by vm.report.collectAsState()
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Last Quiz")
+        report?.let { AnalysisScreen(it, vm.prefs) } ?: Text("No reports")
     }
 }
 

@@ -19,6 +19,7 @@ import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqpPaperListScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqAnalyticsScreen
 import com.concepts_and_quizzes.cds.ui.analytics.AnalyticsCatalogueScreen
 import com.concepts_and_quizzes.cds.ui.analytics.PlaceholderAnalyticsScreen
+import com.concepts_and_quizzes.cds.ui.reports.ReportsNavArgs
 import com.concepts_and_quizzes.cds.ui.reports.ReportsPagerScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.QuizScreen as PyqpQuizScreen
 
@@ -55,7 +56,13 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     composable("analytics/heatmap") { PlaceholderAnalyticsScreen("Topic Heat-map", nav) }
     composable("analytics/peer") { PlaceholderAnalyticsScreen("Peer Percentile", nav) }
     composable("analytics/time") { PlaceholderAnalyticsScreen("Time Management", nav) }
-    composable("reports") { ReportsPagerScreen() }
+    composable(
+        route = "reports?analysisSessionId={analysisSessionId}",
+        arguments = listOf(navArgument("analysisSessionId") { type = NavType.StringType; nullable = true })
+    ) { backStack ->
+        val sid = backStack.arguments?.getString("analysisSessionId")
+        ReportsPagerScreen(navArgs = ReportsNavArgs(sid))
+    }
     composable(
         route = "english/pyqp/{paperId}",
         arguments = listOf(navArgument("paperId") { type = NavType.StringType })

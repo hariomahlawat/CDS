@@ -14,4 +14,6 @@ class QuizReportRepository @Inject constructor(
         val traces = dao.tracesForSession(sessionId)
         return QuizReportBuilder(traces).build()
     }
+
+    suspend fun latestSessionId(): String? = dao.latestSessionId()
 }

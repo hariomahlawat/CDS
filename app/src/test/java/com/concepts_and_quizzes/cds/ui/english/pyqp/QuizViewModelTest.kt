@@ -84,6 +84,7 @@ class QuizViewModelTest {
         val traceDao = object : QuizTraceDao {
             override suspend fun insertTrace(trace: QuizTrace) { traces.add(trace) }
             override suspend fun tracesForSession(sid: String): List<QuizTrace> = traces.filter { it.sessionId == sid }
+            override suspend fun latestSessionId(): String? = traces.maxByOrNull { it.answeredAt }?.sessionId
         }
         val reportRepo = QuizReportRepository(traceDao)
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -143,6 +144,7 @@ class QuizViewModelTest {
         val traceDao = object : QuizTraceDao {
             override suspend fun insertTrace(trace: QuizTrace) {}
             override suspend fun tracesForSession(sid: String): List<QuizTrace> = emptyList()
+            override suspend fun latestSessionId(): String? = null
         }
         val reportRepo = QuizReportRepository(traceDao)
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -187,6 +189,7 @@ class QuizViewModelTest {
         val traceDao = object : QuizTraceDao {
             override suspend fun insertTrace(trace: QuizTrace) {}
             override suspend fun tracesForSession(sid: String): List<QuizTrace> = emptyList()
+            override suspend fun latestSessionId(): String? = null
         }
         val reportRepo = QuizReportRepository(traceDao)
         val context = ApplicationProvider.getApplicationContext<Context>()
