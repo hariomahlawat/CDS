@@ -7,10 +7,13 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,12 +36,15 @@ import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReport
 import com.concepts_and_quizzes.cds.data.analytics.repo.accuracy
 import com.concepts_and_quizzes.cds.data.settings.UserPreferences
 import com.concepts_and_quizzes.cds.R
+import androidx.navigation.NavController
+import android.net.Uri
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun AnalysisScreen(
     report: QuizReport,
     prefs: UserPreferences,
+    nav: NavController? = null,
 ) {
     val showCelebrations by prefs.showCelebrations.collectAsState(initial = true)
     val haptic = LocalHapticFeedback.current
@@ -49,19 +55,43 @@ fun AnalysisScreen(
         play = true
     }
 
+    val weakest = remember(report) {
+        val perfs = report.timePerSection.map {
+            TopicPerf(it.topicId.toString(), it.attempts, (it.accuracy * it.attempts / 100).toInt())
+        }
+        weakestTopic(perfs)
+    }
+
     Box {
-        FlowRow(horizontalArrangement = spacedBy(8.dp)) {
-            report.suggestions.forEach {
-                AssistChip(
-                    onClick = { },
-                    label = {
-                        Text(
-                            it,
-                            maxLines = 3,
-                            overflow = TextOverflow.Ellipsis
-                        )
+        Column(verticalArrangement = spacedBy(16.dp)) {
+            FlowRow(horizontalArrangement = spacedBy(8.dp)) {
+                report.suggestions.forEach {
+                    AssistChip(
+                        onClick = { },
+                        label = {
+                            Text(
+                                it,
+                                maxLines = 3,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    )
+                }
+            }
+            weakest?.let { topic ->
+                Column(verticalArrangement = spacedBy(8.dp)) {
+                    Button(onClick = {
+                        val encoded = Uri.encode(topic)
+                        nav?.navigate("english/pyqp?mode=TOPIC&topic=$encoded")
+                    }) {
+                        Text("Retake weakest topic")
                     }
-                )
+                    OutlinedButton(onClick = {
+                        nav?.navigate("english/pyqp?mode=MIXED")
+                    }) {
+                        Text("10 from weak areas")
+                    }
+                }
             }
         }
 
@@ -86,5 +116,11 @@ fun AnalysisScreen(
                 modifier = Modifier.fillMaxSize()
             )
         }
-    }
+    } 
 }
+
+data class TopicPerf(val topic: String, val attempts: Int, val correct: Int)
+
+private fun weakestTopic(items: List<TopicPerf>, minAttempts: Int = 6): String? =
+    items.filter { it.attempts >= minAttempts }
+        .minByOrNull { if (it.attempts == 0) 1.0 else it.correct.toDouble() / it.attempts }?.topic
