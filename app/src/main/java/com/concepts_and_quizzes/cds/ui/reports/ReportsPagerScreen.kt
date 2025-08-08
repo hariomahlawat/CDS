@@ -1,5 +1,6 @@
 package com.concepts_and_quizzes.cds.ui.reports
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.VerticalPager
@@ -15,14 +16,14 @@ import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.concepts_and_quizzes.cds.ui.english.analysis.AnalysisScreen
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ReportsPagerScreen(
     navArgs: ReportsNavArgs = ReportsNavArgs(),
     startPage: Int = 0,
 ) {
-    val pagerState = rememberPagerState(initialPage = startPage)
+    val pagerState = rememberPagerState(initialPage = startPage, pageCount = { 5 })
     VerticalPager(
-        count = 5,
         state = pagerState,
         modifier = Modifier.testTag("reportsPager")
     ) { page ->
