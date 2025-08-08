@@ -81,7 +81,9 @@ fun QuizScreen(
                 is QuizViewModel.QuizUi.Loading -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
-                is QuizViewModel.QuizUi.Page -> QuizPager(vm, state)
+                is QuizViewModel.QuizUi.Page -> QuizPager(vm, state) {
+                    navigatingToAnalysis = true
+                }
             }
         }
     }
@@ -120,7 +122,11 @@ fun QuizScreen(
 @SuppressLint("DefaultLocale")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
+private fun QuizPager(
+    vm: QuizViewModel,
+    state: QuizViewModel.QuizUi.Page,
+    onNavigateToAnalysis: () -> Unit
+) {
     val pagerState = rememberPagerState(initialPage = state.pageIndex) { state.pageCount }
     LaunchedEffect(state.pageIndex) {
         if (pagerState.currentPage != state.pageIndex) pagerState.scrollToPage(state.pageIndex)
@@ -249,7 +255,7 @@ private fun QuizPager(vm: QuizViewModel, state: QuizViewModel.QuizUi.Page) {
                     vm.submitQuiz()
                     vm.saveProgress()
                     vm.dismissResult()
-                    navigatingToAnalysis = true
+                    onNavigateToAnalysis()
                 }) { Text("Submit") }
             },
             dismissButton = {
