@@ -61,7 +61,7 @@ fun QuizScreen(
     val snackbarHost = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    var lastBack by remember { mutableStateOf(0L) }
+    var lastBack by remember { mutableLongStateOf(0L) }
     var navigatingToAnalysis by remember { mutableStateOf(false) }
 
     BackHandler(enabled = !showResult) {
