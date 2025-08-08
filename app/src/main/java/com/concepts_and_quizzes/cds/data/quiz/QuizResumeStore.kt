@@ -55,13 +55,16 @@ class QuizResumeStore @Inject constructor(
             prefs[PAPER_ID] = paperId
             prefs[SNAPSHOT] = snapshot
         }
+        _store.value = Store(paperId, snapshot)
     }
 
     suspend fun restore(snapshot: String) {
         context.quizDataStore.edit { it[SNAPSHOT] = snapshot }
+        _store.value = _store.value?.copy(snapshot = snapshot)
     }
 
     suspend fun clear() {
         context.quizDataStore.edit { it.clear() }
+        _store.value = null
     }
 }

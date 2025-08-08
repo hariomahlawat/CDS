@@ -25,9 +25,10 @@ class QuizHubViewModel @Inject constructor(
 
     private fun parseProgress(store: QuizResumeStore.Store): SavedProgress {
         val parts = store.snapshot.split("|")
+        val pageIndex = parts.getOrNull(0)?.toIntOrNull() ?: 0
         val answered = parts.getOrNull(1)?.takeIf { it.isNotBlank() }?.split(";")?.size ?: 0
         val percent = answered * 100 / 60
-        return SavedProgress(store.paperId, answered, percent)
+        return SavedProgress(store.paperId, pageIndex, percent)
     }
 
     val progress: StateFlow<SavedProgress?> =
