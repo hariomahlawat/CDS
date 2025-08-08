@@ -10,6 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.concepts_and_quizzes.cds.core.theme.flaggedContainer
+import com.concepts_and_quizzes.cds.core.theme.flaggedOnContainer
 
 @Composable
 fun QuestionLegend() {
