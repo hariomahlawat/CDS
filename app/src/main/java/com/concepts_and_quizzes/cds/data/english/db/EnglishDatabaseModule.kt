@@ -56,7 +56,7 @@ object EnglishDatabaseModule {
     @Provides
     fun provideSessionQuestionMapDao(db: EnglishDatabase): SessionQuestionMapDao = db.sessionQuestionMapDao()
 
-    
+    @Provides
     fun provideQuestionStatDao(db: EnglishDatabase): QuestionStatDao = db.questionStatDao()
 
     @Provides
