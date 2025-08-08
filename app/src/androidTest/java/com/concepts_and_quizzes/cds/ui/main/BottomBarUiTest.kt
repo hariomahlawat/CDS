@@ -31,6 +31,7 @@ class BottomBarUiTest {
         NavHost(navController, startDestination = "english/dashboard") {
             composable("english/dashboard") {}
             composable("english/pyqp/{paperId}") {}
+            composable("english/pyqp") {}
             composable("analysis/{sessionId}") {}
             composable("reports") {}
         }
@@ -51,6 +52,13 @@ class BottomBarUiTest {
     @Test
     fun bottomBarVisibleOnParameterizedPyqp() {
         composeRule.setContent { TestScaffold("english/pyqp/1") }
+        composeRule.waitForIdle()
+        composeRule.onNodeWithText("Dashboard").assertExists()
+    }
+
+    @Test
+    fun bottomBarVisibleOnQueryPyqp() {
+        composeRule.setContent { TestScaffold("english/pyqp?mode=FULL&topic=null") }
         composeRule.waitForIdle()
         composeRule.onNodeWithText("Dashboard").assertExists()
     }

@@ -42,6 +42,7 @@ import com.concepts_and_quizzes.cds.ui.reports.heatmap.HeatMapPage
 import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
 import com.concepts_and_quizzes.cds.ui.reports.peer.PeerPage
 import com.concepts_and_quizzes.cds.util.ShareUtils
+import com.concepts_and_quizzes.cds.data.analytics.telemetry.Telemetry
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -71,6 +72,7 @@ fun ReportsScreen(
                                 view = view,
                                 rect = rect
                             )
+                            Telemetry.logReportShared()
                         }
                     }) {
                         Icon(Icons.Filled.Share, contentDescription = "Share")

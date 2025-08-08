@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.concepts_and_quizzes.cds.data.analytics.telemetry.Telemetry
 import com.concepts_and_quizzes.cds.core.components.CdsBottomNavBar
 import com.concepts_and_quizzes.cds.core.navigation.rootGraph
 import com.concepts_and_quizzes.cds.core.theme.CDSTheme
@@ -33,6 +34,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setTheme(R.style.Theme_CDS)
         super.onCreate(savedInstanceState)
+        Telemetry.logAppOpen()
         setContent { CDSApp(remoteConfig) }
     }
 }
