@@ -32,7 +32,7 @@ fun LoadingSkeleton() {
 fun EmptyState(
     title: String,
     actionLabel: String? = null,
-    onAction: (() -> Unit)? = null
+    onAction: (() -> Unit)? = null,
 ) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -48,15 +48,13 @@ fun EmptyState(
 @Composable
 fun ErrorState(
     message: String,
-    onRetry: (() -> Unit)?
+    onRetry: () -> Unit,
 ) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = message, color = MaterialTheme.colorScheme.error)
-            if (onRetry != null) {
-                Spacer(Modifier.height(16.dp))
-                Button(onClick = onRetry) { Text("Retry") }
-            }
+            Spacer(Modifier.height(16.dp))
+            Button(onClick = onRetry) { Text("Retry") }
         }
     }
 }

@@ -56,6 +56,10 @@ import androidx.compose.material3.ProgressIndicatorDefaults
 import com.concepts_and_quizzes.cds.core.components.CdsCard
 import com.concepts_and_quizzes.cds.R
 import com.concepts_and_quizzes.cds.core.theme.Dimens
+import com.concepts_and_quizzes.cds.ui.components.EmptyState
+import com.concepts_and_quizzes.cds.ui.components.ErrorState
+import com.concepts_and_quizzes.cds.ui.components.LoadingSkeleton
+import com.concepts_and_quizzes.cds.ui.components.UiState
 import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubViewModel
 import com.concepts_and_quizzes.cds.ui.nav.navigateToTop
 import kotlinx.coroutines.launch
@@ -69,7 +73,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
     val savedProgress by resumeVm.progress.collectAsState()
     val summary by vm.summary.collectAsState()
     val questionsToday by vm.questionsToday.collectAsState()
-    val concepts by vm.tips.collectAsState()
+    val tipsState by vm.tips.collectAsState()
     val count by animateIntAsState(targetValue = questionsToday, label = "count")
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -194,7 +198,12 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             style = MaterialTheme.typography.titleMedium
         )
 
-        DiscoverCarousel(concepts, vm, nav)
+        when (val s = tipsState) {
+            UiState.Loading -> LoadingSkeleton()
+            is UiState.Error -> ErrorState(s.message) { vm.refreshTips() }
+            is UiState.Empty -> EmptyState(s.title, s.actionLabel) { vm.refreshTips() }
+            is UiState.Data -> DiscoverCarousel(s.value, vm, nav)
+        }
     }
     }
 }
