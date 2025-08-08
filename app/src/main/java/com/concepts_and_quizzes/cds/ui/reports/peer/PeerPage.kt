@@ -2,7 +2,6 @@ package com.concepts_and_quizzes.cds.ui.reports.peer
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,6 +11,7 @@ import com.concepts_and_quizzes.cds.data.analytics.unlock.AnalyticsModule
 import com.concepts_and_quizzes.cds.data.analytics.unlock.ModuleStatus
 import com.concepts_and_quizzes.cds.ui.reports.GhostOverlay
 import com.concepts_and_quizzes.cds.ui.skeleton.PeerSkeleton
+import com.concepts_and_quizzes.cds.ui.components.EmptyState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ fun PeerPage(
         skeleton = { PeerSkeleton() },
     ) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Peer")
+            EmptyState(title = "No peer data")
         }
     }
 }
