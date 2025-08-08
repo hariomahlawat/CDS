@@ -57,12 +57,17 @@ fun DiscoverCard(
                 Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.Top
             ) {
+                val titleHeight = with(LocalDensity.current) {
+                    MaterialTheme.typography.titleMedium.lineHeight.toDp() * 2
+                }
                 Text(
                     concept.title,
                     style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(titleHeight)
                 )
                 IconToggleButton(
                     checked = bookmarked,
@@ -88,12 +93,12 @@ fun DiscoverCard(
             }
             Spacer(Modifier.height(8.dp))
             val textHeight = with(LocalDensity.current) {
-                MaterialTheme.typography.bodyMedium.lineHeight.toDp() * 3
+                MaterialTheme.typography.bodyMedium.lineHeight.toDp() * 2
             }
             Text(
                 concept.blurb,
                 style = MaterialTheme.typography.bodyMedium,
-                maxLines = 3,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.height(textHeight)
             )
