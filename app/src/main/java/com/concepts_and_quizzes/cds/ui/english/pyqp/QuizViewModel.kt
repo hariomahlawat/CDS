@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import com.concepts_and_quizzes.cds.ui.nav.navigateToTop
+import com.concepts_and_quizzes.cds.data.analytics.telemetry.Telemetry
 
 @HiltViewModel
 class QuizViewModel @Inject constructor(
@@ -113,6 +114,7 @@ class QuizViewModel @Inject constructor(
             state["timerSec"] = _timer.value
             emitPage()
             resume()
+            Telemetry.logQuizStart(quizId)
         }
     }
 
@@ -271,6 +273,8 @@ class QuizViewModel @Inject constructor(
         val item = pages[pageIndex]
         if (item is Item.Question) {
             answers[item.questionIndex] = idx
+            val correct = questions[item.questionIndex].options[idx].isCorrect
+            Telemetry.logQuestionAnswered(questions[item.questionIndex].id, correct)
             emitPage()
             schedulePersist()
         }
@@ -364,7 +368,9 @@ class QuizViewModel @Inject constructor(
             )
         }
         viewModelScope.launch { analytics.insertAttempts(attempts) }
-        _result.value = QuizResult(attempts.count { it.correct }, questions.size)
+        val correctCount = attempts.count { it.correct }
+        _result.value = QuizResult(correctCount, questions.size)
+        Telemetry.logQuizSubmit(quizId, correctCount, questions.size)
         _showResult.value = true
         state["showResult"] = true
         viewModelScope.launch { resumeStore.clear() }
@@ -394,6 +400,7 @@ class QuizViewModel @Inject constructor(
     }
 
     fun onSubmitSuccess(navController: NavController) {
+        Telemetry.logAnalysisCta(sessionId)
         navController.navigateToTop("reports?analysisSessionId=$sessionId")
     }
 
