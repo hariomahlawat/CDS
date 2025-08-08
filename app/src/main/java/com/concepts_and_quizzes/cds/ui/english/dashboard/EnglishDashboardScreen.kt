@@ -153,7 +153,6 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                         }
                         scope.launch { snackbarHostState.showSnackbar("Resumed") }
                         nav.navigate(dest)
-                        resumeVm.restore(s.snapshot)
                     }
             ) {
                 Column(Modifier.padding(16.dp)) {

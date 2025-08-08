@@ -60,6 +60,7 @@ class QuizViewModel @Inject constructor(
     private val _timer = MutableStateFlow(state["timerSec"] ?: 0)
     val timer: StateFlow<Int> = _timer
     private var timerJob: Job? = null
+    private var persistJob: Job? = null
     private var submitted = false
 
     val pageCount: Int get() = pages.size
@@ -170,6 +171,14 @@ class QuizViewModel @Inject constructor(
         questionStartMs = now
     }
 
+    private fun schedulePersist() {
+        persistJob?.cancel()
+        persistJob = viewModelScope.launch {
+            delay(250)
+            resumeStore.save(quizId, answers, flags, pageIndex, _timer.value, durations)
+        }
+    }
+
     private fun startTimer() {
         if (timerJob != null) return
         timerJob = viewModelScope.launch(Dispatchers.Default) {
@@ -197,6 +206,7 @@ class QuizViewModel @Inject constructor(
         timerJob?.cancel()
         timerJob = null
         state["timerSec"] = _timer.value
+        persistJob?.cancel()
         viewModelScope.launch { resumeStore.save(quizId, answers, flags, pageIndex, _timer.value, durations) }
     }
 
@@ -262,6 +272,7 @@ class QuizViewModel @Inject constructor(
         if (item is Item.Question) {
             answers[item.questionIndex] = idx
             emitPage()
+            schedulePersist()
         }
     }
 
@@ -270,6 +281,7 @@ class QuizViewModel @Inject constructor(
             flushDuration()
             pageIndex++
             emitPage()
+            schedulePersist()
         } else {
             flushDuration()
             submitQuiz()
@@ -281,6 +293,7 @@ class QuizViewModel @Inject constructor(
             flushDuration()
             pageIndex--
             emitPage()
+            schedulePersist()
         }
     }
 
@@ -288,6 +301,7 @@ class QuizViewModel @Inject constructor(
         flushDuration()
         pageIndex = i.coerceIn(0, pages.lastIndex)
         emitPage()
+        schedulePersist()
     }
 
     fun toggleFlag() {
@@ -296,6 +310,7 @@ class QuizViewModel @Inject constructor(
             val qi = item.questionIndex
             if (!flags.add(qi)) flags.remove(qi)
             emitPage()
+            schedulePersist()
         }
     }
 
@@ -305,6 +320,7 @@ class QuizViewModel @Inject constructor(
             flushDuration()
             pageIndex = page
             emitPage()
+            schedulePersist()
         }
     }
 
@@ -321,6 +337,7 @@ class QuizViewModel @Inject constructor(
         timerJob = null
         submitted = true
         flushDuration()
+        persistJob?.cancel()
         val now = System.currentTimeMillis()
         val attempts = questions.mapIndexed { i, q ->
             val ansIdx = answers[i]
