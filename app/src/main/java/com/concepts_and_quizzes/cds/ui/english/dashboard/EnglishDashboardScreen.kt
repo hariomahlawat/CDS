@@ -127,8 +127,13 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                     .fillMaxWidth()
                     .clickable {
                         val dest = if (s.paperId.startsWith("WRONGS:")) {
-                            val topic = Uri.encode(s.paperId.removePrefix("WRONGS:"))
-                            "english/pyqp?mode=WRONGS&topic=$topic"
+                            val topic = s.paperId.removePrefix("WRONGS:")
+                            if (topic.isNotEmpty()) {
+                                val enc = Uri.encode(topic)
+                                "english/pyqp?mode=WRONGS&topic=$enc"
+                            } else {
+                                "english/pyqp?mode=WRONGS"
+                            }
                         } else {
                             "english/pyqp/${s.paperId}"
                         }

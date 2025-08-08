@@ -66,6 +66,7 @@ class QuizSubmitNavigationTest {
             override suspend fun upsertAll(rows: List<AttemptLogEntity>) {}
             override suspend fun forSession(sid: String): List<AttemptLogEntity> = emptyList()
             override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
+            override suspend fun latestWrongQids(): List<String> = emptyList()
             override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
             override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
             override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> =

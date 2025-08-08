@@ -58,6 +58,7 @@ class ResumeFlowUiTest {
             override suspend fun upsertAll(rows: List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity>) {}
             override suspend fun forSession(sid: String): List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogEntity> = emptyList()
             override suspend fun latestWrongQids(topicId: String) = emptyList<String>()
+            override suspend fun latestWrongQids() = emptyList<String>()
             override fun getTrend(startTime: Long) = kotlinx.coroutines.flow.flowOf(emptyList<TopicTrendPointDb>())
             override fun getDifficulty() = kotlinx.coroutines.flow.flowOf(emptyList<TopicDifficultyDb>())
             override fun getAttemptsWithScore() = kotlinx.coroutines.flow.flowOf(emptyList<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>())

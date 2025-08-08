@@ -37,8 +37,12 @@ class PyqpRepository @Inject constructor(
             }
         }
 
-    suspend fun wrongOnlyQuestions(topicId: String): List<PyqpQuestion> {
-        val qids = attemptDao.latestWrongQids(topicId)
+    suspend fun wrongOnlyQuestions(topicId: String? = null): List<PyqpQuestion> {
+        val qids = if (topicId != null) {
+            attemptDao.latestWrongQids(topicId)
+        } else {
+            attemptDao.latestWrongQids()
+        }
         if (qids.isEmpty()) return emptyList()
         return dao.getQuestionsByIds(qids).map { e ->
             PyqpQuestion(
