@@ -1,8 +1,6 @@
 package com.concepts_and_quizzes.cds.ui.reports
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Rect
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,15 +36,12 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.core.content.FileProvider
-import androidx.core.view.drawToBitmap
 import kotlinx.coroutines.launch
 import com.concepts_and_quizzes.cds.ui.reports.trend.TrendPage
 import com.concepts_and_quizzes.cds.ui.reports.heatmap.HeatMapPage
 import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
 import com.concepts_and_quizzes.cds.ui.reports.peer.PeerPage
-import java.io.File
-import java.io.FileOutputStream
+import com.concepts_and_quizzes.cds.util.ShareUtils
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -71,25 +66,11 @@ fun ReportsScreen(
                 actions = {
                     IconButton(onClick = {
                         pagerRect?.let { rect ->
-                            val bitmap = view.drawToBitmap()
-                            val crop = Bitmap.createBitmap(bitmap, rect.left, rect.top, rect.width(), rect.height())
-                            val dir = File(context.cacheDir, "reports")
-                            dir.mkdirs()
-                            val file = File(dir, "report.png")
-                            FileOutputStream(file).use { out ->
-                                crop.compress(Bitmap.CompressFormat.PNG, 100, out)
-                            }
-                            val uri = FileProvider.getUriForFile(
-                                context,
-                                "${context.packageName}.provider",
-                                file
+                            ShareUtils.shareViewAsImage(
+                                context = context,
+                                view = view,
+                                rect = rect
                             )
-                            val intent = Intent(Intent.ACTION_SEND).apply {
-                                type = "image/png"
-                                putExtra(Intent.EXTRA_STREAM, uri)
-                                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                            }
-                            context.startActivity(Intent.createChooser(intent, null))
                         }
                     }) {
                         Icon(Icons.Filled.Share, contentDescription = "Share")
