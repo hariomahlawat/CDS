@@ -28,6 +28,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.advanceUntilIdle
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -201,5 +202,57 @@ class QuizViewModelTest {
         assertEquals(1, ui.pageIndex)
         val page = vm.pageContent(1) as QuizViewModel.QuizPage.Question
         assertEquals(2, page.userAnswerIndex)
+    }
+
+    @Test
+    fun doesNotPersistStateAfterSubmit() = runTest {
+        val dao = object : PyqpDao {
+            override suspend fun insertAll(questions: List<PyqpQuestionEntity>) {}
+            override fun getDistinctPaperIds(): Flow<List<String>> = flowOf(listOf("paper"))
+            override fun getQuestionsByPaper(paperId: String): Flow<List<PyqpQuestionEntity>> = flowOf(questions)
+            override suspend fun getQuestionsByIds(qids: List<String>): List<PyqpQuestionEntity> = emptyList()
+            override suspend fun count(): Int = 0
+        }
+        val progressDao = object : PyqpProgressDao {
+            override suspend fun upsert(progress: PyqpProgress) {}
+            override fun getAll(): Flow<List<PyqpProgress>> = MutableStateFlow(emptyList())
+        }
+        val attemptDao = object : AttemptLogDao {
+            override suspend fun insertAll(attempts: List<AttemptLogEntity>) {}
+            override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
+            override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
+            override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
+            override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> =
+                flowOf(emptyList())
+        }
+        val topicStatDao = object : com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao {
+            override fun topicSnapshot(cutoffTime: Long): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.TopicStat>> =
+                flowOf(emptyList())
+            override fun trendSnapshot(cutoffTime: Long): Flow<List<TrendPoint>> = flowOf(emptyList())
+        }
+        val analytics = AnalyticsRepository(attemptDao, topicStatDao)
+        val repo = PyqpRepository(dao, attemptDao)
+        val traceDao = object : QuizTraceDao {
+            override suspend fun insertTrace(trace: QuizTrace) {}
+            override suspend fun tracesForSession(sid: String): List<QuizTrace> = emptyList()
+            override suspend fun latestSessionId(): String? = null
+        }
+        val reportRepo = QuizReportRepository(traceDao)
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val resumeStore = QuizResumeStore(context)
+        val vm = QuizViewModel(
+            repo,
+            progressDao,
+            analytics,
+            reportRepo,
+            resumeStore,
+            SavedStateHandle(mapOf("paperId" to "paper"))
+        )
+        advanceUntilIdle()
+        vm.submitQuiz()
+        advanceUntilIdle()
+        vm.pause()
+        advanceUntilIdle()
+        assertNull(resumeStore.store.value)
     }
 }

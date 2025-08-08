@@ -54,7 +54,7 @@ fun QuizScreen(
     val context = LocalContext.current
     var lastBack by remember { mutableStateOf(0L) }
 
-    BackHandler {
+    BackHandler(enabled = !showResult) {
         vm.pause()
         val now = SystemClock.elapsedRealtime()
         if (now - lastBack < 2000) {
