@@ -57,8 +57,11 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     composable("analytics/peer") { PlaceholderAnalyticsScreen("Peer Percentile", nav) }
     composable("analytics/time") { PlaceholderAnalyticsScreen("Time Management", nav) }
     composable(
-        route = "reports?analysisSessionId={analysisSessionId}",
-        arguments = listOf(navArgument("analysisSessionId") { type = NavType.StringType; nullable = true })
+        route = "reports?analysisSessionId={analysisSessionId}&startPage={startPage}",
+        arguments = listOf(
+            navArgument("analysisSessionId") { type = NavType.StringType; nullable = true },
+            navArgument("startPage") { type = NavType.IntType; defaultValue = 0 }
+        )
     ) { backStack ->
         val sid = backStack.arguments?.getString("analysisSessionId")
         ReportsPagerScreen(navArgs = ReportsNavArgs(sid))
