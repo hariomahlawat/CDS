@@ -102,6 +102,7 @@ class QuizSubmitNavigationTest {
 
         vm.onSubmitSuccess(nav)
         assertTrue(nav.route!!.startsWith("reports?analysisSessionId="))
+        assertTrue(nav.route!!.contains("&startPage=0"))
     }
 }
 
