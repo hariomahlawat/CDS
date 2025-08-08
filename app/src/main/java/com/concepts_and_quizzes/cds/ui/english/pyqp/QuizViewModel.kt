@@ -401,7 +401,7 @@ class QuizViewModel @Inject constructor(
 
     fun onSubmitSuccess(navController: NavController) {
         Telemetry.logAnalysisCta(sessionId)
-        navController.navigateToTop("reports?analysisSessionId=$sessionId")
+        navController.navigateToTop("reports?analysisSessionId=$sessionId&startPage=0")
     }
 
     private data class Section(
