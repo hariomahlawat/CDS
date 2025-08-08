@@ -11,7 +11,8 @@ import androidx.room.PrimaryKey
     tableName = "attempt_log",
     indices = [
         Index(value = ["qid"], name = "idx_attempt_qid"),
-        Index(value = ["timestamp"], name = "idx_attempt_time")
+        Index(value = ["timestamp"], name = "idx_attempt_time"),
+        Index(value = ["sessionId", "questionIndex"], name = "idx_attempt_session_q")
     ]
 )
 data class AttemptLogEntity(
@@ -26,4 +27,9 @@ data class AttemptLogEntity(
     val sessionId: String? = null,
     val questionIndex: Int = 0,
     val selectedIndex: Int? = null,
+    val startedAt: Long? = null,
+    val answeredAt: Long? = null,
+    val isSkipped: Boolean = false,
+    val isTimeout: Boolean = false,
+    val changeCount: Int = 0,
 )

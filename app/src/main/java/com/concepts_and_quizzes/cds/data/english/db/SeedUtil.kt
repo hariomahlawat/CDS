@@ -48,7 +48,9 @@ class SeedUtil @Inject constructor(
                             optionB = q.getString("optionB"),
                             optionC = q.getString("optionC"),
                             optionD = q.getString("optionD"),
-                            correct = q.getString("correct")
+                            correct = q.getString("correct"),
+                            subTopic = q.optString("subTopic", ""),
+                            difficulty = q.optInt("difficulty", 0)
                         )
                     )
                 }

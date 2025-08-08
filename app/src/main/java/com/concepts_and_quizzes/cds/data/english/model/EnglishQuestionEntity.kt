@@ -13,7 +13,9 @@ data class EnglishQuestionEntity(
     val optionB: String,
     val optionC: String,
     val optionD: String,
-    val correct: String
+    val correct: String,
+    val subTopic: String = "",
+    val difficulty: Int = 0
 )
 
 fun EnglishQuestionEntity.toDomain() = EnglishQuestion(
@@ -24,5 +26,7 @@ fun EnglishQuestionEntity.toDomain() = EnglishQuestion(
     optionB,
     optionC,
     optionD,
-    correct
+    correct,
+    subTopic,
+    difficulty
 )

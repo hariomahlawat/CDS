@@ -36,3 +36,36 @@ val MIGRATION_9_10 = object : Migration(9, 10) {
         )
     }
 }
+
+// Migration adding sessions table and extended timing columns.
+val MIGRATION_10_11 = object : Migration(10, 11) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS sessions(
+              sessionId TEXT PRIMARY KEY,
+              source TEXT NOT NULL,
+              mode TEXT NOT NULL,
+              paperId TEXT,
+              topicId TEXT,
+              subTopic TEXT,
+              questionCount INTEGER NOT NULL DEFAULT 0,
+              startedAt INTEGER NOT NULL,
+              endedAt INTEGER,
+              timeLimitSec INTEGER,
+              correct INTEGER NOT NULL DEFAULT 0,
+              wrong INTEGER NOT NULL DEFAULT 0,
+              unattempted INTEGER NOT NULL DEFAULT 0
+            )
+            """.trimIndent()
+        )
+        db.execSQL("ALTER TABLE attempt_log ADD COLUMN startedAt INTEGER")
+        db.execSQL("ALTER TABLE attempt_log ADD COLUMN answeredAt INTEGER")
+        db.execSQL("ALTER TABLE attempt_log ADD COLUMN isSkipped INTEGER NOT NULL DEFAULT 0")
+        db.execSQL("ALTER TABLE attempt_log ADD COLUMN isTimeout INTEGER NOT NULL DEFAULT 0")
+        db.execSQL("ALTER TABLE attempt_log ADD COLUMN changeCount INTEGER NOT NULL DEFAULT 0")
+        db.execSQL("CREATE INDEX IF NOT EXISTS idx_attempt_session_q ON attempt_log(sessionId, questionIndex)")
+        db.execSQL("ALTER TABLE english_questions ADD COLUMN subTopic TEXT NOT NULL DEFAULT ''")
+        db.execSQL("ALTER TABLE english_questions ADD COLUMN difficulty INTEGER NOT NULL DEFAULT 0")
+    }
+}
