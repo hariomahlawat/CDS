@@ -110,6 +110,7 @@ private fun TimeContent(data: TimeUiData) {
 @Composable
 private fun DailyMinutesChart(data: List<DailyMinutes>) {
     val max = data.maxOfOrNull { it.minutes } ?: 1.0
+    val barColor = MaterialTheme.colorScheme.primary
     Canvas(
         modifier = Modifier
             .fillMaxWidth()
@@ -120,7 +121,7 @@ private fun DailyMinutesChart(data: List<DailyMinutes>) {
             val x = barSpacing * (index * 2 + 1)
             val barHeight = (item.minutes / max * size.height).toFloat()
             drawLine(
-                color = MaterialTheme.colorScheme.primary,
+                color = barColor,
                 start = Offset(x, size.height),
                 end = Offset(x, size.height - barHeight),
                 strokeWidth = barSpacing,
