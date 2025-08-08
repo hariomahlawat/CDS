@@ -4,7 +4,11 @@ import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -53,13 +57,23 @@ fun QuizHubScreen(nav: NavHostController, vm: QuizHubViewModel = hiltViewModel()
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text("Quiz Hub")
-            CdsCard {
-                Column(
-                    Modifier
-                        .clickable { nav.navigate("english/pyqp") }
-                        .padding(16.dp)
-                ) {
-                    Text("Start PYQ")
+            LazyRow(
+                contentPadding = PaddingValues(vertical = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(
+                    listOf(
+                        Mode("Full Paper", "Full past paper") { nav.navigate("english/pyqp?mode=FULL") },
+                        Mode("Topic", "Topic drill") {
+                            val topic = Uri.encode("t1")
+                            nav.navigate("english/pyqp?mode=TOPIC&topic=$topic")
+                        },
+                        Mode("Wrongs", "Retry mistakes") { nav.navigate("english/pyqp?mode=WRONGS") },
+                        Mode("Timed 20", "20Q sprint") { nav.navigate("english/pyqp?mode=TIMED20") },
+                        Mode("Mixed", "Mixed bag") { nav.navigate("english/pyqp?mode=MIXED") }
+                    )
+                ) { m ->
+                    ModeCard(m)
                 }
             }
             CdsCard {
@@ -74,3 +88,20 @@ fun QuizHubScreen(nav: NavHostController, vm: QuizHubViewModel = hiltViewModel()
         }
     }
 }
+
+private data class Mode(val title: String, val caption: String, val action: () -> Unit)
+
+@Composable
+private fun ModeCard(mode: Mode) {
+    CdsCard(
+        modifier = Modifier
+            .size(width = 160.dp, height = 100.dp)
+            .clickable { mode.action() }
+    ) {
+        Column(Modifier.padding(16.dp)) {
+            Text(mode.title)
+            Text(mode.caption)
+        }
+    }
+}
+
