@@ -138,6 +138,14 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                     DashboardTile(
                         title = stringResource(R.string.continue_quiz),
                         subtitle = prog?.let { "${it.percent}%" },
+                        content = {
+                            prog?.let { p ->
+                                LinearProgressIndicator(
+                                    progress = p.percent / 100f,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
+                        },
                         onClick = {
                             val dest = if (s.paperId.startsWith("WRONGS:")) {
                                 val topic = s.paperId.removePrefix("WRONGS:")
@@ -152,15 +160,8 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                             }
                             scope.launch { snackbarHostState.showSnackbar("Resumed") }
                             nav.navigate(dest)
-                        }
-                    ) {
-                        prog?.let { p ->
-                            LinearProgressIndicator(
-                                progress = p.percent / 100f,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
-                    }
+                        },
+                    )
                 }
             }
 
