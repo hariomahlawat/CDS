@@ -3,6 +3,13 @@
 This document provides an overview of the files and current functionality of the CDS Android application.
 It is intended to be updated whenever new features are added or existing functionality is modified.
 
+## Architecture
+The project uses a single `app` module structured into clear layers:
+- **UI** – Jetpack Compose screens and navigation logic.
+- **Domain** – Kotlin models representing topics, questions and progress.
+- **Data** – Room databases, repositories and DataStore for persistence.
+- **Dependency Injection** – Hilt modules wiring repositories and view models.
+
 ## Root Project Files
 
 - `build.gradle.kts` – Top level Gradle build file enabling Android, Kotlin, Hilt and Google services plugins and resolving a JavaPoet version conflict.
@@ -89,6 +96,12 @@ It is intended to be updated whenever new features are added or existing functio
 - Concept listing and detail views backed by Hilt-injected view models.
 - Quiz runtime supports timer, flagging and palette-based navigation.
 - Basic dependency injection setup using Hilt.
+
+## Development Workflow
+1. Branch from `main` and keep commits focused.
+2. Run lint and unit tests before pushing: `./gradlew detekt ktlintCheck lintDebug :app:testDebugUnitTest`
+3. Update documentation and this overview when files change.
+4. Use the PR template to describe changes and manual testing.
 
 This document should be updated whenever files are added, removed or significantly modified.
 
