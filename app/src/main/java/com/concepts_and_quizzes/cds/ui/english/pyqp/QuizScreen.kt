@@ -47,6 +47,7 @@ import com.concepts_and_quizzes.cds.domain.english.PyqpQuestion
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.concepts_and_quizzes.cds.ui.quiz.PaletteBottomSheet
+import com.concepts_and_quizzes.cds.ui.nav.navigateToTop
 
 @Composable
 fun QuizScreen(
@@ -92,10 +93,7 @@ fun QuizScreen(
                 onDone = {
                     vm.saveProgress()
                     vm.dismissResult()
-                    nav.navigate("quizHub") {
-                        launchSingleTop = true
-                        popUpTo("english/pyqp/{paperId}") { inclusive = true }
-                    }
+                    nav.navigateToTop("quizHub")
                 },
                 onViewAnalytics = {
                     vm.saveProgress()

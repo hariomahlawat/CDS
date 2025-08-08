@@ -6,11 +6,11 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.concepts_and_quizzes.cds.core.config.RemoteConfig
 import com.concepts_and_quizzes.cds.core.navigation.BottomBarDestination
+import com.concepts_and_quizzes.cds.ui.nav.navigateToTop
 
 @Composable
 fun CdsNavigationRail(
@@ -35,13 +35,7 @@ fun CdsNavigationRail(
             NavigationRailItem(
                 selected = selected,
                 onClick = {
-                    navController.navigate(item.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
+                    navController.navigateToTop(item.route)
                 },
                 icon = { Icon(imageVector = item.icon, contentDescription = stringResource(id = item.label)) },
                 label = { Text(text = stringResource(id = item.label)) }

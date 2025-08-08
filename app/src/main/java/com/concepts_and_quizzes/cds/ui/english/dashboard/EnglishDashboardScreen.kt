@@ -57,6 +57,7 @@ import com.concepts_and_quizzes.cds.core.components.CdsCard
 import com.concepts_and_quizzes.cds.R
 import com.concepts_and_quizzes.cds.core.theme.Dimens
 import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubViewModel
+import com.concepts_and_quizzes.cds.ui.nav.navigateToTop
 import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -132,8 +133,8 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             horizontalArrangement = Arrangement.spacedBy(Dimens.ChipSpacingX),
             verticalArrangement = Arrangement.spacedBy(Dimens.ChipSpacingX)
         ) {
-            ActionChip(Icons.Filled.AutoStories, "Concepts") { nav.navigate("english/concepts") }
-            ActionChip(Icons.Filled.School, "Mock Tests") { nav.navigate("quizHub") }
+            ActionChip(Icons.Filled.AutoStories, "Concepts") { nav.navigateToTop("english/concepts") }
+            ActionChip(Icons.Filled.School, "Mock Tests") { nav.navigateToTop("quizHub") }
             ActionChip(Icons.AutoMirrored.Filled.MenuBook, "Past Papers") { nav.navigate("english/pyqp") }
         }
 

@@ -22,6 +22,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import com.concepts_and_quizzes.cds.ui.nav.navigateToTop
 
 @HiltViewModel
 class QuizViewModel @Inject constructor(
@@ -376,10 +377,7 @@ class QuizViewModel @Inject constructor(
     }
 
     fun onSubmitSuccess(navController: NavController) {
-        navController.navigate("reports?analysisSessionId=$sessionId") {
-            popUpTo("practice") { inclusive = false }
-            launchSingleTop = true
-        }
+        navController.navigateToTop("reports?analysisSessionId=$sessionId")
     }
 
     private data class Section(
