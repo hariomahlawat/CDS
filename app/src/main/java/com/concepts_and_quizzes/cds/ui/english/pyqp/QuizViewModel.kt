@@ -86,8 +86,7 @@ class QuizViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             if (mode == "WRONGS") {
-                val t = topic ?: return@launch
-                val qs = repo.wrongOnlyQuestions(t)
+                val qs = repo.wrongOnlyQuestions(topic?.takeIf { it.isNotEmpty() })
                 questions = qs
                 if (qs.isNotEmpty()) {
                     buildPages(qs)
@@ -122,7 +121,7 @@ class QuizViewModel @Inject constructor(
     }
 
     private fun defaultTime(): Int =
-        if (mode == "WRONGS") questions.size * 60 else 120 * 60
+        if (mode == "WRONGS") 25 * 60 else 120 * 60
 
     private fun buildPages(qs: List<PyqpQuestion>) {
         pages = buildList {

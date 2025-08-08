@@ -20,3 +20,19 @@ val MIGRATION_8_9 = object : Migration(8, 9) {
         )
     }
 }
+
+// Migration adding question_stats table for tracking per-question performance.
+val MIGRATION_9_10 = object : Migration(9, 10) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS question_stats(
+                qid TEXT NOT NULL PRIMARY KEY,
+                correctCount INTEGER NOT NULL,
+                wrongCount INTEGER NOT NULL,
+                lastCorrect INTEGER NOT NULL
+            )
+            """.trimIndent()
+        )
+    }
+}
