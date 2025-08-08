@@ -1,12 +1,20 @@
 ### Summary
-What changed and why
+<!-- What changed and why? -->
 
-### Screenshots
-Before and after
+### Screenshots or short recording
+<!-- Attach before/after screenshots or a short screen recording if UI is affected. -->
 
-### Checks
-- [ ] Built locally
-- [ ] Unit or UI tests updated or added
-- [ ] Accessibility reviewed
-- [ ] No new dependencies
+### Manual test cases
+- [ ] 
+- [ ] 
 
+### Accessibility checks
+- [ ] Keyboard-only navigation
+- [ ] Screen reader
+- [ ] Contrast
+
+### Build and test commands
+```
+# e.g.
+./gradlew assembleDebug test
+```
