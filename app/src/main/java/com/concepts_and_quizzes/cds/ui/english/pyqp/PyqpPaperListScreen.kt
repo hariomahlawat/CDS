@@ -29,7 +29,7 @@ fun PyqpPaperListScreen(nav: NavController, vm: PyqpListViewModel = hiltViewMode
         when (val s = state) {
             is UiState.Data -> {
                 LazyColumn(contentPadding = padd) {
-                    items(s.value) { paper ->
+                    items(s.value, key = { it.id }) { paper ->
                         ListItem(
                             headlineContent = { Text("CDS ${paper.year}  ${paper.id.takeLast(5)}") },
                             trailingContent = {

@@ -22,7 +22,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -45,6 +44,7 @@ import android.net.Uri
 fun AnalysisScreen(
     report: QuizReport,
     prefs: UserPreferences,
+    weakestTopic: String?,
     nav: NavController? = null,
 ) {
     val showCelebrations by prefs.showCelebrations.collectAsState(initial = true)
@@ -54,15 +54,6 @@ fun AnalysisScreen(
     if (shouldCelebrate(report.accuracy) && showCelebrations) {
         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
         play = true
-    }
-
-    val weakest by remember(report) {
-        derivedStateOf {
-            val perfs = report.timePerSection.map {
-                TopicPerf(it.topicId.toString(), it.attempts, (it.accuracy * it.attempts / 100).toInt())
-            }
-            weakestTopic(perfs)
-        }
     }
 
     Box {
@@ -81,7 +72,7 @@ fun AnalysisScreen(
                     )
                 }
             }
-            weakest?.let { topic ->
+            weakestTopic?.let { topic ->
                 Column(verticalArrangement = spacedBy(8.dp)) {
                     Button(onClick = {
                         val encoded = Uri.encode(topic)
@@ -119,11 +110,5 @@ fun AnalysisScreen(
                 modifier = Modifier.fillMaxSize()
             )
         }
-    } 
+    }
 }
-
-data class TopicPerf(val topic: String, val attempts: Int, val correct: Int)
-
-private fun weakestTopic(items: List<TopicPerf>, minAttempts: Int = 6): String? =
-    items.filter { it.attempts >= minAttempts }
-        .minByOrNull { if (it.attempts == 0) 1.0 else it.correct.toDouble() / it.attempts }?.topic

@@ -47,7 +47,7 @@ fun AnalyticsCatalogue(statuses: List<ModuleStatus>, nav: NavController) {
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        items(statuses) { s ->
+        items(statuses, key = { it.module }) { s ->
             val alpha = if (s.unlocked) 1f else 0.3f
             Card(
                 modifier = Modifier
@@ -102,7 +102,7 @@ class AnalyticsCatalogueViewModel @Inject constructor(
     }
 
     fun refresh(stats: UnlockStats) {
-        _statuses.value = unlocker.statuses(stats)
+        _statuses.value = unlocker.statuses(stats).toList()
     }
 }
 

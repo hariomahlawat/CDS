@@ -6,6 +6,7 @@ import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReport
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
 import com.concepts_and_quizzes.cds.data.settings.UserPreferences
 import com.concepts_and_quizzes.cds.ui.components.UiState
+import com.concepts_and_quizzes.cds.ui.english.analysis.weakestTopic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,9 @@ class LastQuizViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state = MutableStateFlow<UiState<QuizReport>>(UiState.Loading)
     val state: StateFlow<UiState<QuizReport>> = _state
+
+    private val _weakest = MutableStateFlow<String?>(null)
+    val weakest: StateFlow<String?> = _weakest
 
     private var sessionId: String? = null
 
@@ -37,6 +41,7 @@ class LastQuizViewModel @Inject constructor(
                     return@launch
                 }
                 val report = repo.analyse(sid)
+                _weakest.value = weakestTopic(report)
                 _state.value = UiState.Data(report)
             } catch (e: Exception) {
                 _state.value = UiState.Error(e.message ?: "Failed to load report")

@@ -33,13 +33,13 @@ fun ConceptsHomeScreen(nav: NavHostController, viewModel: ConceptsHomeViewModel 
         }
         if (selected.value == 0) {
             LazyColumn {
-                items(topics) { topic ->
+                items(topics, key = { it.id }) { topic ->
                     TopicCard(topic) { nav.navigate("english/concepts/${topic.id}") }
                 }
             }
         } else {
             LazyColumn {
-                items(bookmarks) { concept ->
+                items(bookmarks, key = { it.id }) { concept ->
                     BookmarkCard(concept) { nav.navigate("discover/${concept.id}") }
                 }
             }

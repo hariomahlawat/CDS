@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReport
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
 import com.concepts_and_quizzes.cds.data.settings.UserPreferences
+import com.concepts_and_quizzes.cds.ui.english.analysis.weakestTopic
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,9 +23,14 @@ class AnalysisViewModel @Inject constructor(
     private val _report = MutableStateFlow<QuizReport?>(null)
     val report: StateFlow<QuizReport?> = _report
 
+    private val _weakest = MutableStateFlow<String?>(null)
+    val weakest: StateFlow<String?> = _weakest
+
     init {
         viewModelScope.launch {
-            _report.value = repo.analyse(sessionId)
+            val r = repo.analyse(sessionId)
+            _report.value = r
+            _weakest.value = weakestTopic(r)
         }
     }
 }

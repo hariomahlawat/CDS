@@ -57,22 +57,23 @@ fun QuizHubScreen(nav: NavHostController, vm: QuizHubViewModel = hiltViewModel()
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text("Quiz Hub")
+            val modes = remember {
+                listOf(
+                    Mode("Full Paper", "Full past paper") { nav.navigate("english/pyqp?mode=FULL") },
+                    Mode("Topic", "Topic drill") {
+                        val topic = Uri.encode("t1")
+                        nav.navigate("english/pyqp?mode=TOPIC&topic=$topic")
+                    },
+                    Mode("Wrongs", "Retry mistakes") { nav.navigate("english/pyqp?mode=WRONGS") },
+                    Mode("Timed 20", "20Q sprint") { nav.navigate("english/pyqp?mode=TIMED20") },
+                    Mode("Mixed", "Mixed bag") { nav.navigate("english/pyqp?mode=MIXED") }
+                )
+            }
             LazyRow(
                 contentPadding = PaddingValues(vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                items(
-                    listOf(
-                        Mode("Full Paper", "Full past paper") { nav.navigate("english/pyqp?mode=FULL") },
-                        Mode("Topic", "Topic drill") {
-                            val topic = Uri.encode("t1")
-                            nav.navigate("english/pyqp?mode=TOPIC&topic=$topic")
-                        },
-                        Mode("Wrongs", "Retry mistakes") { nav.navigate("english/pyqp?mode=WRONGS") },
-                        Mode("Timed 20", "20Q sprint") { nav.navigate("english/pyqp?mode=TIMED20") },
-                        Mode("Mixed", "Mixed bag") { nav.navigate("english/pyqp?mode=MIXED") }
-                    )
-                ) { m ->
+                items(modes, key = { it.title }) { m ->
                     ModeCard(m)
                 }
             }
