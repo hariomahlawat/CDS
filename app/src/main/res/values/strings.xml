@@ -18,4 +18,14 @@
     <string name="quick_wrong_only">Wrong-only</string>
     <string name="quick_timed_20">Timed 20</string>
     <string name="quick_mixed">Mixed</string>
+    <string name="wrong_only_title">Wrong-only</string>
+    <string name="wrong_only_sub">Practise questions you got wrong</string>
+    <string name="wrong_only_disabled">No wrong answers yet. Attempt a quiz first.</string>
+    <string name="timed20_title">Timed 20</string>
+    <string name="timed20_sub">20 questions against the clock</string>
+    <string name="mixed_title">Mixed</string>
+    <string name="coming_soon_title">Coming soon</string>
+    <string name="coming_soon_body_generic">This feature will be available shortly.</string>
+    <string name="coming_soon_body_timed20">Timed 20 will be available shortly.</string>
+    <string name="coming_soon_body_mixed">Mixed practice will be available shortly.</string>
 </resources>

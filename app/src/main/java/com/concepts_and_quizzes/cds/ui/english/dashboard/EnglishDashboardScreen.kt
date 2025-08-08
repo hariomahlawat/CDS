@@ -3,62 +3,47 @@ package com.concepts_and_quizzes.cds.ui.english.dashboard
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Article
-import androidx.compose.material.icons.filled.QuestionAnswer
-import androidx.compose.material.icons.filled.Replay
-import androidx.compose.material.icons.filled.Shuffle
-import androidx.compose.material.icons.filled.Timer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import java.time.LocalTime
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.animateIntAsState
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.ProgressIndicatorDefaults
-import androidx.compose.ui.res.stringResource
 import com.concepts_and_quizzes.cds.R
 import com.concepts_and_quizzes.cds.core.components.CdsCard
 import com.concepts_and_quizzes.cds.core.theme.Dimens
+import com.concepts_and_quizzes.cds.ui.common.ModeCard
 import com.concepts_and_quizzes.cds.ui.components.EmptyState
 import com.concepts_and_quizzes.cds.ui.components.ErrorState
 import com.concepts_and_quizzes.cds.ui.components.LoadingSkeleton
@@ -67,7 +52,7 @@ import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubViewModel
 import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.O)
-@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel = hiltViewModel()) {
     val resumeVm: QuizHubViewModel = hiltViewModel()
@@ -75,6 +60,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
     val savedProgress by resumeVm.progress.collectAsState()
     val summary by vm.summary.collectAsState()
     val questionsToday by vm.questionsToday.collectAsState()
+    val availability = vm.availability.collectAsState().value
     val tipsState by vm.tips.collectAsState()
     val count by animateIntAsState(targetValue = questionsToday, label = "count")
     val snackbarHostState = remember { SnackbarHostState() }
@@ -165,28 +151,33 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             }
         }
 
-        FlowRow(
-            modifier = Modifier
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.spacedBy(Dimens.ChipSpacingX),
-            verticalArrangement = Arrangement.spacedBy(Dimens.ChipSpacingX)
-        ) {
-            val topic = Uri.encode("t1")
-            ActionChip(Icons.Filled.Article, stringResource(R.string.quick_topic)) {
-                nav.navigate("english/pyqp?mode=TOPIC&topic=$topic")
+        availability?.let { avail ->
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                ModeCard(
+                    title = stringResource(R.string.wrong_only_title),
+                    subtitle = stringResource(R.string.wrong_only_sub),
+                    enabled = avail.wrongOnlyAvailable,
+                    disabledCaption = stringResource(R.string.wrong_only_disabled)
+                ) {
+                    nav.navigate("english/pyqp?mode=WRONGS")
+                }
+                ModeCard(
+                    title = stringResource(R.string.timed20_title),
+                    subtitle = stringResource(R.string.timed20_sub),
+                    enabled = false
+                ) { nav.navigate("comingSoon/timed20") }
+                ModeCard(
+                    title = stringResource(R.string.mixed_title),
+                    subtitle = stringResource(R.string.coming_soon_title),
+                    enabled = false
+                ) { nav.navigate("comingSoon/mixed") }
             }
-            ActionChip(Icons.Filled.Replay, stringResource(R.string.quick_wrong_only)) {
-                nav.navigate("english/pyqp?mode=WRONGS")
-            }
-            ActionChip(Icons.Filled.Timer, stringResource(R.string.quick_timed_20)) {
-                nav.navigate("english/pyqp?mode=TIMED20")
-            }
-            ActionChip(Icons.Filled.Shuffle, stringResource(R.string.quick_mixed)) {
-                nav.navigate("english/pyqp?mode=MIXED")
-            }
+            Spacer(Modifier.height(16.dp))
         }
-
-        Spacer(Modifier.height(16.dp))
 
         Row(
             Modifier
@@ -228,34 +219,6 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
     }
     }
 }
-
-@Composable
-private fun ActionChip(icon: ImageVector, label: String, onClick: () -> Unit) {
-    val interaction = remember { MutableInteractionSource() }
-    val pressed by interaction.collectIsPressedAsState()
-    val scale by animateFloatAsState(targetValue = if (pressed) 0.95f else 1f, label = "scale")
-
-    Surface(
-        modifier = Modifier
-            .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
-            }
-            .clickable(interactionSource = interaction, indication = null, onClick = onClick),
-        shape = MaterialTheme.shapes.small,
-        color = MaterialTheme.colorScheme.secondaryContainer
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(icon, contentDescription = null)
-            Spacer(Modifier.width(8.dp))
-            Text(label)
-        }
-    }
-}
-
 @Composable
 private fun MiniTrendCard(modifier: Modifier = Modifier, onClick: () -> Unit) {
     CdsCard(modifier = modifier, onClick = onClick) {
