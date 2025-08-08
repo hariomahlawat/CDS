@@ -30,8 +30,7 @@ fun HeatMapPage(
     vm: HeatMapViewModel = hiltViewModel()
 ) {
     GhostOverlay(
-        unlocked = status.unlocked,
-        reason = status.reason,
+        status = status,
         skeleton = { HeatmapSkeleton() },
     ) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

@@ -29,8 +29,7 @@ fun PeerPage(
     vm: PeerViewModel = hiltViewModel()
 ) {
     GhostOverlay(
-        unlocked = status.unlocked,
-        reason = status.reason,
+        status = status,
         skeleton = { PeerSkeleton() },
     ) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

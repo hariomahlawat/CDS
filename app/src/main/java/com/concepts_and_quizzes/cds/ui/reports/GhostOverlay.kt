@@ -14,10 +14,17 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import com.concepts_and_quizzes.cds.data.analytics.unlock.LockedReason
+import com.concepts_and_quizzes.cds.data.analytics.unlock.ModuleStatus
+import com.concepts_and_quizzes.cds.data.analytics.telemetry.Telemetry
 import com.concepts_and_quizzes.cds.util.toPretty
 
 /**
@@ -26,18 +33,33 @@ import com.concepts_and_quizzes.cds.util.toPretty
  */
 @Composable
 fun GhostOverlay(
-    unlocked: Boolean,
-    reason: LockedReason?,
+    status: ModuleStatus,
     modifier: Modifier = Modifier,
     skeleton: @Composable BoxScope.() -> Unit,
     content: @Composable BoxScope.() -> Unit,
 ) {
+    val unlocked = status.unlocked
+    val reason = status.reason
+
+    var loggedView by remember { mutableStateOf(false) }
+    LaunchedEffect(unlocked) {
+        val moduleName = status.module.name
+        val remaining = (reason as? LockedReason.MoreQuizzes)?.remaining ?: 0
+        if (!unlocked && !loggedView) {
+            Telemetry.logUnlockView(moduleName, remaining, status.progress)
+            loggedView = true
+        } else if (unlocked && loggedView) {
+            Telemetry.logUnlockSuccess(moduleName)
+            loggedView = false
+        }
+    }
+
     Box(modifier) {
         Box(Modifier.fillMaxSize(), content = content)
         AnimatedContent(
             targetState = unlocked,
             transitionSpec = { fadeIn() togetherWith fadeOut() },
-            label = "ghostOverlay"
+            label = "ghostOverlay",
         ) { isUnlocked ->
             if (!isUnlocked) {
                 Box(Modifier.fillMaxSize()) {
@@ -46,11 +68,11 @@ fun GhostOverlay(
                             .fillMaxSize()
                             .alpha(0.3f),
                         contentAlignment = Alignment.Center,
-                        content = skeleton
+                        content = skeleton,
                     )
                     Column(
                         modifier = Modifier.align(Alignment.Center),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Icon(Icons.Filled.Lock, contentDescription = "Locked")
                         reason?.let {
