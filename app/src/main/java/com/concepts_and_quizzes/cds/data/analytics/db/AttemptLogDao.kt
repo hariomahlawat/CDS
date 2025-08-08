@@ -40,6 +40,21 @@ interface AttemptLogDao {
     )
     suspend fun latestWrongQids(topicId: String): List<String>
 
+    @Query(
+        """
+        SELECT a.qid
+        FROM attempt_log a
+        JOIN pyqp_questions q ON a.qid = q.qid
+        WHERE a.timestamp = (
+            SELECT MAX(a2.timestamp)
+            FROM attempt_log a2
+            WHERE a2.qid = a.qid
+        )
+          AND a.correct = 0
+        """
+    )
+    suspend fun latestWrongQids(): List<String>
+
     // --- Trend over time ---
     @Query(
         """

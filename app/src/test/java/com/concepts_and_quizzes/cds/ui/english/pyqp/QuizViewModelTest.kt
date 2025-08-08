@@ -75,6 +75,7 @@ class QuizViewModelTest {
             }
             override suspend fun forSession(sid: String): List<AttemptLogEntity> = emptyList()
             override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
+            override suspend fun latestWrongQids(): List<String> = emptyList()
             override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
             override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
             override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> = flowOf(emptyList())
@@ -137,7 +138,8 @@ class QuizViewModelTest {
             override suspend fun insertAll(attempts: List<AttemptLogEntity>) {}
             override suspend fun upsertAll(rows: List<AttemptLogEntity>) {}
             override suspend fun forSession(sid: String): List<AttemptLogEntity> = emptyList()
-            override suspend fun latestWrongQids(topicId: String): List<String> = listOf("q1", "q2")
+            override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
+            override suspend fun latestWrongQids(): List<String> = listOf("q1", "q2")
             override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
             override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
             override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> = flowOf(emptyList())
@@ -161,7 +163,7 @@ class QuizViewModelTest {
             analytics,
             reportRepo,
             QuizResumeStore(context),
-            SavedStateHandle(mapOf("mode" to "WRONGS", "topic" to "grammar"))
+            SavedStateHandle(mapOf("mode" to "WRONGS"))
         )
         advanceUntilIdle()
         assertEquals(2, vm.questionCount)
@@ -185,6 +187,7 @@ class QuizViewModelTest {
             override suspend fun upsertAll(rows: List<AttemptLogEntity>) {}
             override suspend fun forSession(sid: String): List<AttemptLogEntity> = emptyList()
             override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
+            override suspend fun latestWrongQids(): List<String> = emptyList()
             override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
             override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
             override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> = flowOf(emptyList())
@@ -230,6 +233,7 @@ class QuizViewModelTest {
             override suspend fun upsertAll(rows: List<AttemptLogEntity>) {}
             override suspend fun forSession(sid: String): List<AttemptLogEntity> = emptyList()
             override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
+            override suspend fun latestWrongQids(): List<String> = emptyList()
             override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
             override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
             override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> =
@@ -285,6 +289,7 @@ class QuizViewModelTest {
             override suspend fun upsertAll(rows: List<AttemptLogEntity>) {}
             override suspend fun forSession(sid: String): List<AttemptLogEntity> = emptyList()
             override suspend fun latestWrongQids(topicId: String): List<String> = emptyList()
+            override suspend fun latestWrongQids(): List<String> = emptyList()
             override fun getTrend(startTime: Long): Flow<List<TopicTrendPointDb>> = flowOf(emptyList())
             override fun getDifficulty(): Flow<List<TopicDifficultyDb>> = flowOf(emptyList())
             override fun getAttemptsWithScore(): Flow<List<com.concepts_and_quizzes.cds.data.analytics.db.AttemptWithScoreDb>> = flowOf(emptyList())

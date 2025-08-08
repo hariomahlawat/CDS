@@ -86,8 +86,7 @@ class QuizViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             if (mode == "WRONGS") {
-                val t = topic ?: return@launch
-                val qs = repo.wrongOnlyQuestions(t)
+                val qs = repo.wrongOnlyQuestions(topic?.takeIf { it.isNotEmpty() })
                 questions = qs
                 if (qs.isNotEmpty()) {
                     buildPages(qs)

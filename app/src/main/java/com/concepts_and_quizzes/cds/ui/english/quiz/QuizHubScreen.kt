@@ -40,8 +40,13 @@ fun QuizHubScreen(nav: NavHostController, vm: QuizHubViewModel = hiltViewModel()
             )
             if (result == SnackbarResult.ActionPerformed) {
                 val dest = if (s.paperId.startsWith("WRONGS:")) {
-                    val topic = Uri.encode(s.paperId.removePrefix("WRONGS:"))
-                    "english/pyqp?mode=WRONGS&topic=$topic"
+                    val topic = s.paperId.removePrefix("WRONGS:")
+                    if (topic.isNotEmpty()) {
+                        val enc = Uri.encode(topic)
+                        "english/pyqp?mode=WRONGS&topic=$enc"
+                    } else {
+                        "english/pyqp?mode=WRONGS"
+                    }
                 } else {
                     "english/pyqp/${s.paperId}"
                 }
