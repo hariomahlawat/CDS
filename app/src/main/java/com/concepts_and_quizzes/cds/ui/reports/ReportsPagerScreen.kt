@@ -14,6 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.concepts_and_quizzes.cds.ui.reports.trend.TrendPage
+import com.concepts_and_quizzes.cds.ui.reports.heatmap.HeatMapPage
+import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
+import com.concepts_and_quizzes.cds.ui.reports.peer.PeerPage
 import com.concepts_and_quizzes.cds.ui.english.analysis.AnalysisScreen
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -29,10 +33,10 @@ fun ReportsPagerScreen(
     ) { page ->
         when (page) {
             0 -> LastQuizPage(navArgs.analysisSessionId)
-            1 -> TrendPagePlaceholder()
-            2 -> HeatMapPlaceholder()
-            3 -> TimeMgmtPlaceholder()
-            4 -> PeerPlaceholder()
+            1 -> TrendPage()
+            2 -> HeatMapPage()
+            3 -> TimePage()
+            4 -> PeerPage()
         }
     }
 }
@@ -47,31 +51,4 @@ fun LastQuizPage(sessionId: String?) {
     }
 }
 
-@Composable
-fun TrendPagePlaceholder() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Trend")
-    }
-}
-
-@Composable
-fun HeatMapPlaceholder() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Heat Map")
-    }
-}
-
-@Composable
-fun TimeMgmtPlaceholder() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Time Mgmt")
-    }
-}
-
-@Composable
-fun PeerPlaceholder() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Peer")
-    }
-}
 
