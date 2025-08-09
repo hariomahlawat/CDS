@@ -38,9 +38,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import com.concepts_and_quizzes.cds.ui.reports.trend.TrendPage
-import com.concepts_and_quizzes.cds.ui.reports.heatmap.HeatMapPage
 import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
 import com.concepts_and_quizzes.cds.ui.reports.peer.PeerPage
+import com.concepts_and_quizzes.cds.ui.reports.heatmap.HeatmapPage
 import com.concepts_and_quizzes.cds.util.ShareUtils
 import com.concepts_and_quizzes.cds.data.analytics.telemetry.Telemetry
 
@@ -119,7 +119,7 @@ fun ReportsScreen(
                 when (page) {
                     0 -> LastQuizPage(navArgs.analysisSessionId)
                     1 -> TrendPage()
-                    2 -> HeatMapPage()
+                    2 -> HeatMapPage(window = window)
                     3 -> TimePage(window = window)
                     4 -> PeerPage()
                 }
