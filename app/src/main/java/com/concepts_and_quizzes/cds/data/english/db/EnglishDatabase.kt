@@ -20,6 +20,7 @@ import com.concepts_and_quizzes.cds.data.english.model.EnglishQuestionEntity
 import com.concepts_and_quizzes.cds.data.english.model.EnglishTopicEntity
 import com.concepts_and_quizzes.cds.data.english.model.PyqpProgress
 import com.concepts_and_quizzes.cds.data.english.model.PyqpQuestionEntity
+import com.concepts_and_quizzes.cds.data.analytics.db.LastReviewDao
 
 @Database(
     entities = [
@@ -53,4 +54,5 @@ abstract class EnglishDatabase : RoomDatabase() {
     abstract fun conceptDao(): ConceptDao
     abstract fun sessionDao(): SessionDao
     abstract fun timeAnalysisDao(): TimeAnalysisDao
+    abstract fun lastReviewDao(): LastReviewDao
 }

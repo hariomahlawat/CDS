@@ -18,8 +18,8 @@ import com.concepts_and_quizzes.cds.ui.components.ErrorState
 import com.concepts_and_quizzes.cds.ui.components.LoadingSkeleton
 import com.concepts_and_quizzes.cds.ui.components.UiState
 import com.concepts_and_quizzes.cds.ui.reports.LastQuizViewModel.LastUi
-import com.concepts_and_quizzes.cds.ui.reports.LastQuizViewModel.LastUiQuestion
-import com.concepts_and_quizzes.cds.ui.reports.LastQuizViewModel.LastUiOption
+import com.concepts_and_quizzes.cds.data.analytics.repo.LastUiQuestion
+import com.concepts_and_quizzes.cds.data.analytics.repo.LastUiOption
 
 @Composable
 fun LastQuizPage(sessionId: String?) {

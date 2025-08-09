@@ -32,7 +32,6 @@ class LastQuizViewModel @Inject constructor(
                     _state.value = UiState.Empty("No recent quiz", "Reload")
                     return@launch
                 }
-
                 val r: LastReviewResult = repo.load(sid)
                 if (r.total == 0) {
                     _state.value = UiState.Empty("No recent quiz", "Reload")
@@ -54,8 +53,6 @@ class LastQuizViewModel @Inject constructor(
     }
 
     fun refresh() = load(_lastSessionId)
-
-    /* ------------------------------- UI model ------------------------------- */
 
     data class LastUi(
         val total: Int,
