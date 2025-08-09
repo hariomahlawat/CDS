@@ -2,6 +2,7 @@ package com.concepts_and_quizzes.cds.data.english.db
 
 import android.content.Context
 import androidx.room.Room
+import com.concepts_and_quizzes.cds.data.analytics.QuizReviewRepository
 import com.concepts_and_quizzes.cds.data.english.repo.EnglishRepository
 import com.concepts_and_quizzes.cds.data.english.repo.PyqpRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.AttemptLogDao
@@ -118,5 +119,13 @@ object EnglishDatabaseModule {
     fun provideQuizReportRepository(
         traceDao: QuizTraceDao
     ): QuizReportRepository = QuizReportRepository(traceDao)
+
+    @Provides
+    @javax.inject.Singleton
+    fun provideQuizReviewRepository(
+        attemptDao: AttemptLogDao,
+        mapDao: SessionQuestionMapDao,
+        pyqpDao: PyqpDao
+    ): QuizReviewRepository = QuizReviewRepository(attemptDao, mapDao, pyqpDao)
 
 }
