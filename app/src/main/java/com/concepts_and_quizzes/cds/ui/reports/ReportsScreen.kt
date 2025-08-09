@@ -120,7 +120,7 @@ fun ReportsScreen(
                     0 -> LastQuizPage(navArgs.analysisSessionId)
                     1 -> TrendPage()
                     2 -> HeatMapPage()
-                    3 -> TimePage()
+                    3 -> TimePage(window = window)
                     4 -> PeerPage()
                 }
             }

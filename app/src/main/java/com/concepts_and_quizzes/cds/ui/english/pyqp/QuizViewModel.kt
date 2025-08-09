@@ -54,6 +54,8 @@ class QuizViewModel @Inject constructor(
     private val durations = mutableMapOf<Int, Int>()
     private var currentQuestion: Int? = null
     private var questionStartMs = SystemClock.elapsedRealtime()
+    private val startedAtEpoch = mutableMapOf<Int, Long>()
+    private val answeredAtEpoch = mutableMapOf<Int, Long>()
 
     private val _showResult = MutableStateFlow(state["showResult"] ?: false)
     val showResult: StateFlow<Boolean> = _showResult
@@ -152,6 +154,7 @@ class QuizViewModel @Inject constructor(
             is Item.Question -> {
                 currentQuestion = item.questionIndex
                 questionStartMs = SystemClock.elapsedRealtime()
+                startedAtEpoch.putIfAbsent(item.questionIndex, System.currentTimeMillis())
                 _ui.value = QuizUi.Page(
                     pageIndex,
                     pages.size,
@@ -173,6 +176,7 @@ class QuizViewModel @Inject constructor(
         val elapsed = (now - questionStartMs).toInt()
         durations[idx] = durations.getOrDefault(idx, 0) + elapsed
         questionStartMs = now
+        answeredAtEpoch[idx] = System.currentTimeMillis()
     }
 
     private fun schedulePersist() {
@@ -348,14 +352,16 @@ class QuizViewModel @Inject constructor(
         val attempts = questions.mapIndexed { i, q ->
             val ansIdx = answers[i]
             val correct = ansIdx != null && q.options[ansIdx].isCorrect
+            val answeredEpoch = answeredAtEpoch[i] ?: now
+            val startedEpoch = startedAtEpoch[i] ?: (answeredEpoch - (durations[i] ?: 0).toLong())
             viewModelScope.launch {
                 reportRepo.insertTrace(
                     QuizTrace(
                         sessionId = sessionId,
                         questionId = i,
                         topicId = q.topic.hashCode(),
-                        startedAt = 0L,
-                        answeredAt = (durations[i] ?: 0).toLong(),
+                        startedAt = startedEpoch,
+                        answeredAt = answeredEpoch,
                         isCorrect = correct
                     )
                 )
@@ -366,10 +372,12 @@ class QuizViewModel @Inject constructor(
                 correct = correct,
                 flagged = flags.contains(i),
                 durationMs = durations[i] ?: 0,
-                timestamp = now,
+                timestamp = answeredEpoch,
                 sessionId = sessionId,
                 questionIndex = i,
-                selectedIndex = ansIdx
+                selectedIndex = ansIdx,
+                startedAt = startedEpoch,
+                answeredAt = answeredEpoch
             )
         }
         viewModelScope.launch { analytics.insertAttempts(attempts) }
