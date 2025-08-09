@@ -17,6 +17,8 @@ import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
 import com.concepts_and_quizzes.cds.ui.reports.label
 import com.concepts_and_quizzes.cds.ui.reports.asWindowArg
 import com.concepts_and_quizzes.cds.ui.reports.WindowRange
+import com.concepts_and_quizzes.cds.ui.reports.LastQuizPage
+import com.concepts_and_quizzes.cds.ui.reports.ReportsNavArgs
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
