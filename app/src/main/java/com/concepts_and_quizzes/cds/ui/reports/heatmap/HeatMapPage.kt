@@ -18,6 +18,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
+import androidx.compose.ui.unit.min
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -38,7 +39,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.ceil
-import kotlin.math.min
 
 /* ============================== Public entry =============================== */
 
@@ -195,7 +195,8 @@ private fun DailyHeatmapGrid(
             ((maxWidth - gap * (cols + 1)) / cols.toFloat()).coerceAtLeast(8.dp)
         )
 
-        val levels = remember { colorSteps(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.surfaceVariant) }
+        val colors = MaterialTheme.colorScheme
+        val levels = remember(colors) { colorSteps(colors.primary, colors.surfaceVariant) }
 
         Canvas(Modifier.fillMaxWidth().height(rows * tile + (rows + 1) * gap)) {
             val tilePx = tile.toPx()
@@ -274,7 +275,8 @@ private fun HourlyHeatmapGrid(
     BoxWithConstraints(Modifier.fillMaxWidth().heightIn(min = 160.dp)) {
         val gap = 2.dp
         val tile = min(18.dp, ((maxWidth - gap * (cols + 1)) / cols.toFloat()).coerceAtLeast(8.dp))
-        val levels = remember { colorSteps(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.surfaceVariant) }
+        val colors = MaterialTheme.colorScheme
+        val levels = remember(colors) { colorSteps(colors.primary, colors.surfaceVariant) }
 
         Canvas(Modifier.fillMaxWidth().height(rows * tile + (rows + 1) * gap)) {
             val tilePx = tile.toPx()
@@ -323,12 +325,13 @@ private fun HourlyHeatmapGrid(
 
 @Composable
 private fun Legend(maxMinutes: Double) {
-    val levels = remember { colorSteps(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.surfaceVariant) }
+    val colors = MaterialTheme.colorScheme
+    val levels = remember(colors) { colorSteps(colors.primary, colors.surfaceVariant) }
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text("Less", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("Less", style = MaterialTheme.typography.labelSmall, color = colors.onSurfaceVariant)
         levels.forEach { c -> Box(Modifier.size(14.dp).background(c, shape = MaterialTheme.shapes.small)) }
         Spacer(Modifier.width(8.dp))
-        Text("More", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text("More", style = MaterialTheme.typography.labelSmall, color = colors.onSurfaceVariant)
     }
 }
 
@@ -348,7 +351,7 @@ private fun toDailyUi(rows: List<DailyHeatDb>, desiredWeeks: Int): HeatmapUi {
 
     // Group by week key (YYYYWW), keep last N weeks
     val byWeek = rows.groupBy { it.yw }.toSortedMap()
-    val weekKeys = byWeek.keys.takeLast(desiredWeeks)
+    val weekKeys = byWeek.keys.toList().takeLast(desiredWeeks)
     val cols = weekKeys.size
     if (cols == 0) return HeatmapUi.Empty
 
