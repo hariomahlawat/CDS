@@ -141,8 +141,11 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                         content = {
                             prog?.let { p ->
                                 LinearProgressIndicator(
-                                    progress = p.percent / 100f,
-                                    modifier = Modifier.fillMaxWidth()
+                                progress = { p.percent / 100f },
+                                modifier = Modifier.fillMaxWidth(),
+                                color = ProgressIndicatorDefaults.linearColor,
+                                trackColor = ProgressIndicatorDefaults.linearTrackColor,
+                                strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
                                 )
                             }
                         },

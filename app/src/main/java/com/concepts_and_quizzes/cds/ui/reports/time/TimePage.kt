@@ -1,5 +1,7 @@
 package com.concepts_and_quizzes.cds.ui.reports.time
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -81,6 +83,7 @@ class TimeViewModel @Inject constructor(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TimePage(
     window: Window,
@@ -106,6 +109,7 @@ fun TimePage(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun TimeContent(data: TimeUiData) {
     Column(
@@ -121,12 +125,14 @@ private fun TimeContent(data: TimeUiData) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun DailyMinutesChart(data: List<DailyMinutes>) {
     val max = data.maxOfOrNull { it.minutes } ?: 1.0
     val dateParser = remember { DateTimeFormatter.ofPattern("yyyy-MM-dd") }
     val labelFormatter = remember { DateTimeFormatter.ofPattern("MM-dd") }
     val descFormatter = remember { DateTimeFormatter.ofPattern("EEE, d MMM") }
+    val colorDL = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
     Column(Modifier.fillMaxWidth()) {
         Box(
             Modifier
@@ -138,7 +144,7 @@ private fun DailyMinutesChart(data: List<DailyMinutes>) {
                 repeat(3) { i ->
                     val y = size.height - step * (i + 1)
                     drawLine(
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f),
+                        color = colorDL,
                         start = Offset(0f, y),
                         end = Offset(size.width, y),
                         strokeWidth = 1f
