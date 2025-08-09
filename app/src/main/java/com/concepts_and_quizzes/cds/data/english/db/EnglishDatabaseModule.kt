@@ -11,12 +11,14 @@ import com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatDao
 import com.concepts_and_quizzes.cds.data.analytics.db.SessionDao
 import com.concepts_and_quizzes.cds.data.analytics.db.TimeAnalysisDao
 import com.concepts_and_quizzes.cds.data.analytics.db.HeatmapDao
+import com.concepts_and_quizzes.cds.data.analytics.db.LastReviewDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.analytics.repo.TimeAnalysisRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.QuizTraceDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.SessionQuestionMapDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.HeatmapRepository
+import com.concepts_and_quizzes.cds.data.analytics.repo.LastReviewRepository
 import com.concepts_and_quizzes.cds.data.db.MIGRATION_8_9
 import com.concepts_and_quizzes.cds.data.db.MIGRATION_9_10
 import com.concepts_and_quizzes.cds.data.db.MIGRATION_10_11
@@ -39,6 +41,8 @@ object EnglishDatabaseModule {
             .fallbackToDestructiveMigration()
             .build()
 
+    @Provides
+    fun provideLastReviewDao(db: EnglishDatabase): LastReviewDao = db.lastReviewDao()
     @Provides
     fun provideTopicDao(db: EnglishDatabase): EnglishTopicDao = db.topicDao()
 
@@ -120,12 +124,7 @@ object EnglishDatabaseModule {
         traceDao: QuizTraceDao
     ): QuizReportRepository = QuizReportRepository(traceDao)
 
+    @Singleton
     @Provides
-    @javax.inject.Singleton
-    fun provideQuizReviewRepository(
-        attemptDao: AttemptLogDao,
-        mapDao: SessionQuestionMapDao,
-        pyqpDao: PyqpDao
-    ): QuizReviewRepository = QuizReviewRepository(attemptDao, mapDao, pyqpDao)
-
+    fun provideLastReviewRepository(dao: LastReviewDao): LastReviewRepository = LastReviewRepository(dao)
 }
