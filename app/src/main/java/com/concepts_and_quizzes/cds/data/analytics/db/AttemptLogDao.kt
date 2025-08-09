@@ -24,7 +24,7 @@ interface AttemptLogDao {
     @Query(
         """
         SELECT q.topicId AS topicId,
-               strftime('%Y-%m-%d', a.timestamp/1000, 'unixepoch') AS day,
+               strftime('%Y-%m-%d', a.timestamp/1000, 'unixepoch', 'localtime') AS day,
                COUNT(*) AS total,
                SUM(CASE WHEN a.correct THEN 1 ELSE 0 END) AS correct
         FROM attempt_log a
