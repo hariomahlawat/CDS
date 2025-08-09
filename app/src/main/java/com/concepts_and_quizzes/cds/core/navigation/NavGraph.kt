@@ -1,5 +1,7 @@
 package com.concepts_and_quizzes.cds.core.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,12 +27,12 @@ import com.concepts_and_quizzes.cds.ui.english.pyqp.PyqAnalyticsScreen
 import com.concepts_and_quizzes.cds.ui.analytics.AnalyticsCatalogueScreen
 import com.concepts_and_quizzes.cds.ui.analytics.PlaceholderAnalyticsScreen
 import com.concepts_and_quizzes.cds.ui.reports.ReportsNavArgs
-import com.concepts_and_quizzes.cds.ui.reports.ReportsPagerScreen
 import com.concepts_and_quizzes.cds.ui.english.pyqp.QuizScreen as PyqpQuizScreen
 import com.concepts_and_quizzes.cds.ui.common.ComingSoonScreen
 import com.concepts_and_quizzes.cds.ui.common.ModeAvailabilityViewModel
 import com.concepts_and_quizzes.cds.R
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.rootGraph(nav: NavHostController) {
     composable("english/dashboard") { EnglishDashboardScreen(nav) }
     composable("english/concepts") { ConceptsHomeScreen(nav) }

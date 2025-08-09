@@ -1,137 +1,124 @@
 package com.concepts_and_quizzes.cds.ui.reports
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import android.graphics.Rect
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.VerticalPager
-import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.boundsInWindow
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.launch
-import com.concepts_and_quizzes.cds.ui.reports.trend.TrendPage
-import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
-import com.concepts_and_quizzes.cds.ui.reports.peer.PeerPage
 import com.concepts_and_quizzes.cds.ui.reports.heatmap.HeatmapPage
-import com.concepts_and_quizzes.cds.util.ShareUtils
-import com.concepts_and_quizzes.cds.data.analytics.telemetry.Telemetry
+import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
+import com.concepts_and_quizzes.cds.ui.reports.label
+import com.concepts_and_quizzes.cds.ui.reports.asWindowArg
+import com.concepts_and_quizzes.cds.ui.reports.WindowRange
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReportsScreen(
-    navArgs: ReportsNavArgs = ReportsNavArgs(),
-    shared: ReportsSharedViewModel = hiltViewModel()
+    onShare: () -> Unit = {}
 ) {
-    val window by shared.window.collectAsState()
-    val pagerState = rememberPagerState(initialPage = shared.startPage, pageCount = { 5 })
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
-    val view = LocalView.current
-    var pagerRect by remember { mutableStateOf<Rect?>(null) }
-    val currentPage by remember { derivedStateOf { pagerState.currentPage } }
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    var range by rememberSaveable { mutableStateOf(WindowRange.D7) }
+    val windowArg = range.asWindowArg()
+
+    var selectedTab by rememberSaveable { mutableIntStateOf(0) }
     val tabs = remember { listOf("Last", "Trend", "Heatmap", "Time", "Peer") }
-    val windows = remember { Window.entries }
 
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
-                title = { Text("Reports") },
+                title = { Text("Reports", maxLines = 1, overflow = TextOverflow.Ellipsis) },
                 actions = {
-                    IconButton(onClick = {
-                        pagerRect?.let { rect ->
-                            ShareUtils.shareViewAsImage(
-                                context = context,
-                                view = view,
-                                rect = rect
-                            )
-                            Telemetry.logReportShared()
-                        }
-                    }) {
-                        Icon(Icons.Filled.Share, contentDescription = "Share")
+                    WindowPickerAction(range = range, onPick = { range = it })
+                    IconButton(onClick = onShare) {
+                        Icon(Icons.Outlined.Share, contentDescription = "Share")
                     }
-                }
+                },
+                scrollBehavior = scrollBehavior
             )
         }
     ) { inner ->
-        Column(modifier = Modifier.padding(inner)) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(inner)
+        ) {
+            TabRow(
+                selectedTabIndex = selectedTab,
+                divider = {},
+                containerColor = MaterialTheme.colorScheme.surface
             ) {
-                windows.forEach { w ->
-                    FilterChip(
-                        selected = window == w,
-                        onClick = { shared.setWindow(w) },
-                        label = { Text(text = w.label) }
-                    )
-                }
-            }
-            TabRow(selectedTabIndex = currentPage) {
-                tabs.forEachIndexed { index, title ->
+                tabs.forEachIndexed { index, label ->
                     Tab(
-                        selected = currentPage == index,
-                        onClick = { scope.launch { pagerState.animateScrollToPage(index) } },
-                        text = { Text(title) }
+                        selected = selectedTab == index,
+                        onClick = { selectedTab = index },
+                        text = { Text(label) }
                     )
                 }
             }
-            VerticalPager(
-                state = pagerState,
-                key = { it },
-                modifier = Modifier
-                    .weight(1f)
-                    .testTag("reportsPager")
-                    .onGloballyPositioned { coords ->
-                        val b = coords.boundsInWindow()
-                        pagerRect = Rect(b.left.toInt(), b.top.toInt(), b.right.toInt(), b.bottom.toInt())
-                    }
-            ) { page ->
-                when (page) {
-                    0 -> LastQuizPage(navArgs.analysisSessionId)
-                    1 -> TrendPage()
-                    2 -> HeatmapPage(window = window)
-                    3 -> TimePage(window = window)
-                    4 -> PeerPage()
+
+            Box(Modifier.fillMaxSize().padding(horizontal = 12.dp)) {
+                when (selectedTab) {
+                    0 -> LastQuizPage(sessionId = null)                         // ✅ no TODO()
+                    1 -> PlaceholderTab("Trend")            // replace with TrendPage(windowArg) when ready
+                    2 -> HeatmapPage(window = windowArg)
+                    3 -> TimePage(window = windowArg)
+                    4 -> PlaceholderTab("Peer")             // replace with PeerPage(windowArg)
                 }
             }
         }
     }
 }
 
+/* ------------------------- Date-range picker in app bar ------------------------- */
+
 @Composable
-fun ReportsPagerScreen(
-    navArgs: ReportsNavArgs = ReportsNavArgs(),
-    startPage: Int = 0
+private fun WindowPickerAction(
+    range: WindowRange,
+    onPick: (WindowRange) -> Unit
 ) {
-    ReportsScreen(navArgs = navArgs)
+    var open by remember { mutableStateOf(false) }
+
+    IconButton(onClick = { open = true }) {
+        Icon(Icons.Outlined.DateRange, contentDescription = "Date range: ${range.label()}")
+    }
+    DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
+        DropdownMenuItem(
+            text = { Text("Last 7 days") },
+            onClick = { open = false; onPick(WindowRange.D7) },
+            trailingIcon = { if (range == WindowRange.D7) SelectedDot() }
+        )
+        DropdownMenuItem(
+            text = { Text("Last 30 days") },
+            onClick = { open = false; onPick(WindowRange.D30) },
+            trailingIcon = { if (range == WindowRange.D30) SelectedDot() }
+        )
+        DropdownMenuItem(
+            text = { Text("All time") },
+            onClick = { open = false; onPick(WindowRange.ALL) },
+            trailingIcon = { if (range == WindowRange.ALL) SelectedDot() }
+        )
+    }
+}
+
+@Composable
+private fun SelectedDot() {
+    Text("•", color = MaterialTheme.colorScheme.primary)
+}
+
+/* ------------------------------ Stubs (remove) ----------------------------- */
+
+@Composable
+private fun PlaceholderTab(name: String) {
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text("$name coming soon")
+    }
 }
