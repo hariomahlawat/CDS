@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TimeAnalysisDao {
+
     @Query(
         """
         SELECT date(timestamp/1000,'unixepoch','localtime') AS day,
@@ -20,25 +21,57 @@ interface TimeAnalysisDao {
 
     @Query(
         """
-        SELECT a.sessionId AS sessionId,
-               AVG(a.durationMs)/1000.0 AS secPerQ,
-               AVG(CASE WHEN a.correct THEN 1.0 ELSE 0.0 END) AS accuracy
-        FROM attempt_log a
-        WHERE a.sessionId IS NOT NULL
-        GROUP BY a.sessionId
-        ORDER BY MAX(a.timestamp) DESC
+        SELECT SUM(durationMs)/60000.0
+        FROM attempt_log
+        WHERE timestamp >= :cutoff
         """
     )
-    fun sessionSpeedAccuracy(): Flow<List<SessionSpeedAccuracyDb>>
+    fun totalMinutesSince(cutoff: Long): Flow<Double?>
+
+    @Query(
+        """
+        SELECT COUNT(*) FROM (
+            SELECT date(timestamp/1000,'unixepoch','localtime') d
+            FROM attempt_log
+            WHERE timestamp >= :cutoff
+            GROUP BY d
+        )
+        """
+    )
+    fun activeDaysSince(cutoff: Long): Flow<Int>
+
+    @Query(
+        """
+        SELECT date(timestamp/1000,'unixepoch','localtime') AS day,
+               SUM(durationMs)/60000.0 AS minutes
+        FROM attempt_log
+        WHERE timestamp >= :cutoff
+        GROUP BY day
+        ORDER BY minutes DESC
+        LIMIT 1
+        """
+    )
+    fun bestDaySince(cutoff: Long): Flow<DailyMinutesDb?>
+
+    @Query(
+        """
+        SELECT AVG(durationMs)/1000.0 AS secPerQ,
+               AVG(CASE WHEN correct THEN 1.0 ELSE 0.0 END) AS accuracy
+        FROM attempt_log
+        WHERE timestamp >= :cutoff
+        """
+    )
+    fun efficiencySince(cutoff: Long): Flow<EfficiencyDb?>
 }
 
+/* DTOs */
+
 data class DailyMinutesDb(
-    val day: String,
+    val day: String,    // "YYYY-MM-DD"
     val minutes: Double
 )
 
-data class SessionSpeedAccuracyDb(
-    val sessionId: String,
-    val secPerQ: Double,
-    val accuracy: Double
+data class EfficiencyDb(
+    val secPerQ: Double?,
+    val accuracy: Double?
 )
