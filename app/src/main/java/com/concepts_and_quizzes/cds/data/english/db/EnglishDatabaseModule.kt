@@ -9,11 +9,13 @@ import com.concepts_and_quizzes.cds.data.analytics.db.TopicStatDao
 import com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatDao
 import com.concepts_and_quizzes.cds.data.analytics.db.SessionDao
 import com.concepts_and_quizzes.cds.data.analytics.db.TimeAnalysisDao
+import com.concepts_and_quizzes.cds.data.analytics.db.HeatmapDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.AnalyticsRepository
 import com.concepts_and_quizzes.cds.data.analytics.repo.TimeAnalysisRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.QuizTraceDao
 import com.concepts_and_quizzes.cds.data.analytics.repo.QuizReportRepository
 import com.concepts_and_quizzes.cds.data.analytics.db.SessionQuestionMapDao
+import com.concepts_and_quizzes.cds.data.analytics.repo.HeatmapRepository
 import com.concepts_and_quizzes.cds.data.db.MIGRATION_8_9
 import com.concepts_and_quizzes.cds.data.db.MIGRATION_9_10
 import com.concepts_and_quizzes.cds.data.db.MIGRATION_10_11
@@ -64,6 +66,9 @@ object EnglishDatabaseModule {
     fun provideQuestionStatDao(db: EnglishDatabase): QuestionStatDao = db.questionStatDao()
 
     @Provides
+    fun provideHeatmapDao(db: EnglishDatabase): HeatmapDao = db.heatmapDao()
+
+    @Provides
     fun provideConceptDao(db: EnglishDatabase): ConceptDao = db.conceptDao()
 
     @Provides
@@ -101,6 +106,12 @@ object EnglishDatabaseModule {
         sessionDao: SessionDao,
         timeAnalysisDao: TimeAnalysisDao
     ): TimeAnalysisRepository = TimeAnalysisRepository(sessionDao, timeAnalysisDao)
+
+    @Provides
+    @Singleton
+    fun provideHeatmapRepository(
+        dao: HeatmapDao
+    ): HeatmapRepository = HeatmapRepository(dao)
 
     @Provides
     @Singleton
