@@ -36,13 +36,13 @@ import com.concepts_and_quizzes.cds.ui.reports.asWindowArg
 import com.concepts_and_quizzes.cds.ui.reports.trend.TrendPage
 
 /* ---- keep existing navigation API ---- */
-@RequiresApi(Build.VERSION_CODES.O)
+
 @Composable
 fun ReportsPagerScreen(navArgs: ReportsNavArgs) {
     ReportsScreen(analysisSessionId = navArgs.analysisSessionId)
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReportsScreen(

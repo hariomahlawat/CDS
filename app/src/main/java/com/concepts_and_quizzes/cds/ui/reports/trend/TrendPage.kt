@@ -1,14 +1,16 @@
-@file:Suppress("unused") // until the screen is wired in the Reports tab
+@file:Suppress("unused")
 
 package com.concepts_and_quizzes.cds.ui.reports.trend
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.TrendingUp
+import androidx.compose.material.icons.outlined.AutoFixHigh
+import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +20,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,14 +34,13 @@ import com.concepts_and_quizzes.cds.ui.skeleton.TrendSkeleton
 import kotlin.math.abs
 import kotlin.math.max
 
-/* ------------------------- Public entry ------------------------- */
-/** `window` comes from ReportsScreen: "D7" | "D30" | "LIFETIME" */
-@RequiresApi(Build.VERSION_CODES.O)
+/** Public entry. `window` comes from Reports top bar: "D7" | "D30" | "LIFETIME". */
 @Composable
 fun TrendPage(
     window: Any? = null,
-    /** Pass your real status if you gate this tab, or leave null to render directly. */
     status: ModuleStatus? = null,
+    /** Provide this from the host so the CTA starts a quiz (e.g., nav.navigate("english/pyqp")). */
+    onStartPractice: (() -> Unit)? = null,
     vm: TrendViewModel = hiltViewModel()
 ) {
     LaunchedEffect(window) { vm.setWindowArg(window as? String ?: "D7") }
@@ -48,7 +50,21 @@ fun TrendPage(
         when (val s = state) {
             UiState.Loading -> LoadingSkeleton()
             is UiState.Error -> ErrorState(s.message) { vm.refresh() }
-            is UiState.Empty -> EmptyState(s.title, s.actionLabel) { vm.refresh() }
+            is UiState.Empty -> {
+                if (onStartPractice != null) {
+                    TrendOnboarding(
+                        title = "No trends yet",
+                        highlights = listOf(
+                            "Finish ~10 questions to unlock charts",
+                            "See accuracy and pace over time",
+                            "Get topic-wise momentum & insights"
+                        ),
+                        onStart = onStartPractice
+                    )
+                } else {
+                    EmptyState(s.title, s.actionLabel) { vm.refresh() }
+                }
+            }
             is UiState.Data -> {
                 val ui = s.value
                 LazyColumn(
@@ -85,7 +101,52 @@ fun TrendPage(
     else GhostOverlay(status = status, skeleton = { TrendSkeleton() }) { content() }
 }
 
-/* ------------------------- UI widgets (pure UI) ------------------------- */
+/* ----------------------------- Empty onboarding ---------------------------- */
+
+@Composable
+private fun TrendOnboarding(
+    title: String,
+    highlights: List<String>,
+    onStart: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(Icons.AutoMirrored.Outlined.TrendingUp, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(40.dp))
+        Spacer(Modifier.height(10.dp))
+        Text(title, style = MaterialTheme.typography.titleLarge)
+        Spacer(Modifier.height(14.dp))
+
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            HighlightRow(Icons.Outlined.Bolt, highlights.getOrNull(0) ?: "")
+            HighlightRow(Icons.Outlined.AutoFixHigh, highlights.getOrNull(1) ?: "")
+            HighlightRow(Icons.AutoMirrored.Outlined.TrendingUp, highlights.getOrNull(2) ?: "")
+        }
+
+        Spacer(Modifier.height(22.dp))
+        Button(onClick = onStart, shape = MaterialTheme.shapes.large) {
+            Text("Start practice")
+        }
+    }
+}
+
+@Composable
+private fun HighlightRow(icon: ImageVector, text: String) {
+    if (text.isBlank()) return
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Surface(shape = CircleShape, color = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)) {
+            Icon(icon, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.padding(6.dp))
+        }
+        Spacer(Modifier.width(10.dp))
+        Text(text, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
+/* ------------------------- UI widgets (data state) ------------------------- */
 
 @Composable
 private fun TrendHeader(
@@ -176,9 +237,9 @@ private fun AccuracyVolumeChart(points: List<TrendPointUI>, modifier: Modifier =
         Spacer(Modifier.height(6.dp))
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             if (points.isNotEmpty()) {
-                points.firstOrNull()?.let { Text(it.label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                points.getOrNull(points.lastIndex / 2)?.let { Text(it.label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                points.lastOrNull()?.let { Text(it.label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                Text(points.first().label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(points[points.lastIndex / 2].label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(points.last().label, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
     }
@@ -239,12 +300,14 @@ private fun InsightsPanel(insights: List<InsightUI>) {
                 color = MaterialTheme.colorScheme.surfaceVariant
             ) {
                 Row(
-                    Modifier.fillMaxWidth().padding(12.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(ins.text, modifier = Modifier.weight(1f))
                     ins.actionLabel?.let { label ->
-                        AssistChip(onClick = { /* route in host with ins.actionRoute */ }, label = { Text(label) })
+                        AssistChip(onClick = { /* host should navigate using ins.actionRoute */ }, label = { Text(label) })
                     }
                 }
             }
