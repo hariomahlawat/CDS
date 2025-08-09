@@ -82,7 +82,7 @@ private fun LastContent(ui: LastUi) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "Last quiz",
+                    "Review your last quiz",
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.weight(1f)
                 )
@@ -132,7 +132,7 @@ private fun LastContent(ui: LastUi) {
 
 @Composable
 private fun SegmentedFilter(wrongOnly: Boolean, onChange: (Boolean) -> Unit) {
-    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
         IconTextChip(
             label = "All",
             icon = Icons.Outlined.DoneAll,

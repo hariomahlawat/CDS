@@ -3,11 +3,11 @@ package com.concepts_and_quizzes.cds.ui.english.dashboard
 import android.net.Uri
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,17 +19,19 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QuestionAnswer
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -42,10 +44,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import java.time.LocalTime
 import com.concepts_and_quizzes.cds.R
 import com.concepts_and_quizzes.cds.ui.components.EmptyState
 import com.concepts_and_quizzes.cds.ui.components.ErrorState
@@ -53,19 +55,24 @@ import com.concepts_and_quizzes.cds.ui.components.LoadingSkeleton
 import com.concepts_and_quizzes.cds.ui.components.UiState
 import com.concepts_and_quizzes.cds.ui.english.quiz.QuizHubViewModel
 import kotlinx.coroutines.launch
+import java.time.LocalTime
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel = hiltViewModel()) {
+fun EnglishDashboardScreen(
+    nav: NavHostController,
+    vm: EnglishDashboardViewModel = hiltViewModel()
+) {
     val resumeVm: QuizHubViewModel = hiltViewModel()
     val resume by resumeVm.store.collectAsState()
     val savedProgress by resumeVm.progress.collectAsState()
+
     val summary by vm.summary.collectAsState()
     val questionsToday by vm.questionsToday.collectAsState()
     val availability = vm.availability.collectAsState().value
     val tipsState by vm.tips.collectAsState()
-    val count by animateIntAsState(targetValue = questionsToday, label = "count")
+
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
@@ -89,49 +96,91 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            /* ---------- HERO HEADER ---------- */
             item(span = { GridItemSpan(maxLineSpan) }) {
-                Box(
-                    Modifier
+                Surface(
+                    shape = RoundedCornerShape(24.dp),
+                    tonalElevation = 2.dp,
+                    modifier = Modifier
                         .fillMaxWidth()
-                        .height(90.dp)
-                        .graphicsLayer {
-                            clip = true
-                            shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
-                            shadowElevation = 8f
-                        }
-                        .background(
-                            Brush.radialGradient(
-                                colors = listOf(
-                                    MaterialTheme.colorScheme.primary,
-                                    MaterialTheme.colorScheme.primaryContainer
+                        .height(100.dp)
+                ) {
+                    Box(
+                        Modifier
+                            .background(
+                                Brush.linearGradient(
+                                    listOf(
+                                        MaterialTheme.colorScheme.primary.copy(alpha = 0.85f),
+                                        MaterialTheme.colorScheme.tertiary.copy(alpha = 0.85f)
+                                    )
                                 )
                             )
-                        )
-                ) {
-                    Row(
-                        Modifier
+                            .graphicsLayer { clip = true; shape = RoundedCornerShape(24.dp) }
+                            .padding(horizontal = 18.dp)
                             .fillMaxSize()
-                            .padding(horizontal = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(
-                            greeting,
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
-                        val best by remember(summary) { derivedStateOf { summary.best / 100f } }
-                        CircularProgressIndicator(
-                            progress = { best },
-                            modifier = Modifier.size(48.dp),
-                            color = ProgressIndicatorDefaults.circularColor,
-                            strokeWidth = ProgressIndicatorDefaults.CircularStrokeWidth,
-                            trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
-                            strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,
-                        )
+                        Row(
+                            Modifier.fillMaxSize(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Surface(shape = CircleShape, color = MaterialTheme.colorScheme.surface.copy(alpha = 0.25f)) {
+                                    Icon(
+                                        Icons.Filled.QuestionAnswer,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onPrimary,
+                                        modifier = Modifier.padding(8.dp)
+                                    )
+                                }
+                                Spacer(Modifier.width(10.dp))
+                                Text(
+                                    greeting,
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    style = MaterialTheme.typography.titleLarge,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                            val best by remember(summary) { derivedStateOf { summary.best / 100f } }
+                            CircularProgressIndicator(
+                                progress = { best },
+                                modifier = Modifier.size(52.dp),
+                                color = ProgressIndicatorDefaults.circularColor,
+                                strokeWidth = ProgressIndicatorDefaults.CircularStrokeWidth,
+                                trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
+                                strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap
+                            )
+                        }
                     }
                 }
             }
 
+            /* ---------- KPI PILLS ---------- */
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    KpiPill(
+                        label = "Practised today",
+                        value = questionsToday.toString(),
+                        modifier = Modifier.weight(1f)     // ✅ weight at call-site
+                    )
+                    KpiPill(
+                        label = "Best score",
+                        value = "${summary.best}%",
+                        modifier = Modifier.weight(1f)
+                    )
+                    KpiPill(
+                        label = "Papers",
+                        value = summary.papers.toString(),
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+
+            /* ---------- CONTINUE CARD ---------- */
             resume?.let { s ->
                 val prog = savedProgress
                 item {
@@ -140,12 +189,12 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                         subtitle = prog?.let { "${it.percent}%" },
                         content = {
                             prog?.let { p ->
-                                LinearProgressIndicator(
-                                progress = { p.percent / 100f },
-                                modifier = Modifier.fillMaxWidth(),
-                                color = ProgressIndicatorDefaults.linearColor,
-                                trackColor = ProgressIndicatorDefaults.linearTrackColor,
-                                strokeCap = ProgressIndicatorDefaults.LinearStrokeCap,
+                                androidx.compose.material3.LinearProgressIndicator(
+                                    progress = { p.percent / 100f },
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = ProgressIndicatorDefaults.linearColor,
+                                    trackColor = ProgressIndicatorDefaults.linearTrackColor,
+                                    strokeCap = ProgressIndicatorDefaults.LinearStrokeCap
                                 )
                             }
                         },
@@ -163,11 +212,12 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                             }
                             scope.launch { snackbarHostState.showSnackbar("Resumed") }
                             nav.navigate(dest)
-                        },
+                        }
                     )
                 }
             }
 
+            /* ---------- FEATURE TILES ---------- */
             availability?.let { avail ->
                 item {
                     DashboardTile(
@@ -205,6 +255,7 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             item {
                 DashboardTile(
                     title = "Trend",
+                    subtitle = "How you are improving",
                     onClick = { nav.navigate("reports?startPage=1") }
                 )
             }
@@ -212,23 +263,24 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
             item {
                 DashboardTile(
                     title = "Weakest Topic",
+                    subtitle = "Target your gaps",
                     onClick = { nav.navigate("reports?startPage=0") }
                 )
             }
 
+            /* ---------- FOOTER & DISCOVER ---------- */
             item(span = { GridItemSpan(maxLineSpan) }) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Filled.QuestionAnswer, contentDescription = null)
                     Spacer(Modifier.width(8.dp))
-                    Text("$count Questions practised today")
+                    Text("${questionsToday} Questions practised today")
                 }
             }
 
+            item(span = { GridItemSpan(maxLineSpan) }) { HorizontalDivider() }
+
             item(span = { GridItemSpan(maxLineSpan) }) {
-                Text(
-                    "Discover",
-                    style = MaterialTheme.typography.titleMedium
-                )
+                Text("Discover", style = MaterialTheme.typography.titleMedium)
             }
 
             item(span = { GridItemSpan(maxLineSpan) }) {
@@ -238,6 +290,36 @@ fun EnglishDashboardScreen(nav: NavHostController, vm: EnglishDashboardViewModel
                     is UiState.Empty -> EmptyState(s.title, s.actionLabel) { vm.refreshTips() }
                     is UiState.Data -> DiscoverCarousel(s.value, vm, nav)
                 }
+            }
+        }
+    }
+}
+
+/* ---------- Local building block: KPI pill ---------- */
+
+@Composable
+private fun KpiPill(
+    label: String,
+    value: String,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surface,
+        tonalElevation = 2.dp,
+        modifier = modifier                   // weight comes from call-site
+    ) {
+        Row(
+            Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Surface(shape = CircleShape, color = MaterialTheme.colorScheme.primaryContainer) {
+                Spacer(Modifier.size(8.dp))
+            }
+            Spacer(Modifier.width(10.dp))
+            Column {
+                Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(value, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
             }
         }
     }

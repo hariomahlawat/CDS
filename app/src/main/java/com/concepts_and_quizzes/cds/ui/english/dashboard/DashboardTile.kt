@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 fun DashboardTile(
     title: String,
     subtitle: String? = null,
+    modifier: Modifier = Modifier,           // modifier first (optional)
     enabled: Boolean = true,
-    modifier: Modifier = Modifier,
     content: (@Composable ColumnScope.() -> Unit)? = null,
     onClick: () -> Unit
 ) {
@@ -28,12 +28,18 @@ fun DashboardTile(
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         contentColor = MaterialTheme.colorScheme.onSurfaceVariant
     )
+    val elevation = CardDefaults.cardElevation(
+        defaultElevation = if (enabled) 2.dp else 0.dp,
+        pressedElevation = if (enabled) 4.dp else 0.dp
+    )
+
     Card(
         onClick = { if (enabled) onClick() },
         enabled = enabled,
         colors = colors,
-        modifier = modifier
-            .aspectRatio(1f)
+        elevation = elevation,                // correct param
+        shape = MaterialTheme.shapes.large,
+        modifier = modifier.aspectRatio(1.15f)
     ) {
         Column(
             Modifier
@@ -43,7 +49,11 @@ fun DashboardTile(
             Text(title, style = MaterialTheme.typography.titleMedium)
             if (subtitle != null) {
                 Spacer(Modifier.height(4.dp))
-                Text(subtitle, style = MaterialTheme.typography.bodySmall)
+                Text(
+                    subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
             content?.let {
                 Spacer(Modifier.height(8.dp))
