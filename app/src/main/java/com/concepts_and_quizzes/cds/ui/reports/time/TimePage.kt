@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.concepts_and_quizzes.cds.data.analytics.repo.TimeAnalysisRepository
 import com.concepts_and_quizzes.cds.data.analytics.unlock.AnalyticsModule
-import com.concepts_and_quizzes.cds.data.analytics.unlock.LockedReason
 import com.concepts_and_quizzes.cds.data.analytics.unlock.ModuleStatus
 import com.concepts_and_quizzes.cds.ui.components.EmptyState
 import com.concepts_and_quizzes.cds.ui.components.ErrorState
@@ -34,7 +33,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.hours
 
 /** UI model holding time analysis data. */
 data class DailyMinutes(val day: String, val minutes: Double)
@@ -72,9 +70,8 @@ class TimeViewModel @Inject constructor(
 fun TimePage(
     status: ModuleStatus = ModuleStatus(
         module = AnalyticsModule.TIME,
-        unlocked = false,
-        progress = 0f,
-        reason = LockedReason.TimeGate(5.hours)
+        unlocked = true,
+        progress = 1f,
     ),
     vm: TimeViewModel = hiltViewModel(),
 ) {
