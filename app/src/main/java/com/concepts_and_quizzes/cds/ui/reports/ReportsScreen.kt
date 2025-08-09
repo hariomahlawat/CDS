@@ -1,5 +1,7 @@
 package com.concepts_and_quizzes.cds.ui.reports
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.TrendingUp
@@ -8,14 +10,12 @@ import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.CalendarViewMonth
 import androidx.compose.material.icons.filled.Groups
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material.icons.outlined.AccessTime
 import androidx.compose.material.icons.outlined.CalendarViewMonth
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Groups
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material.icons.outlined.TrendingUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -33,13 +33,16 @@ import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
 import com.concepts_and_quizzes.cds.ui.reports.WindowRange
 import com.concepts_and_quizzes.cds.ui.reports.label
 import com.concepts_and_quizzes.cds.ui.reports.asWindowArg
+import com.concepts_and_quizzes.cds.ui.reports.trend.TrendPage
 
 /* ---- keep existing navigation API ---- */
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ReportsPagerScreen(navArgs: ReportsNavArgs) {
     ReportsScreen(analysisSessionId = navArgs.analysisSessionId)
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReportsScreen(
@@ -123,7 +126,7 @@ fun ReportsScreen(
             ) {
                 when (selectedTab) {
                     0 -> LastQuizPage(sessionId = analysisSessionId)
-                    1 -> PlaceholderTab("Trend")         // replace with TrendPage(window = windowArg)
+                    1 -> TrendPage(window = windowArg)        // replace with TrendPage(window = windowArg)
                     2 -> HeatmapPage(window = windowArg)
                     3 -> TimePage(window = windowArg)
                     4 -> PlaceholderTab("Peer")          // replace with PeerPage(window = windowArg)
