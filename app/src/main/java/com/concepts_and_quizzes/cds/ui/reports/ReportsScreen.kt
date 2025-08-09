@@ -38,8 +38,14 @@ import com.concepts_and_quizzes.cds.ui.reports.trend.TrendPage
 /* ---- keep existing navigation API ---- */
 
 @Composable
-fun ReportsPagerScreen(navArgs: ReportsNavArgs) {
-    ReportsScreen(analysisSessionId = navArgs.analysisSessionId)
+fun ReportsPagerScreen(
+    navArgs: ReportsNavArgs = ReportsNavArgs(),
+    onStartPractice: (() -> Unit)? = null,
+) {
+    ReportsScreen(
+        analysisSessionId = navArgs.analysisSessionId,
+        onStartPractice = onStartPractice,
+    )
 }
 
 
@@ -48,7 +54,8 @@ fun ReportsPagerScreen(navArgs: ReportsNavArgs) {
 fun ReportsScreen(
     onShare: () -> Unit = {},
     startPage: Int = 0,
-    analysisSessionId: String? = null
+    analysisSessionId: String? = null,
+    onStartPractice: (() -> Unit)? = null,
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -126,7 +133,7 @@ fun ReportsScreen(
             ) {
                 when (selectedTab) {
                     0 -> LastQuizPage(sessionId = analysisSessionId)
-                    1 -> TrendPage(window = windowArg)        // replace with TrendPage(window = windowArg)
+                    1 -> TrendPage(window = windowArg, onStartPractice = onStartPractice)
                     2 -> HeatmapPage(window = windowArg)
                     3 -> TimePage(window = windowArg)
                     4 -> PlaceholderTab("Peer")          // replace with PeerPage(window = windowArg)

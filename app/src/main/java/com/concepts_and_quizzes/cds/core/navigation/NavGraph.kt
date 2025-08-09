@@ -115,7 +115,10 @@ fun NavGraphBuilder.rootGraph(nav: NavHostController) {
         )
     ) { backStack ->
         val sid = backStack.arguments?.getString("analysisSessionId")
-        ReportsPagerScreen(navArgs = ReportsNavArgs(sid))
+        ReportsPagerScreen(
+            navArgs = ReportsNavArgs(sid),
+            onStartPractice = { nav.navigate("english/pyqp") },
+        )
     }
     composable(
         route = "english/pyqp/{paperId}",
