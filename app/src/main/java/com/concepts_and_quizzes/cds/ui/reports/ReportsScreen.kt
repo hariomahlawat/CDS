@@ -2,30 +2,40 @@ package com.concepts_and_quizzes.cds.ui.reports
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material.icons.filled.CalendarViewMonth
+import androidx.compose.material.icons.filled.Groups
+import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.TrendingUp
+import androidx.compose.material.icons.outlined.AccessTime
+import androidx.compose.material.icons.outlined.CalendarViewMonth
 import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Groups
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material.icons.outlined.TrendingUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.concepts_and_quizzes.cds.ui.reports.heatmap.HeatmapPage
 import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
 
-// Use your shared WindowRange helpers
+// shared range helpers
 import com.concepts_and_quizzes.cds.ui.reports.WindowRange
 import com.concepts_and_quizzes.cds.ui.reports.label
 import com.concepts_and_quizzes.cds.ui.reports.asWindowArg
 
-// Keep existing navigation call working
+/* ---- keep existing navigation API ---- */
 @Composable
 fun ReportsPagerScreen(navArgs: ReportsNavArgs) {
-    ReportsScreen(
-        analysisSessionId = navArgs.analysisSessionId
-    )
+    ReportsScreen(analysisSessionId = navArgs.analysisSessionId)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +51,23 @@ fun ReportsScreen(
     val windowArg = range.asWindowArg()
 
     var selectedTab by rememberSaveable { mutableIntStateOf(startPage) }
-    val tabs = remember { listOf("Last", "Trend", "Heatmap", "Time", "Peer") }
+
+    // Tab model: label + outlined/filled icons
+    data class TabSpec(
+        val label: String,
+        val icon: androidx.compose.ui.graphics.vector.ImageVector,
+        val iconSelected: androidx.compose.ui.graphics.vector.ImageVector
+    )
+
+    val tabs = remember {
+        listOf(
+            TabSpec("Last",     Icons.Outlined.History,          Icons.Filled.History),
+            TabSpec("Trend",    Icons.Outlined.TrendingUp,       Icons.Filled.TrendingUp),
+            TabSpec("Heatmap",  Icons.Outlined.CalendarViewMonth,Icons.Filled.CalendarViewMonth),
+            TabSpec("Time",     Icons.Outlined.AccessTime,       Icons.Filled.AccessTime),
+            TabSpec("Peer",     Icons.Outlined.Groups,           Icons.Filled.Groups)
+        )
+    }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -63,18 +89,25 @@ fun ReportsScreen(
                 .fillMaxSize()
                 .padding(inner)
         ) {
-            // Scrollable tabs so labels never wrap
+            // Icon-only tabs (scrollable)
             ScrollableTabRow(
                 selectedTabIndex = selectedTab,
-                edgePadding = 12.dp,
+                edgePadding = 6.dp,
                 divider = {},
                 containerColor = MaterialTheme.colorScheme.surface
             ) {
-                tabs.forEachIndexed { index, label ->
+                tabs.forEachIndexed { index, spec ->
+                    val isSelected = selectedTab == index
                     Tab(
-                        selected = selectedTab == index,
+                        selected = isSelected,
                         onClick = { selectedTab = index },
-                        text = { Text(label, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+                        icon = {
+                            Icon(
+                                imageVector = if (isSelected) spec.iconSelected else spec.icon,
+                                contentDescription = spec.label
+                            )
+                        },
+                        modifier = Modifier.semantics { contentDescription = spec.label }
                     )
                 }
             }
@@ -82,21 +115,21 @@ fun ReportsScreen(
             Box(
                 Modifier
                     .fillMaxSize()
-                    .padding(horizontal = 12.dp)
+                    .padding(horizontal = 8.dp)
             ) {
                 when (selectedTab) {
-                    0 -> LastQuizPage(sessionId = analysisSessionId)   // deep link supported
-                    1 -> PlaceholderTab("Trend")                       // replace with TrendPage(windowArg)
+                    0 -> LastQuizPage(sessionId = analysisSessionId)
+                    1 -> PlaceholderTab("Trend")         // replace with TrendPage(window = windowArg)
                     2 -> HeatmapPage(window = windowArg)
                     3 -> TimePage(window = windowArg)
-                    4 -> PlaceholderTab("Peer")                        // replace with PeerPage(windowArg)
+                    4 -> PlaceholderTab("Peer")          // replace with PeerPage(window = windowArg)
                 }
             }
         }
     }
 }
 
-/* ------------------------- Date-range picker in app bar ------------------------- */
+/* ------------------------- date range in app bar ------------------------- */
 
 @Composable
 private fun WindowPickerAction(
@@ -118,30 +151,23 @@ private fun WindowPickerAction(
     }
 
     DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
-        DropdownMenuItem(
-            text = { Text("Last 7 days") },
+        DropdownMenuItem(text = { Text("Last 7 days") },
             onClick = { open = false; onPick(WindowRange.D7) },
-            trailingIcon = { if (range == WindowRange.D7) SelectedDot() }
-        )
-        DropdownMenuItem(
-            text = { Text("Last 30 days") },
+            trailingIcon = { if (range == WindowRange.D7) SelectedDot() })
+        DropdownMenuItem(text = { Text("Last 30 days") },
             onClick = { open = false; onPick(WindowRange.D30) },
-            trailingIcon = { if (range == WindowRange.D30) SelectedDot() }
-        )
-        DropdownMenuItem(
-            text = { Text("All time") },
+            trailingIcon = { if (range == WindowRange.D30) SelectedDot() })
+        DropdownMenuItem(text = { Text("All time") },
             onClick = { open = false; onPick(WindowRange.ALL) },
-            trailingIcon = { if (range == WindowRange.ALL) SelectedDot() }
-        )
+            trailingIcon = { if (range == WindowRange.ALL) SelectedDot() })
     }
 }
 
-@Composable
-private fun SelectedDot() {
+@Composable private fun SelectedDot() {
     Text("•", color = MaterialTheme.colorScheme.primary)
 }
 
-/* ------------------------------ Temporary stubs ----------------------------- */
+/* ------------------------------ temporary stubs ----------------------------- */
 
 @Composable
 private fun PlaceholderTab(name: String) {
