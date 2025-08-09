@@ -2,6 +2,8 @@ package com.concepts_and_quizzes.cds.ui.reports
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.TrendingUp
+import androidx.compose.material.icons.automirrored.outlined.TrendingUp
 import androidx.compose.material.icons.filled.AccessTime
 import androidx.compose.material.icons.filled.CalendarViewMonth
 import androidx.compose.material.icons.filled.Groups
@@ -62,7 +64,9 @@ fun ReportsScreen(
     val tabs = remember {
         listOf(
             TabSpec("Last",     Icons.Outlined.History,          Icons.Filled.History),
-            TabSpec("Trend",    Icons.Outlined.TrendingUp,       Icons.Filled.TrendingUp),
+            TabSpec("Trend", Icons.AutoMirrored.Outlined.TrendingUp,
+                Icons.AutoMirrored.Filled.TrendingUp
+            ),
             TabSpec("Heatmap",  Icons.Outlined.CalendarViewMonth,Icons.Filled.CalendarViewMonth),
             TabSpec("Time",     Icons.Outlined.AccessTime,       Icons.Filled.AccessTime),
             TabSpec("Peer",     Icons.Outlined.Groups,           Icons.Filled.Groups)
