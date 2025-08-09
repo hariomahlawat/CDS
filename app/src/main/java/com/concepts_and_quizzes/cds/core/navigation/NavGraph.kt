@@ -31,6 +31,7 @@ import com.concepts_and_quizzes.cds.ui.english.pyqp.QuizScreen as PyqpQuizScreen
 import com.concepts_and_quizzes.cds.ui.common.ComingSoonScreen
 import com.concepts_and_quizzes.cds.ui.common.ModeAvailabilityViewModel
 import com.concepts_and_quizzes.cds.R
+import com.concepts_and_quizzes.cds.ui.reports.ReportsPagerScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun NavGraphBuilder.rootGraph(nav: NavHostController) {

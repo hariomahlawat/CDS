@@ -14,23 +14,33 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.concepts_and_quizzes.cds.ui.reports.heatmap.HeatmapPage
 import com.concepts_and_quizzes.cds.ui.reports.time.TimePage
+
+// Use your shared WindowRange helpers
+import com.concepts_and_quizzes.cds.ui.reports.WindowRange
 import com.concepts_and_quizzes.cds.ui.reports.label
 import com.concepts_and_quizzes.cds.ui.reports.asWindowArg
-import com.concepts_and_quizzes.cds.ui.reports.WindowRange
-import com.concepts_and_quizzes.cds.ui.reports.LastQuizPage
-import com.concepts_and_quizzes.cds.ui.reports.ReportsNavArgs
+
+// Keep existing navigation call working
+@Composable
+fun ReportsPagerScreen(navArgs: ReportsNavArgs) {
+    ReportsScreen(
+        analysisSessionId = navArgs.analysisSessionId
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReportsScreen(
-    onShare: () -> Unit = {}
+    onShare: () -> Unit = {},
+    startPage: Int = 0,
+    analysisSessionId: String? = null
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     var range by rememberSaveable { mutableStateOf(WindowRange.D7) }
     val windowArg = range.asWindowArg()
 
-    var selectedTab by rememberSaveable { mutableIntStateOf(0) }
+    var selectedTab by rememberSaveable { mutableIntStateOf(startPage) }
     val tabs = remember { listOf("Last", "Trend", "Heatmap", "Time", "Peer") }
 
     Scaffold(
@@ -53,8 +63,10 @@ fun ReportsScreen(
                 .fillMaxSize()
                 .padding(inner)
         ) {
-            TabRow(
+            // Scrollable tabs so labels never wrap
+            ScrollableTabRow(
                 selectedTabIndex = selectedTab,
+                edgePadding = 12.dp,
                 divider = {},
                 containerColor = MaterialTheme.colorScheme.surface
             ) {
@@ -62,18 +74,22 @@ fun ReportsScreen(
                     Tab(
                         selected = selectedTab == index,
                         onClick = { selectedTab = index },
-                        text = { Text(label) }
+                        text = { Text(label, maxLines = 1, overflow = TextOverflow.Ellipsis) }
                     )
                 }
             }
 
-            Box(Modifier.fillMaxSize().padding(horizontal = 12.dp)) {
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 12.dp)
+            ) {
                 when (selectedTab) {
-                    0 -> LastQuizPage(sessionId = null)                         // ✅ no TODO()
-                    1 -> PlaceholderTab("Trend")            // replace with TrendPage(windowArg) when ready
+                    0 -> LastQuizPage(sessionId = analysisSessionId)   // deep link supported
+                    1 -> PlaceholderTab("Trend")                       // replace with TrendPage(windowArg)
                     2 -> HeatmapPage(window = windowArg)
                     3 -> TimePage(window = windowArg)
-                    4 -> PlaceholderTab("Peer")             // replace with PeerPage(windowArg)
+                    4 -> PlaceholderTab("Peer")                        // replace with PeerPage(windowArg)
                 }
             }
         }
@@ -89,9 +105,18 @@ private fun WindowPickerAction(
 ) {
     var open by remember { mutableStateOf(false) }
 
-    IconButton(onClick = { open = true }) {
-        Icon(Icons.Outlined.DateRange, contentDescription = "Date range: ${range.label()}")
+    BadgedBox(
+        badge = {
+            Badge(containerColor = MaterialTheme.colorScheme.primaryContainer) {
+                Text(range.label(), style = MaterialTheme.typography.labelSmall)
+            }
+        }
+    ) {
+        IconButton(onClick = { open = true }) {
+            Icon(Icons.Outlined.DateRange, contentDescription = "Date range: ${range.label()}")
+        }
     }
+
     DropdownMenu(expanded = open, onDismissRequest = { open = false }) {
         DropdownMenuItem(
             text = { Text("Last 7 days") },
@@ -116,7 +141,7 @@ private fun SelectedDot() {
     Text("•", color = MaterialTheme.colorScheme.primary)
 }
 
-/* ------------------------------ Stubs (remove) ----------------------------- */
+/* ------------------------------ Temporary stubs ----------------------------- */
 
 @Composable
 private fun PlaceholderTab(name: String) {
