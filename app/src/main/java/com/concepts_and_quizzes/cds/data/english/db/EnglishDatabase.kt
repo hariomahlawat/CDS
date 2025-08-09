@@ -10,6 +10,7 @@ import com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatEntity
 import com.concepts_and_quizzes.cds.data.analytics.db.SessionEntity
 import com.concepts_and_quizzes.cds.data.analytics.db.TimeAnalysisDao
 import com.concepts_and_quizzes.cds.data.analytics.db.SessionDao
+import com.concepts_and_quizzes.cds.data.analytics.db.HeatmapDao
 import com.concepts_and_quizzes.cds.data.DateConverters
 import com.concepts_and_quizzes.cds.data.discover.db.ConceptDao
 import com.concepts_and_quizzes.cds.data.discover.model.BookmarkEntity
@@ -48,6 +49,7 @@ abstract class EnglishDatabase : RoomDatabase() {
     abstract fun quizTraceDao(): com.concepts_and_quizzes.cds.data.analytics.db.QuizTraceDao
     abstract fun sessionQuestionMapDao(): com.concepts_and_quizzes.cds.data.analytics.db.SessionQuestionMapDao
     abstract fun questionStatDao(): com.concepts_and_quizzes.cds.data.analytics.db.QuestionStatDao
+    abstract fun heatmapDao(): HeatmapDao
     abstract fun conceptDao(): ConceptDao
     abstract fun sessionDao(): SessionDao
     abstract fun timeAnalysisDao(): TimeAnalysisDao
